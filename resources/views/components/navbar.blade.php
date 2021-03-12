@@ -6,7 +6,7 @@
                 <ul class="navbar-nav mr-auto">
                     @guest
                         @if (Route::has('login'))
-                            <a class="navbar-brand">
+                            <a href="{{ route('default') }}" class="navbar-brand">
                                 {{ config('app.name', 'Laravel') }}
                             </a>
                         @endif

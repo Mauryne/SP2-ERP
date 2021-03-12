@@ -45,6 +45,11 @@ class DevicesList extends Component
         return $this->sortBy = $field;
     }
 
+    public function saleDate()
+    {
+
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();

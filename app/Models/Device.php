@@ -12,9 +12,9 @@ class Device extends Model
     public function scopeSearch($query, $val)
     {
         return $query
-            ->where('productReference', 'LIKE', '%'.$val.'%')
-            ->orWhere('serialNumber', 'LIKE', '%'.$val.'%')
-            ->orWhere('saleDate', 'LIKE', '%'.$val.'%');
+            ->where('productReference', 'LIKE', '%' . $val . '%')
+            ->orWhere('serialNumber', 'LIKE', '%' . $val . '%')
+            ->orWhere('saleDate', 'LIKE', '%' . $val . '%');
     }
 
     public function customer()
@@ -54,6 +54,6 @@ class Device extends Model
 
     public function europeanNorm()
     {
-        return $this->belongsTo(EuropeanNorm::class);
+        return $this->belongsTo(EuropeanNorm::class, 'europeanNorm_id');
     }
 }

@@ -89,7 +89,7 @@
                                     style="text-align: center">{{$device->productReference}}</td>
                                 @if($device->europeanNorm_id != null)
                                     <td class="tables-europeanNorm" style="text-align: center">
-                                        <a href="#" class="btn btn-sm btn-white">Voir la photo</a>
+                                        <a style="text-align: center" href="{{$device->europeanNorm->picture}}" class="btn btn-sm btn-white mt-2">Voir la photo</a>
                                     </td>
                                 @else
                                     <td class="tables-europeanNorm" style="text-align: center">/</td>
@@ -100,7 +100,7 @@
                                         style="text-align: center">{{$device->customer->name}}</td>
                                     <td class="tables-address"
                                         style="text-align: center">{{$device->customer->streetNumber}} {{$device->customer->street}} {{$device->customer->city}} {{$device->customer->postalCode}}</td>
-                                    <td class="tables-saleDate" style="text-align: center">{{$device->saleDate}}</td>
+                                    <td class="tables-saleDate" style="text-align: center">{{ \Carbon\Carbon::parse($device->saleDate)->format('d/m/Y')}}</td>
                                 @else
                                     <td class="tables-customer" style="text-align: center">/</td>
                                     <td class="tables-address" style="text-align: center">/</td>
@@ -109,7 +109,7 @@
 
                                 @if($device->installation_id != null)
                                     <td class="tables-installation" style="text-align: center">
-                                        {{$device->installation->date}}
+                                        {{ \Carbon\Carbon::parse($device->installation->date)->format('d/m/Y')}}
                                         - {{$device->installation->user->name}}
                                         <br>
                                         <a style="text-align: center" href="{{$device->installation->picture}}" class="btn btn-sm btn-white mt-2">Voir

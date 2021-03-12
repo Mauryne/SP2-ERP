@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div>
+    <div class="mt-4">
         <livewire:devices-list/>
     </div>
 @endsection

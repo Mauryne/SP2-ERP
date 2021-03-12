@@ -16,19 +16,28 @@
 
     <link rel="stylesheet" id="stylesheetLight" href="{{ asset('/assets/css/theme.min.css')}}">
 
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+
     @livewireStyles
 </head>
-<body>
+<body style="background-color:#7687A3;">
 
 <div id="app">
     <x-navbar></x-navbar>
 </div>
 
-<main class="py-4 thead-dark">
+<main >
     @yield('content')
+    {{ isset($slot) ? $slot : null }}
 </main>
+
 <script src="{{asset('/assets/libs/jquery/dist//jquery.min.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+<script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
+<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
+@stack('scripts')
 @livewireScripts
 @yield('js')
 </body>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Device;
+use App\Models\Type;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -43,11 +44,6 @@ class DevicesList extends Component
         }
 
         return $this->sortBy = $field;
-    }
-
-    public function saleDate()
-    {
-
     }
 
     public function updatingSearch()

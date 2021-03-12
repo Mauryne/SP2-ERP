@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\DevicesMap;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('auth/login');
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -20,6 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/devices', [App\Http\Controllers\DeviceController::class, 'index'])->name('devices');
+Route::get('/devices/{id}/show/map', DevicesMap::class)->name('devices.map');
 Route::get('/customers', [App\Http\Controllers\CustomerController::class, 'index'])->name('customers');
 Route::get('/interventions', [App\Http\Controllers\InterventionController::class, 'index'])->name('interventions');
 Route::get('/map', [App\Http\Controllers\MapController::class, 'index'])->name('map');

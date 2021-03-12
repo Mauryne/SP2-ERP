@@ -22,4 +22,9 @@ class HomeController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+
+    public function index()
+    {
+        return view('home');
+    }
 }

@@ -10,6 +10,17 @@ class ContractCustomerDevice extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'device_id',
+        'customer_id',
+        'contract_id',
+    ];
+
+    /**
      * The table associated with the model.
      *
      * @var string

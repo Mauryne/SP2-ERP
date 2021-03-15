@@ -9,6 +9,22 @@ class Device extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'serialNumber',
+        'productReference',
+        'saleDate',
+        'installation_id',
+        'type_id',
+        'customer_id',
+        'europeanNorm_id',
+        'contract_id',
+    ];
+
     public function scopeSearch($query, $val)
     {
         return $query

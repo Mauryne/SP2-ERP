@@ -23,6 +23,15 @@ Auth::routes();
 
 Route::get('/devices', [App\Http\Controllers\DeviceController::class, 'index'])->name('devices')->middleware('auth');
 Route::get('/devices/{id}/show/map', DevicesMap::class)->name('devices.map')->middleware('auth');
+Route::get('/devices/create', [App\Http\Controllers\DeviceController::class, 'create'])->name('devices.create')->middleware('auth');
+
+Route::view('/devices/upload', 'devices-create');
+Route::post('/devices/upload', [App\Http\Controllers\DeviceController::class, 'uploadFile'])->name('devices.upload')->middleware('auth');
+
+
+Route::post('/devices/create/store', [App\Http\Controllers\DeviceController::class, 'store'])->name('devices.store')->middleware('auth');
+
+
 Route::get('/customers', [App\Http\Controllers\CustomerController::class, 'index'])->name('customers')->middleware('auth');
 Route::get('/interventions', [App\Http\Controllers\InterventionController::class, 'index'])->name('interventions')->middleware('auth');
 Route::get('/map', [App\Http\Controllers\MapController::class, 'index'])->name('map')->middleware('auth');

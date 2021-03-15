@@ -9,6 +9,18 @@ class Installation extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'date',
+        'picture',
+        'summary',
+        'user_id',
+    ];
+
     public function devices()
     {
         return $this->hasMany(Device::class);

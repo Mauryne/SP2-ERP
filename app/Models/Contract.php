@@ -9,6 +9,16 @@ class Contract extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'initialDuration',
+        'customer_id',
+    ];
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

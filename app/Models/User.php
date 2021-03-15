@@ -11,6 +11,21 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'email_verified_at',
+        'password',
+        'telephoneNumber',
+        'role_id',
+        'remember_token',
+    ];
+
     public function installations()
     {
         return $this->hasMany(Installation::class);

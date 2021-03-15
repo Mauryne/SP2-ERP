@@ -20,15 +20,14 @@
 
     @livewireStyles
 </head>
-<body style="background-color:#7687A3;">
+<body>
 
 <div id="app">
     <x-navbar></x-navbar>
 </div>
 
-<main >
+<main>
     @yield('content')
-    {{ isset($slot) ? $slot : null }}
 </main>
 
 <script src="{{asset('/assets/libs/jquery/dist//jquery.min.js')}}"></script>
@@ -37,7 +36,7 @@
 <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
 <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 
-@stack('scripts')
+
 @livewireScripts
 @yield('js')
 </body>

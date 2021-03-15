@@ -1,29 +1,29 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-auto ml-8 mt-4">
             <!-- Goals -->
             <div class="card">
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
                             <!-- Title -->
-                            <h4 class="card-header-title">
+                            <h4 class="card-header-title ml-auto">
                                 Équipements
                             </h4>
                         </div>
 
                         {{-- Recherche uniquement par les champs de la table Device (serialNumber, productReference, saleDate)--}}
-                        <div class="col-auto">
+                        <div class="col-md ml-auto">
                             <label for="query" class="sr-only">Search</label>
                             <input wire:model.debounce.300ms="search" class="form-control" type="text"
                                    placeholder="Recherche">
                         </div>
 
-                        <div class="col-auto mt-3">
+                        <div class="col-auto mt-3 ml-auto">
                             <h4>Colonnes affichables :</h4>
                         </div>
 
-                        <div class="col-auto">
+                        <div class="col-auto ml-auto">
                             <select wire:model.lazy="perPage" class="custom-select form-select-sm w-auto">
                                 @for($i = 5; $i <= 25; $i += 5)
                                     <option value="{{ $i }}">{{ $i }}</option>
@@ -31,10 +31,10 @@
                             </select>
                         </div>
 
-                        <div class="col-auto">
+                        <div class="col-auto ml-auto">
 
                             <!-- Button -->
-                            <a href="#!" class="btn btn-group-sm btn-white">
+                            <a href="{{route('devices.create')}}" class="btn btn-group-sm btn-white">
                                 +
                             </a>
 

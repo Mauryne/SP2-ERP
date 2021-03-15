@@ -10,6 +10,22 @@ class Intervention extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'streetNumber',
+        'street',
+        'postalCode',
+        'city',
+        'date',
+        'actions',
+        'device_id',
+        'user_id',
+    ];
+
+    /**
      * The table associated with the model.
      *
      * @var string

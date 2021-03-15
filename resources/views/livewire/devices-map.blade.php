@@ -1,7 +1,11 @@
-<div id='map' style='width: auto; height: 869px;'></div>
+@extends('layouts.app')
+
+@section('content')
+<div class="ml-auto" id='map' style='width: 1670px; height: 938px;'></div>
 <span id="query"
       hidden> {{$customer->streetNumber}} {{$customer->street}} {{$customer->city}} {{$customer->postalCode}}  </span>
-@push('scripts')
+@endsection
+@section('js')
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoidG9tODU1NTYwIiwiYSI6ImNraGJwZTZuYjFnOWIyd25xMGtrcWxna2gifQ.-CQ_HgTajdodccqfWAXjww';
         var mapboxClient = mapboxSdk({accessToken: mapboxgl.accessToken});
@@ -36,4 +40,4 @@
                 }
             });
     </script>
-@endpush
+@endsection

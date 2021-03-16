@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
             'contract_id' => 3,
         ]);
         Device::factory(50)->create();
-        Intervention::factory(4)->create();
+        Intervention::factory(40)->create();
         Guarantee::factory(3)->create();
         RenewalGuarantee::factory(2)->create();
         RenewalContract::factory(3)->create();

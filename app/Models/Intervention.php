@@ -32,6 +32,17 @@ class Intervention extends Model
      */
     protected $table = 'maintenances';
 
+    public function scopeSearch($query, $val)
+    {
+        return $query
+            ->where('streetNumber', 'LIKE', '%' . $val . '%')
+            ->orWhere('street', 'LIKE', '%' . $val . '%')
+            ->orWhere('postalCode', 'LIKE', '%' . $val . '%')
+            ->orWhere('city', 'LIKE', '%' . $val . '%')
+            ->orWhere('date', 'LIKE', '%' . $val . '%')
+            ->orWhere('actions', 'LIKE', '%' . $val . '%');
+    }
+
     public function device()
     {
         return $this->belongsTo(Device::class);

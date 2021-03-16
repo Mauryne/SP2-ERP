@@ -31,7 +31,7 @@ class Device extends Model
             ->where('productReference', 'LIKE', '%' . $val . '%')
             ->orWhere('serialNumber', 'LIKE', '%' . $val . '%')
             ->orWhere('saleDate', 'LIKE', '%' . $val . '%');
-            //->orWhere($this->type, 'LIKE', '%' . $val . '%');
+            //->orWhere($this->type(), 'LIKE', '%' . $val . '%');
     }
 
     public function customer()

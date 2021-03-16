@@ -104,14 +104,14 @@
                                 @if($device->customer_id != null)
                                     <td class="tables-customer"
                                         style="text-align: center">{{$device->customer->name}}</td>
-                                    <td class="tables-address" style="text-align: center">
+                                    <td class="tables-city" style="text-align: center">
                                         <a style="text-align: center; color: #7687A3" href="{{route('devices.map', $device->customer_id)}}">{{$device->customer->streetNumber}} {{$device->customer->street}} {{$device->customer->city}} {{$device->customer->postalCode}}</a>
                                     </td>
                                     <td class="tables-saleDate"
                                         style="text-align: center">{{ \Carbon\Carbon::parse($device->saleDate)->format('d/m/Y')}}</td>
                                 @else
                                     <td class="tables-customer" style="text-align: center">/</td>
-                                    <td class="tables-address" style="text-align: center">/</td>
+                                    <td class="tables-city" style="text-align: center">/</td>
                                     <td class="tables-saleDate" style="text-align: center">/</td>
                                 @endif
 

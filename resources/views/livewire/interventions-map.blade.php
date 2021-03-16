@@ -3,7 +3,7 @@
 @section('content')
     <div class="ml-auto" id='map' style='width: 1670px; height: 938px;'></div>
     <span id="query"
-          hidden> {{$customer->streetNumber}} {{$customer->street}} {{$customer->city}} {{$customer->postalCode}}  </span>
+          hidden> {{$intervention->streetNumber}} {{$intervention->street}} {{$intervention->city}} {{$intervention->postalCode}}  </span>
 @endsection
 @section('js')
     <script>

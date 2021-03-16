@@ -20,7 +20,7 @@ class CreateMaintenancesTable extends Migration
             $table->integer('postalCode');
             $table->string('city');
             $table->date('date');
-            $table->string('actions');
+            $table->string('actions')->nullable();
             $table->unsignedBigInteger('device_id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('device_id')->references('id')->on('devices');

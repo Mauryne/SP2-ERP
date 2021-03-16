@@ -29,7 +29,7 @@ Route::post('/devices/create/store', [App\Http\Controllers\DeviceController::cla
 Route::get('/interventions', [App\Http\Controllers\InterventionController::class, 'index'])->name('interventions')->middleware('auth');
 Route::get('/interventions/{id}/show/map', \App\Http\Livewire\InterventionMap::class)->name('interventions.map')->middleware('auth');
 Route::get('/interventions/create', [App\Http\Controllers\InterventionController::class, 'create'])->name('interventions.create')->middleware('auth');
-Route::post('/interventions/create/store', [App\Http\Controllers\InterventionController::class, 'store'])->name('interventions.store')->middleware('auth');
+Route::post('/interventions/store', [App\Http\Controllers\InterventionController::class, 'store'])->name('interventions.store')->middleware('auth');
 
 
 

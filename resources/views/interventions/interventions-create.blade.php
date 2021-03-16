@@ -5,12 +5,12 @@
         <div class="row justify-content-center">
             <div class="card col-sm-6 mt-5">
                 <div class="card-body">
-                    <form action="{{route('interventions.store')}}; upload" method="post"
+                    <form action="{{route('interventions.store')}}" method="post"
                           enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="device">Matériel : </label>
-                            <select name="device" id="device" class="custom-select" data-toggle="select">
+                            <select name="device" id="device">
                                 @foreach($devices as $device)
                                     <option value="{{$device->id}}">{{$device->serialNumber}}
                                         - {{$device->productReference}}</option>
@@ -42,13 +42,11 @@
                                    class="form-control">
                         </div>
 
-                        <select class="form-control" data-toggle="select" multiple>
+                        <select id="user" name="user" class="form-control" data-toggle="select" multiple>
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach
                         </select>
-
-
                         @csrf()
                         <input type="submit" class="btn btn-group-sm btn-white mt-2">
                     </form>
@@ -59,8 +57,6 @@
 @endsection
 @section('js')
     <script>
-
-
         $('select').select2({
             allowClear: true
         });

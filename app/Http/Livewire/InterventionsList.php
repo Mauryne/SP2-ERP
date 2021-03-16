@@ -18,6 +18,10 @@ class InterventionsList extends Component
     public $perPage = 10;
     public $search = '';
 
+    public function mount(){
+
+    }
+
     public function render()
     {
         $interventions = Intervention::query()

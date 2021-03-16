@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-auto ml-8 mt-4">
+        <div class="col-md-8 ml-8 mt-4">
             <!-- Goals -->
             <div class="card">
                 <div class="card-header">
@@ -108,7 +108,7 @@
                                         <a style="text-align: center; color: #7687A3" href="{{route('devices.map', $device->customer_id)}}">{{$device->customer->streetNumber}} {{$device->customer->street}} {{$device->customer->city}} {{$device->customer->postalCode}}</a>
                                     </td>
                                     <td class="tables-saleDate"
-                                        style="text-align: center">{{ \Carbon\Carbon::parse($device->saleDate)->format('d/m/Y')}}</td>
+                                        style="text-align: center">{{ \Carbon\Carbon::parse($device->saleDate)->format('d-m-Y')}}</td>
                                 @else
                                     <td class="tables-customer" style="text-align: center">/</td>
                                     <td class="tables-city" style="text-align: center">/</td>
@@ -117,7 +117,7 @@
 
                                 @if($device->installation_id != null)
                                     <td class="tables-installation" style="text-align: center">
-                                        {{ \Carbon\Carbon::parse($device->installation->date)->format('d/m/Y')}}
+                                        {{ \Carbon\Carbon::parse($device->installation->date)->format('d-m-Y')}}
                                         - {{$device->installation->user->name}}
                                         <br>
                                         <a style="text-align: center" href="{{$device->installation->picture}}"
@@ -134,7 +134,7 @@
                     </table>
                 </div>
             </div>
-            <div>
+            <div style="float: right">
                 {{ $devices->links() }}
             </div>
         </div>

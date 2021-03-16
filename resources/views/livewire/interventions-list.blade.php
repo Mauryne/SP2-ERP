@@ -1,6 +1,10 @@
+{{--@if (session()->has('success'))--}}
+{{--    <livewire:alert-success/>--}}
+{{--@endif--}}
+
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-auto ml-8 mt-4">
+        <div class="col-md-8 ml-8 mt-4">
             <!-- Goals -->
             <div class="card">
                 <div class="card-header">
@@ -44,7 +48,7 @@
 
                 </div>
 
-                {{-- Tri correct par les champs de la table Maintenance MAIS incorrect pour les champs des autres tables -> tri par id et non alphabétique (ou vide ou non)--}}
+                {{-- Tri correct par les champs de la table Maintenance MAIS incorrect pour les champs des autres tables -> tri par id et non alphabétique --}}
                 <div class="table-responsive">
                     <table class="table table-sm table-nowrap card-table">
                         <thead>
@@ -78,9 +82,10 @@
                                     style="text-align: center">{{$intervention->device->serialNumber}}
                                     - {{$intervention->device->productReference}}</td>
                                 <td class="tables-date"
-                                    style="text-align: center">{{$intervention->date}}</td>
+                                    style="text-align: center">{{\Carbon\Carbon::parse($intervention->date)->format('d-m-Y')}}</td>
                                 <td class="tables-address"
-                                    style="text-align: center"><a style="text-align: center; color: #7687A3" href="{{route('interventions.map', $intervention->id)}}">{{$intervention->streetNumber}} {{$intervention->street}} {{$intervention->city}} {{$intervention->postalCode}}</a>
+                                    style="text-align: center"><a style="text-align: center; color: #7687A3"
+                                                                  href="{{route('interventions.map', $intervention->id)}}">{{$intervention->streetNumber}} {{$intervention->street}} {{$intervention->city}} {{$intervention->postalCode}}</a>
                                 </td>
                                 <td class="tables-user"
                                     style="text-align: center">{{$intervention->user->name}}</td>
@@ -92,9 +97,10 @@
                     </table>
                 </div>
             </div>
-            <div>
+            <div style="float: right">
                 {{ $interventions->links() }}
             </div>
         </div>
     </div>
 </div>
+

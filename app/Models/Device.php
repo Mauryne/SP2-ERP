@@ -30,8 +30,20 @@ class Device extends Model
         return $query
             ->where('productReference', 'LIKE', '%' . $val . '%')
             ->orWhere('serialNumber', 'LIKE', '%' . $val . '%')
-            ->orWhere('saleDate', 'LIKE', '%' . $val . '%');
-            //->orWhere($this->type(), 'LIKE', '%' . $val . '%');
+            ->orWhere('saleDate', 'LIKE', '%' . $val . '%')
+            ->orWhereIn('type_id', (Type::select('id')
+                ->where('characteristics', 'LIKE', '%' . $val . '%')))
+            ->orWhereIn('customer_id', (Customer::select('id')
+                ->where('name', 'LIKE', '%' . $val . '%')
+                ->orWhere('streetNumber', 'LIKE', '%' . $val . '%'))
+                ->orWhere('street', 'LIKE', '%' . $val . '%')
+                ->orWhere('postalCode', 'LIKE', '%' . $val . '%')
+                ->orWhere('city', 'LIKE', '%' . $val . '%'))
+            ->orWhereIn('installation_id', (Installation::select('id')
+                ->where('date', 'LIKE', '%' . $val . '%'))
+                ->orWhereIn('user_id', User::select('id')
+                ->where('name', 'LIKE', '%' . $val . '%')))
+//            ->orWhere('europeanNorm_id', 'IS', null);
     }
 
     public function customer()

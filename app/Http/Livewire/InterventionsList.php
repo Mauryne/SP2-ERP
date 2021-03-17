@@ -26,7 +26,7 @@ class InterventionsList extends Component
     {
         $interventions = Intervention::query()
             ->with('device')
-            ->with('user')
+            ->with('users')
             ->search($this->search)
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);

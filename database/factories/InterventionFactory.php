@@ -29,9 +29,9 @@ class InterventionFactory extends Factory
             'postalCode' => $this->faker->numberBetween(10000,90000),
             'city' => $this->faker->city,
             'date' => $this->faker->date('Y-m-d'),
-            'actions' => $this->faker->word,
+            'comment' => $this->faker->word,
+            'externalProvider' => $this->faker->boolean,
             'device_id' => $this->faker->numberBetween(1, 50),
-            'user_id' => 1,
         ];
     }
 }

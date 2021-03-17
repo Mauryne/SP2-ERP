@@ -38,6 +38,6 @@ class User extends Authenticatable
 
     public function interventions()
     {
-        return $this->hasMany(Intervention::class);
+        return $this->belongsToMany(Intervention::class, 'maintenance_user');
     }
 }

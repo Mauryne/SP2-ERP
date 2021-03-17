@@ -65,13 +65,17 @@
                                 style="text-align: center; cursor: pointer;">
                                 <a>Adresse</a>
                             </th>
-                            <th class="text-muted list-sort" wire:click="sortBy('user_id')"
+                            <th class="text-muted list-sort" wire:click="sortBy('id')"
                                 style="text-align: center; cursor: pointer;">
                                 <a>Technicien(s)</a>
                             </th>
-                            <th class="text-muted list-sort" wire:click="sortBy('actions')"
+                            <th class="text-muted list-sort" wire:click="sortBy('externalProvider')"
                                 style="text-align: center; cursor: pointer;">
-                                <a>Actions réalisées</a>
+                                <a>Prestataire externe</a>
+                            </th>
+                            <th class="text-muted list-sort" wire:click="sortBy('comment')"
+                                style="text-align: center; cursor: pointer;">
+                                <a>Commentaire</a>
                             </th>
                         </tr>
                         </thead>
@@ -87,10 +91,20 @@
                                     style="text-align: center"><a style="text-align: center; color: #7687A3"
                                                                   href="{{route('interventions.map', $intervention->id)}}">{{$intervention->streetNumber}} {{$intervention->street}} {{$intervention->city}} {{$intervention->postalCode}}</a>
                                 </td>
+                                {{--Pb affichage--}}
                                 <td class="tables-user"
-                                    style="text-align: center">{{$intervention->user->name}}</td>
-                                <td class="tables-actions"
-                                    style="text-align: center">{{$intervention->actions}}</td>
+                                    style="text-align: center">{{$intervention->users}}</td>
+                                @if($intervention->externalProvider == 0)
+                                    <td class="tables-externalProvider"
+                                        style="text-align: center">Non
+                                    </td>
+                                @else
+                                    <td class="tables-externalProvider"
+                                        style="text-align: center">Oui
+                                    </td>
+                                @endif
+                                <td class="tables-comment"
+                                    style="text-align: center">{{$intervention->comment}}</td>
                             </tr>
                         @endforeach
                         </tbody>

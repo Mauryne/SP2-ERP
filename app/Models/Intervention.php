@@ -20,9 +20,9 @@ class Intervention extends Model
         'postalCode',
         'city',
         'date',
-        'actions',
+        'comment',
+        'externalProvider',
         'device_id',
-        'user_id',
     ];
 
     /**
@@ -40,12 +40,15 @@ class Intervention extends Model
             ->orWhere('postalCode', 'LIKE', '%' . $val . '%')
             ->orWhere('city', 'LIKE', '%' . $val . '%')
             ->orWhere('date', 'LIKE', '%' . $val . '%')
-            ->orWhere('actions', 'LIKE', '%' . $val . '%')
+            ->orWhere('comment', 'LIKE', '%' . $val . '%')
             ->orWhereIn('device_id', (Device::select('id')
                 ->where('serialNumber', 'LIKE', '%' . $val . '%')
                 ->orWhere('productReference', 'LIKE', '%' . $val . '%')))
-            ->orWhereIn('user_id', (User::select('id')
-                ->where('name', 'LIKE', '%' . $val . '%')));
+//            ->orWhereIn('user_id', (User::select('id')
+//                ->where('name', 'LIKE', '%' . $val . '%')));
+            ->orWhereIn('id', (InterventionUser::select('maintenance_id')
+                ->whereIn('user_id', User::select('id')
+                    ->where('name', 'LIKE', '%' . $val . '%'))));
     }
 
     public function device()
@@ -53,8 +56,8 @@ class Intervention extends Model
         return $this->belongsTo(Device::class);
     }
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'maintenance_user', 'maintenance_id');
     }
 }

@@ -32,7 +32,7 @@ class InterventionController extends Controller
             'date' => Carbon::parse($request->input('date'))->format('Y-m-d'),
             'actions' => '',
             'device_id' => $request->input('device'),
-            'user_id' => $request->input('user'),
+            //'user_id' => $request->input('user'),
         ]);
         return redirect('interventions')->with('success', 'L\'intervention a été programmée.');
     }

@@ -5,7 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8 mt-4">
                 <div class="card">
-                    <div class="card-header">{{ __('Carte des installations') }}</div>
+                    <div class="card-header">
+                        <h4>{{ __('Carte des ventes') }}</h4></div>
                         <div id='map' style='width: auto; height: 694px;'></div>
                 </div>
             </div>

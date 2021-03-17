@@ -11,6 +11,7 @@ use App\Models\EuropeanNorm;
 use App\Models\Guarantee;
 use App\Models\Installation;
 use App\Models\Intervention;
+use App\Models\InterventionUser;
 use App\Models\Provider;
 use App\Models\Purchase;
 use App\Models\RenewalContract;
@@ -81,6 +82,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Device::factory(50)->create();
         Intervention::factory(40)->create();
+        InterventionUser::factory(40)->create();
         Guarantee::factory(3)->create();
         RenewalGuarantee::factory(2)->create();
         RenewalContract::factory(3)->create();

@@ -20,11 +20,10 @@ class CreateMaintenancesTable extends Migration
             $table->integer('postalCode');
             $table->string('city');
             $table->date('date');
-            $table->string('actions')->nullable();
+            $table->string('comment')->nullable();
+            $table->boolean('externalProvider');
             $table->unsignedInteger('device_id');
-            $table->unsignedInteger('user_id');
             $table->foreign('device_id')->references('id')->on('devices');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

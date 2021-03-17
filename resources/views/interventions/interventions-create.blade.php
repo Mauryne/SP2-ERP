@@ -42,11 +42,31 @@
                                    class="form-control">
                         </div>
 
-                        <select id="user" name="user" class="form-control" data-toggle="select" multiple>
-                            @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
-                            @endforeach
-                        </select>
+                        <div class="form-group">
+                            <label for="externalProvider">Prestataire extérieur ? </label>
+                            <input type="radio" value="1"
+                                   id="hasExternalProvider"
+                                   name="externalProvider" required>
+                            <label for="europeanNorm">Oui</label>
+                            <input type="radio" value="0"
+                                   id="hasNotExternalProvider"
+                                   name="externalProvider" required>
+                            <label for="externalProvider">Non</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comment">Commentaire : </label>
+                            <input type="comment" name="comment" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="device">Technicien(s) : </label>
+                            <select id="user" name="user" class="form-control" data-toggle="select" multiple>
+                                @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         @csrf()
                         <input type="submit" class="btn btn-group-sm btn-white mt-2">
                     </form>

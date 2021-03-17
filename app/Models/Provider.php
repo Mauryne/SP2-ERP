@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Provider extends Model
 {
     use HasFactory;
 
@@ -24,23 +24,8 @@ class Customer extends Model
         'email',
     ];
 
-    public function contracts()
+    public function purchases()
     {
-        return $this->hasMany(Contract::class);
-    }
-
-    public function contractsCustomersDevices()
-    {
-        return $this->hasMany(ContractCustomerDevice::class);
-    }
-
-    public function devices()
-    {
-        return $this->hasMany(Device::class);
-    }
-
-    public function sales()
-    {
-        return $this->hasMany(Sale::class);
+        return $this->hasMany(Purchase::class);
     }
 }

@@ -6,13 +6,18 @@ use App\Models\Contract;
 use App\Models\ContractCustomerDevice;
 use App\Models\Customer;
 use App\Models\Device;
+use App\Models\DeviceSupply;
 use App\Models\EuropeanNorm;
 use App\Models\Guarantee;
 use App\Models\Installation;
 use App\Models\Intervention;
+use App\Models\Provider;
+use App\Models\Purchase;
 use App\Models\RenewalContract;
 use App\Models\RenewalGuarantee;
 use App\Models\Role;
+use App\Models\Sale;
+use App\Models\Supply;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -29,7 +34,7 @@ class DatabaseSeeder extends Seeder
     {
         Customer::factory(5)->create();
         Role::factory(1)->create();
-        User::factory(1)->create();
+        User::factory(2)->create();
         Type::factory(4)->create();
         Installation::factory(4)->create();
         EuropeanNorm::factory(2)->create();
@@ -99,5 +104,10 @@ class DatabaseSeeder extends Seeder
             'customer_id' => 1,
             'contract_id' => 3,
         ]);
+        Sale::factory(15)->create();
+        Supply::factory(20)->create();
+        Provider::factory(30)->create();
+        Purchase::factory(25)->create();
+        DeviceSupply::factory(10)->create();
     }
 }

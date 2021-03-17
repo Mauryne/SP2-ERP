@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContractCustomerDeviceTable extends Migration
+class CreateSaleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateContractCustomerDeviceTable extends Migration
      */
     public function up()
     {
-        Schema::create('contract_customer_device', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
+            $table->decimal('price',5, 2);
+            $table->string('state')->nullable();
             $table->unsignedInteger('device_id');
             $table->unsignedInteger('customer_id');
-            $table->unsignedInteger('contract_id');
             $table->foreign('device_id')->references('id')->on('devices');
             $table->foreign('customer_id')->references('id')->on('customers');
-            $table->foreign('contract_id')->references('id')->on('contracts');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
-
     }
 
     /**
@@ -34,6 +33,6 @@ class CreateContractCustomerDeviceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contract_customer_device');
+        Schema::dropIfExists('sale');
     }
 }

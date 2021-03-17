@@ -14,7 +14,7 @@ class CreateEuropeanNormsTable extends Migration
     public function up()
     {
         Schema::create('european_norms', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

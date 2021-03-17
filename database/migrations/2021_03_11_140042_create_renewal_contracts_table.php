@@ -14,10 +14,10 @@ class CreateRenewalContractsTable extends Migration
     public function up()
     {
         Schema::create('renewal_contracts', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('duration');
             $table->date('signatureDate');
-            $table->unsignedBigInteger('contract_id');
+            $table->unsignedInteger('contract_id');
             $table->foreign('contract_id')->references('id')->on('contracts');
             $table->timestamps();
             $table->engine = 'InnoDB';

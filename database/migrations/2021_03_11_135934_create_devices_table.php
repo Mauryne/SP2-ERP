@@ -14,15 +14,15 @@ class CreateDevicesTable extends Migration
     public function up()
     {
         Schema::create('devices', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('serialNumber');
             $table->string('productReference');
             $table->date('saleDate')->nullable();
-            $table->unsignedBigInteger('installation_id')->nullable();
-            $table->unsignedBigInteger('type_id');
-            $table->unsignedBigInteger('customer_id')->nullable();
-            $table->unsignedBigInteger('europeanNorm_id')->nullable();
-            $table->unsignedBigInteger('contract_id')->nullable();
+            $table->unsignedInteger('installation_id')->nullable();
+            $table->unsignedInteger('type_id');
+            $table->unsignedInteger('customer_id')->nullable();
+            $table->unsignedInteger('europeanNorm_id')->nullable();
+            $table->unsignedInteger('contract_id')->nullable();
             $table->foreign('installation_id')->references('id')->on('installations');
             $table->foreign('type_id')->references('id')->on('types');
             $table->foreign('customer_id')->references('id')->on('customers');

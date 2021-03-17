@@ -27,23 +27,29 @@ class Device extends Model
 
     public function scopeSearch($query, $val)
     {
-        return $query
-            ->where('productReference', 'LIKE', '%' . $val . '%')
-            ->orWhere('serialNumber', 'LIKE', '%' . $val . '%')
-            ->orWhere('saleDate', 'LIKE', '%' . $val . '%')
-            ->orWhereIn('type_id', (Type::select('id')
-                ->where('characteristics', 'LIKE', '%' . $val . '%')))
-            ->orWhereIn('customer_id', (Customer::select('id')
-                ->where('name', 'LIKE', '%' . $val . '%')
-                ->orWhere('streetNumber', 'LIKE', '%' . $val . '%'))
-                ->orWhere('street', 'LIKE', '%' . $val . '%')
-                ->orWhere('postalCode', 'LIKE', '%' . $val . '%')
-                ->orWhere('city', 'LIKE', '%' . $val . '%'))
-            ->orWhereIn('installation_id', (Installation::select('id')
-                ->where('date', 'LIKE', '%' . $val . '%'))
-                ->orWhereIn('user_id', User::select('id')
-                ->where('name', 'LIKE', '%' . $val . '%')))
-//            ->orWhere('europeanNorm_id', 'IS', null);
+        if ($val == "/") {
+            return $query
+                ->where('europeanNorm_id', '=', null)
+                ->orWhere('customer_id', '=', null)
+                ->orWhere('installation_id', '=', null);
+        } else {
+            return $query
+                ->where('productReference', 'LIKE', '%' . $val . '%')
+                ->orWhere('serialNumber', 'LIKE', '%' . $val . '%')
+                ->orWhere('saleDate', 'LIKE', '%' . $val . '%')
+                ->orWhereIn('type_id', (Type::select('id')
+                    ->where('characteristics', 'LIKE', '%' . $val . '%')))
+                ->orWhereIn('customer_id', (Customer::select('id')
+                    ->where('name', 'LIKE', '%' . $val . '%')
+                    ->orWhere('streetNumber', 'LIKE', '%' . $val . '%'))
+                    ->orWhere('street', 'LIKE', '%' . $val . '%')
+                    ->orWhere('postalCode', 'LIKE', '%' . $val . '%')
+                    ->orWhere('city', 'LIKE', '%' . $val . '%'))
+                ->orWhereIn('installation_id', (Installation::select('id')
+                    ->where('date', 'LIKE', '%' . $val . '%'))
+                    ->orWhereIn('user_id', User::select('id')
+                        ->where('name', 'LIKE', '%' . $val . '%')));
+        }
     }
 
     public function customer()
@@ -79,6 +85,16 @@ class Device extends Model
     public function contractsCustomersDevices()
     {
         return $this->hasMany(ContractCustomerDevice::class);
+    }
+
+    public function supplies()
+    {
+        return $this->hasMany(Supply::class);
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
     }
 
     public function europeanNorm()

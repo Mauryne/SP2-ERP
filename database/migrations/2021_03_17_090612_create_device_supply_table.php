@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesTable extends Migration
+class CreateDeviceSupplyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('device_supply', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->unsignedInteger('device_id');
+            $table->unsignedInteger('supply_id');
+            $table->foreign('device_id')->references('id')->on('devices');
+            $table->foreign('supply_id')->references('id')->on('supplies');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
-
     }
 
     /**
@@ -29,6 +31,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('device_supply');
     }
 }

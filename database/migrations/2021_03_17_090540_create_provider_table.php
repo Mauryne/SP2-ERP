@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesTable extends Migration
+class CreateProviderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,18 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('providers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('streetNumber');
+            $table->string('street');
+            $table->integer('postalCode');
+            $table->string('city');
+            $table->integer('telephoneNumber');
+            $table->string('email');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
-
     }
 
     /**
@@ -29,6 +34,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('provider');
     }
 }

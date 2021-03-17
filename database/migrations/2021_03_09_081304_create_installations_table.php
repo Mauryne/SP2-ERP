@@ -14,11 +14,11 @@ class CreateInstallationsTable extends Migration
     public function up()
     {
         Schema::create('installations', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->date('date');
             $table->string('picture');
             $table->string('summary');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
             $table->engine = 'InnoDB';

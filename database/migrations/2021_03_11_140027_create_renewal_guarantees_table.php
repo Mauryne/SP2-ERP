@@ -14,10 +14,10 @@ class CreateRenewalGuaranteesTable extends Migration
     public function up()
     {
         Schema::create('renewal_guarantees', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('duration');
             $table->date('signatureDate');
-            $table->unsignedBigInteger('guarantee_id');
+            $table->unsignedInteger('guarantee_id');
             $table->foreign('guarantee_id')->references('id')->on('guarantees');
             $table->timestamps();
             $table->engine = 'InnoDB';

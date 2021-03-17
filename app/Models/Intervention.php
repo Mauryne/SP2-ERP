@@ -40,7 +40,12 @@ class Intervention extends Model
             ->orWhere('postalCode', 'LIKE', '%' . $val . '%')
             ->orWhere('city', 'LIKE', '%' . $val . '%')
             ->orWhere('date', 'LIKE', '%' . $val . '%')
-            ->orWhere('actions', 'LIKE', '%' . $val . '%');
+            ->orWhere('actions', 'LIKE', '%' . $val . '%')
+            ->orWhereIn('device_id', (Device::select('id')
+                ->where('serialNumber', 'LIKE', '%' . $val . '%')
+                ->orWhere('productReference', 'LIKE', '%' . $val . '%')))
+            ->orWhereIn('user_id', (User::select('id')
+                ->where('name', 'LIKE', '%' . $val . '%')));
     }
 
     public function device()

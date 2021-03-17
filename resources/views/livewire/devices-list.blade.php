@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-8 ml-8 mt-4">
+        <div class="cold-md-auto ml-8 mt-4">
             <!-- Goals -->
             <div class="card">
                 <div class="card-header">
@@ -116,12 +116,11 @@
                                 @endif
 
                                 @if($device->installation_id != null)
-                                    <td class="tables-installation" style="text-align: center">
+                                    <td class="tables-installation col-auto" style="text-align: center">
                                         {{ \Carbon\Carbon::parse($device->installation->date)->format('d-m-Y')}}
                                         - {{$device->installation->user->name}}
-                                        <br>
                                         <a style="text-align: center" href="{{$device->installation->picture}}"
-                                           class="btn btn-sm btn-white mt-2">Voir
+                                           class="btn btn-sm btn-white ml-2">Voir
                                             la photo</a>
                                     </td>
 
@@ -134,7 +133,7 @@
                     </table>
                 </div>
             </div>
-            <div style="float: right">
+            <div style="float: right ">
                 {{ $devices->links() }}
             </div>
         </div>

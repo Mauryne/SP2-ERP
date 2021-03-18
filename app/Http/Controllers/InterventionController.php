@@ -43,6 +43,6 @@ class InterventionController extends Controller
                     'maintenance_id' => $intervention->id,
                 ]);
         }
-        return redirect('interventions')->with('success', 'L\'intervention a été programmée.');
+        return redirect('interventions');//->with('success', 'L\'intervention a été programmée.');
     }
 }

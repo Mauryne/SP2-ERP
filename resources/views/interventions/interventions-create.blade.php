@@ -61,14 +61,14 @@
 
                         <div class="form-group">
                             <label for="device">Technicien(s) : </label>
-                            <select id="user" name="user" class="form-control" data-toggle="select" multiple>
+                            <select id="user" name="user[]" class="form-control" data-toggle="select" multiple>
                                 @foreach($users as $user)
                                     <option value="{{$user->id}}">{{$user->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         @csrf()
-                        <input type="submit" class="btn btn-group-sm btn-white mt-2">
+                        <input name="submit" id="submit" type="submit" class="btn btn-group-sm btn-white mt-2">
                     </form>
                 </div>
             </div>
@@ -79,6 +79,10 @@
     <script>
         $('select').select2({
             allowClear: true
+        });
+
+        $('select').on('submit', function(){
+            $('#e1').val($('#e1').val().join(','));
         });
     </script>
 @endsection

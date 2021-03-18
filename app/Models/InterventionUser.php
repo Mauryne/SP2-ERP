@@ -25,4 +25,14 @@ class InterventionUser extends Model
      * @var string
      */
     protected $table = 'maintenance_user';
+
+    public function maintenance()
+    {
+        return $this->belongsTo(Intervention::class, 'maintenance_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

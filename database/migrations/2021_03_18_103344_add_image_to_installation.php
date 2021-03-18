@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageToEuropeanNorm extends Migration
+class AddImageToInstallation extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddImageToEuropeanNorm extends Migration
      */
     public function up()
     {
-        Schema::table('european_norms', function (Blueprint $table) {
-            $table->string('picture');
+        Schema::table('installations', function (Blueprint $table) {
+            $table->string('picture_path');
         });
     }
 
@@ -25,8 +25,8 @@ class AddImageToEuropeanNorm extends Migration
      */
     public function down()
     {
-        Schema::table('european_norm', function (Blueprint $table) {
-            //
+        Schema::table('installations', function (Blueprint $table) {
+            $table->dropColumn('picture_path');
         });
     }
 }

@@ -24,7 +24,7 @@ class InstallationFactory extends Factory
     {
         return [
             'date' => $this->faker->date('Y-m-d'),
-            'picture' => $this->faker->imageUrl(),
+            'picture_path' => '1578_besd_afgf.jpg',
             'summary' => $this->faker->word,
             'user_id' => 1,
         ];

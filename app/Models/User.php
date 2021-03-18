@@ -40,4 +40,5 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Intervention::class, 'maintenance_user');
     }
+
 }

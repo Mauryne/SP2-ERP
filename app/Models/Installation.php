@@ -16,7 +16,7 @@ class Installation extends Model
      */
     protected $fillable = [
         'date',
-        'picture',
+        'picture_path',
         'summary',
         'user_id',
     ];

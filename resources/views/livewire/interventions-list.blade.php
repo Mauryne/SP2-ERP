@@ -92,8 +92,11 @@
                                                                   href="{{route('interventions.map', $intervention->id)}}">{{$intervention->streetNumber}} {{$intervention->street}} {{$intervention->city}} {{$intervention->postalCode}}</a>
                                 </td>
                                 {{--Pb affichage--}}
-                                <td class="tables-user"
-                                    style="text-align: center">{{$intervention->users}}</td>
+                                <td class="tables-user" style="text-align: center">
+                                    @foreach($intervention->users as $user)
+                                        {{$user->name}}
+                                    @endforeach
+                                </td>
                                 @if($intervention->externalProvider == 0)
                                     <td class="tables-externalProvider"
                                         style="text-align: center">Non

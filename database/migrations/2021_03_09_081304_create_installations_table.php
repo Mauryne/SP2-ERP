@@ -16,7 +16,6 @@ class CreateInstallationsTable extends Migration
         Schema::create('installations', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->string('picture');
             $table->string('summary');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

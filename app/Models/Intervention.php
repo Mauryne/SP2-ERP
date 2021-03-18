@@ -34,21 +34,29 @@ class Intervention extends Model
 
     public function scopeSearch($query, $val)
     {
-        return $query
-            ->where('streetNumber', 'LIKE', '%' . $val . '%')
-            ->orWhere('street', 'LIKE', '%' . $val . '%')
-            ->orWhere('postalCode', 'LIKE', '%' . $val . '%')
-            ->orWhere('city', 'LIKE', '%' . $val . '%')
-            ->orWhere('date', 'LIKE', '%' . $val . '%')
-            ->orWhere('comment', 'LIKE', '%' . $val . '%')
-            ->orWhereIn('device_id', (Device::select('id')
-                ->where('serialNumber', 'LIKE', '%' . $val . '%')
-                ->orWhere('productReference', 'LIKE', '%' . $val . '%')))
-//            ->orWhereIn('user_id', (User::select('id')
-//                ->where('name', 'LIKE', '%' . $val . '%')));
-            ->orWhereIn('id', (InterventionUser::select('maintenance_id')
-                ->whereIn('user_id', User::select('id')
-                    ->where('name', 'LIKE', '%' . $val . '%'))));
+        if ($val == "oui" or $val == "Oui") {
+            return $query
+                ->where('externalProvider', '=', 1);
+        } elseif ($val == "non" or $val == "Non")
+        {
+            return $query
+                ->where('externalProvider', '=', 0);
+        }
+        else {
+            return $query
+                ->where('streetNumber', 'LIKE', '%' . $val . '%')
+                ->orWhere('street', 'LIKE', '%' . $val . '%')
+                ->orWhere('postalCode', 'LIKE', '%' . $val . '%')
+                ->orWhere('city', 'LIKE', '%' . $val . '%')
+                ->orWhere('date', 'LIKE', '%' . $val . '%')
+                ->orWhere('comment', 'LIKE', '%' . $val . '%')
+                ->orWhereIn('device_id', (Device::select('id')
+                    ->where('serialNumber', 'LIKE', '%' . $val . '%')
+                    ->orWhere('productReference', 'LIKE', '%' . $val . '%')))
+                ->orWhereIn('id', (InterventionUser::select('maintenance_id')
+                    ->whereIn('user_id', User::select('id')
+                        ->where('name', 'LIKE', '%' . $val . '%'))));
+        }
     }
 
     public function device()

@@ -15,7 +15,7 @@ class EuropeanNorm extends Model
      * @var array
      */
     protected $fillable = [
-        'picture',
+        'picture_path',
     ];
 
     /**

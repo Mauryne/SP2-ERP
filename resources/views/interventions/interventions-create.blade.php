@@ -10,7 +10,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="device">Matériel : </label>
-                            <select name="device" id="device">
+                            <select name="device" id="device" class="form-control">
                                 @foreach($devices as $device)
                                     <option value="{{$device->id}}">{{$device->serialNumber}}
                                         - {{$device->productReference}}</option>
@@ -56,7 +56,7 @@
 
                         <div class="form-group">
                             <label for="comment">Commentaire : </label>
-                            <input type="comment" name="comment" class="form-control" required>
+                            <input type="comment" name="comment" class="form-control">
                         </div>
 
                         <div class="form-group">

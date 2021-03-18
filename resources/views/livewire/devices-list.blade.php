@@ -94,9 +94,25 @@
                                     style="text-align: center">{{$device->productReference}}</td>
                                 @if($device->europeanNorm_id != null)
                                     <td class="tables-europeanNorm" style="text-align: center">
-                                        <button type="button" class="btn btn-sm btn-white mt-2" data-toggle="modal" data-target="#exampleModal">
+                                        <button type="button" class="btn btn-sm btn-white mt-2" data-bs-toggle="modal" data-bs-target="#europeanNormPicture">
                                             Voir la photo
                                         </button>
+
+                                        <div class="modal fade" id="europeanNormPicture" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Photo de la norme européenne</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="{{asset('storage')}}/{{$device->europeanNorm->picture_path}}" width="500" height="350">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 @else
                                     <td class="tables-europeanNorm" style="text-align: center">/</td>
@@ -119,13 +135,31 @@
 
                                 @if($device->installation_id != null)
                                     <td class="tables-installation col-auto" style="text-align: center">
+                                        <div style="float: left; text-align: center" class="text ml-2 mt-2">
                                         {{ \Carbon\Carbon::parse($device->installation->date)->format('d-m-Y')}}
                                         - {{$device->installation->user->name}}
-                                        <a style="text-align: center" href="{{$device->installation->picture_path}}"
-                                           class="btn btn-sm btn-white ml-2">Voir
-                                            la photo</a>
-                                    </td>
+                                        </div>
+                                        <div style="float: right" class="button mr-3 mt-1">
+                                        <button type="button" class="btn btn-sm btn-white" data-bs-toggle="modal" data-bs-target="#installationPicture">
+                                            Voir la photo
+                                        </button></div>
 
+                                        <div class="modal fade" id="installationPicture" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Photo de l'installation</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="{{asset('storage/'.$device->installation->picture_path)}}" width="500" height="350">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 @else
                                     <td class="tables-installation" style="text-align: center">/</td>
                                 @endif
@@ -141,3 +175,10 @@
         </div>
     </div>
 </div>
+@section('js')
+    <script>
+        function closeModal() {
+            $('#exampleModal').modal('hide');
+        }
+    </script>
+@endsection

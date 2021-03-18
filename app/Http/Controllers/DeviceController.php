@@ -32,50 +32,58 @@ class DeviceController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'serialNumber' => 'required',
-            'productReference' => 'required',
-            'europeanNormPicture' => 'mimes:jpg,png,jpeg|max:5048',
-            'installationPicture' => 'mimes:jpg,png,jpeg|max:5048',
-        ]);
+        if ($request->hasFile('europeanNormPicture')) {
+            $europeanNormPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->europeanNormPicture->extension();
+            $request->europeanNormPicture->move(public_path('storage'), $europeanNormPicture);
+            $europeanNorm = EuropeanNorm::create([
+                'picture_path' => $europeanNormPicture,
+            ]);
+        }
 
-        $europeanNormPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->europeanNormPicture->extension();
-        $installationPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->installationPicture->extension();
+        if ($request->hasFile('installationPicture')) {
+            $installationPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->installationPicture->extension();
+            $request->installationPicture->move(public_path('storage'), $installationPicture);
+            $installation = Installation::create([
+                'picture_path' => $installationPicture,
+                'date' => Carbon::parse($request->input('installationDate'))->format('Y-m-d'),
+                'summary' => $request->input('installationSummary'),
+                'user_id' => $request->input('technician'),
+            ]);
+        }
 
-        $request->europeanNormPicture->move(public_path('storage'), $europeanNormPicture);
-        $request->installationPicture->move(public_path('storage'), $installationPicture);
+        if (null != $request->installationSummary) {
+            $contract = Contract::create([
+                'initialDuration' => $request->input('contract'),
+                'customer_id' => $request->input('customer'),
+            ]);
 
-        $europeanNorm = EuropeanNorm::create([
-            'picture_path' => $europeanNormPicture,
-        ]);
+            $device = Device::create([
+                'serialNumber' => strtoupper($request->input('serialNumber')),
+                'productReference' => strtoupper($request->input('productReference')),
+                'saleDate' => Carbon::parse($request->input('saleDate'))->format('Y-m-d'),
+                'installation_id' => $installation->id,
+                'type_id' => $request->input('type'),
+                'customer_id' => $request->input('customer'),
+                'europeanNorm_id' => $europeanNorm->id,
+                'contract_id' => $contract->id,
+            ]);
 
-        $installation = Installation::create([
-            'picture_path' => $installationPicture,
-            'date' => Carbon::parse($request->input('installationDate'))->format('Y-m-d'),
-            'summary' => $request->input('installationSummary'),
-            'user_id' => $request->input('technician'),
-        ]);
-
-        $contract = Contract::create([
-            'initialDuration' => $request->input('contract'),
-            'customer_id' => $request->input('customer'),
-        ]);
-
-        $device = Device::create([
-            'serialNumber' => $request->input('serialNumber'),
-            'productReference' => $request->input('productReference'),
-            'saleDate' => Carbon::parse($request->input('saleDate'))->format('Y-m-d'),
-            'installation_id' => $installation->id,
-            'type_id' => $request->input('type'),
-            'customer_id' => $request->input('customer'),
-            'europeanNorm_id' => $europeanNorm->id,
-            'contract_id' => $contract->id,
-        ]);
-
-        Guarantee::create([
-            'initialDuration' => $request->input('guarantee'),
-            'device_id' => $device->id,
-        ]);
+            Guarantee::create([
+                'initialDuration' => $request->input('guarantee'),
+                'device_id' => $device->id,
+            ]);
+        } else {
+            Device::create([
+                'serialNumber' => strtoupper($request->input('serialNumber')),
+                'productReference' => strtoupper($request->input('productReference')),
+                'saleDate' => null,
+                'installation_id' => null,
+                'type_id' => $request->input('type'),
+                'customer_id' => null,
+                'europeanNorm_id' => null,
+                'contract_id' => null,
+            ]);
+        }
 
         return redirect()->route('devices');
     }

@@ -10,7 +10,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="type">Type de matériel : </label>
-                            <select name="type" id="type">
+                            <select name="type" id="type" class="form-control">
                                 @foreach($types as $oneType)
                                     <option value="{{$oneType->id}}">{{$oneType->characteristics}}</option>
                                 @endforeach
@@ -38,6 +38,7 @@
                                    name="europeanNorm" required>
                             <label for="europeanNorm">Non</label>
                         </div>
+
 
                         <div class="form-group" id="europeanNormPicture">
                             <label for="europeanNormPicture">Photo de la plaquette CE : </label>
@@ -79,24 +80,22 @@
 
                         <div class="form-group" id="installationPicture">
                             <label for="installationPicture">Photo de l'installation : </label>
-                            <input type="file" name="installationPicture" id="installationPicture" class="form-control">
+                            <input type="file" name="installationPicture" id="installationPicture">
                         </div>
 
                         <div class="form-group" id="installationSummary">
-                            <label for="installationSummary">Résumé de l'installation : </label>
-                            <input type="text" name="installationSummary" class="form-control" required>
+                            <label for="installationSummary">Commentaire de l'installation : </label>
+                            <input type="text" name="installationSummary" class="form-control">
                         </div>
 
                         <div class="form-group" id="contract">
                             <label for="contract">Durée du contrat : </label>
-                            <input type="number" name="contract" min="0" max="5" class="form-control"
-                                   required>
+                            <input type="number" name="contract" min="0" max="5" class="form-control">
                         </div>
 
                         <div class="form-group" id="guarantee">
-                            <label for="guanratee">Garantie : </label>
-                            <input type="number" name="guarantee" min="0" max="10" class="form-control"
-                                   required>
+                            <label for="guarantee">Durée de la garantie : </label>
+                            <input type="number" name="guarantee" min="0" max="10" class="form-control">
                         </div>
 
                         <div class="form-group" id="technician">
@@ -114,6 +113,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('js')
@@ -126,11 +126,11 @@
         $('#customer').hide();
         $('#saleDate').hide();
         $('#installationDate').hide();
-        $('#installationSummary').hide();
-        $('#guarantee').hide();
         $('#installationPicture').hide();
         $('#technician').hide();
         $('#contract').hide();
+        $('#installationSummary').hide();
+        $('#guarantee').hide();
 
         function showPictureEuropeanNorm() {
             if ($('#isEuropeanNorm').prop('checked')) {

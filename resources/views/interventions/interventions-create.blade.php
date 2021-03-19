@@ -10,7 +10,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="device">Matériel : </label>
-                            <select name="device" id="device" class="form-control">
+                            <select name="device" id="device" class="form-control" required>
                                 @foreach($devices as $device)
                                     <option value="{{$device->id}}">{{$device->serialNumber}}
                                         - {{$device->productReference}}</option>
@@ -39,7 +39,7 @@
                         <div class="form-group mt-3" id="date">
                             <label for="date">Date : </label>
                             <input type="date" name="date" id="date"
-                                   class="form-control">
+                                   class="form-control" required>
                         </div>
 
                         <div class="form-group">
@@ -56,12 +56,12 @@
 
                         <div class="form-group">
                             <label for="comment">Commentaire : </label>
-                            <input type="comment" name="comment" class="form-control">
+                            <input type="comment" name="comment" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label for="device">Technicien(s) : </label>
-                            <select id="user" name="user[]" class="form-control" data-toggle="select" multiple>
+                            <select id="user" name="user[]" class="form-control" data-toggle="select" multiple required>
                                 @foreach($users as $user)
                                     <option value="{{$user->id}}">{{$user->name}}</option>
                                 @endforeach

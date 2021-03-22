@@ -31,7 +31,7 @@
                     <a class="nav-link text-white" href="{{ route('customers') }}">
                         <i class="fe fe-user-x"></i> Clients
                     </a>
-                    <a class="nav-link text-white" href="{{ route('map') }}">
+                    <a class="nav-link text-white" href="{{ route('sales.map') }}">
                         <i class="fe fe-map"></i> Carte
                     </a>
                     <a class="nav-link text-white" href="#">
@@ -57,7 +57,7 @@
                         <div class="dropup">
 
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                {{ Auth::user()->name }}
+                                {{ Auth::user()->lastName }} {{ Auth::user()->firstName }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">

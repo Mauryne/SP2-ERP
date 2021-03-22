@@ -23,6 +23,8 @@ class saleFactory extends Factory
     {
         return [
             'price' => $this->faker->randomFloat(2, 0, 1000),
+            'latitude' => $this->faker->latitude,
+            'longitude' => $this->faker->longitude,
             'state' => $this->faker->word,
             'device_id' => $this->faker->numberBetween(1, 50),
             'customer_id' => $this->faker->numberBetween(1, 5),

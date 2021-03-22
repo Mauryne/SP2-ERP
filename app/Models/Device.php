@@ -48,7 +48,8 @@ class Device extends Model
                 ->orWhereIn('installation_id', (Installation::select('id')
                     ->where('date', 'LIKE', '%' . $val . '%'))
                     ->orWhereIn('user_id', User::select('id')
-                        ->where('name', 'LIKE', '%' . $val . '%')));
+                        ->where('lastName', 'LIKE', '%' . $val . '%')
+                        ->where('firstName', 'LIKE', '%' . $val . '%')));
         }
     }
 

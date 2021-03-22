@@ -55,7 +55,8 @@ class Intervention extends Model
                     ->orWhere('productReference', 'LIKE', '%' . $val . '%')))
                 ->orWhereIn('id', (InterventionUser::select('maintenance_id')
                     ->whereIn('user_id', User::select('id')
-                        ->where('name', 'LIKE', '%' . $val . '%'))));
+                        ->where('lastName', 'LIKE', '%' . $val . '%')
+                        ->where('firstName', 'LIKE', '%' . $val . '%'))));
         }
     }
 

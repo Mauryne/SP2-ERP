@@ -34,15 +34,20 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Customer::factory(5)->create();
-        Role::factory(1)->create();
+        DB::table('roles')->insert([
+            'name' => 'Administrateur',
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'Développeur',
+        ]);
         User::factory(2)->create();
         Type::factory(4)->create();
         Installation::factory(4)->create();
         EuropeanNorm::factory(2)->create();
         Contract::factory(3)->create();
         DB::table('devices')->insert([
-            'serialNumber' => 'aer',
-            'productReference' => 'ert',
+            'serialNumber' => strtoupper('aer'),
+            'productReference' => strtoupper('ert'),
             'saleDate' => '2021-01-01',
             'installation_id' => 1,
             'type_id' => 4,
@@ -51,8 +56,8 @@ class DatabaseSeeder extends Seeder
             'contract_id' => 1,
         ]);
         DB::table('devices')->insert([
-            'serialNumber' => 'rge',
-            'productReference' => 'ghyy',
+            'serialNumber' => strtoupper('rge'),
+            'productReference' => strtoupper('ghyy'),
             'saleDate' => '2020-02-01',
             'installation_id' => 2,
             'type_id' => 1,
@@ -61,8 +66,8 @@ class DatabaseSeeder extends Seeder
             'contract_id' => 1,
         ]);
         DB::table('devices')->insert([
-            'serialNumber' => 'ujujf',
-            'productReference' => 'ezaerery',
+            'serialNumber' => strtoupper('ujujf'),
+            'productReference' => strtoupper('ezaerery'),
             'saleDate' => '2020-06-03',
             'installation_id' => 3,
             'type_id' => 4,
@@ -71,8 +76,8 @@ class DatabaseSeeder extends Seeder
             'contract_id' => 2,
         ]);
         DB::table('devices')->insert([
-            'serialNumber' => 'yhyhtrget',
-            'productReference' => 'ertgrthrhttj',
+            'serialNumber' => strtoupper('yhyhtrget'),
+            'productReference' => strtoupper('ertgrthrhttj'),
             'saleDate' => '2021-12-12',
             'installation_id' => 4,
             'type_id' => 2,

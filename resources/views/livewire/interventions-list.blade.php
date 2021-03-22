@@ -1,7 +1,3 @@
-{{--@if (session()->has('success'))--}}
-{{--    <livewire:alert-success/>--}}
-{{--@endif--}}
-
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8 ml-8 mt-4">
@@ -91,10 +87,12 @@
                                     style="text-align: center"><a style="text-align: center; color: #7687A3"
                                                                   href="{{route('interventions.map', $intervention->id)}}">{{$intervention->streetNumber}} {{$intervention->street}} {{$intervention->city}} {{$intervention->postalCode}}</a>
                                 </td>
-                                {{--Pb affichage--}}
                                 <td class="tables-user" style="text-align: center">
-                                    @foreach($intervention->users as $user)
-                                        {{$user->name}}
+                                    @foreach($intervention->users as $key => $user)
+                                        @if($key !== 0)
+                                            ,
+                                        @endif
+                                        {{$user->lastName}} {{$user->firstName}}
                                     @endforeach
                                 </td>
                                 @if($intervention->externalProvider == 0)

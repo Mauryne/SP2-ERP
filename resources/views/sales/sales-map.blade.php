@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>{{ __('Carte des ventes') }}</h4></div>
-                        <div id='map' style='width: auto; height: 694px;'></div>
+                    <div id='map' style='width: auto; height: 694px;'></div>
                 </div>
             </div>
         </div>
@@ -19,20 +19,19 @@
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [12.550343, 55.665957],
+            center: [2.3522219, 48.856614],
             zoom: 8
         });
 
         // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.NavigationControl());
 
-        // Boucle à faire ici en fonction des points de vente
-        var marker = new mapboxgl.Marker()
-            .setLngLat([12.550343, 55.665957])
-            .addTo(map);
-
-        var marker1 = new mapboxgl.Marker()
-            .setLngLat([13.1910073, 55.7046601])
-            .addTo(map);
+        let sales = {!! json_encode($sales) !!}
+        sales.forEach(sale =>
+        {
+            var marker = new mapboxgl.Marker()
+                .setLngLat([sale.longitude, sale.latitude])
+                .addTo(map);
+        });
     </script>
 @endsection

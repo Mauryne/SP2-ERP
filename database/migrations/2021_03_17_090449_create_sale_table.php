@@ -17,6 +17,8 @@ class CreateSaleTable extends Migration
             $table->increments('id');
             $table->decimal('price',5, 2);
             $table->string('state')->nullable();
+            $table->float('latitude', 10, 6);
+            $table->float('longitude', 10, 6);
             $table->unsignedInteger('device_id');
             $table->unsignedInteger('customer_id');
             $table->foreign('device_id')->references('id')->on('devices');

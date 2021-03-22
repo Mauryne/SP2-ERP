@@ -26,8 +26,8 @@ class DeviceFactory extends Factory
     public function definition()
     {
         return [
-            'serialNumber' => $this->faker->word,
-            'productReference' => $this->faker->word,
+            'serialNumber' => strtoupper($this->faker->word),
+            'productReference' => strtoupper($this->faker->word),
             'saleDate' => null, // si customer_id = null, saleDate = null
             'installation_id' => null, //si un id pris ne peut pas être repris
             'type_id' => $this->faker->numberBetween(1, 4),

@@ -22,7 +22,7 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
+            'name' => ucfirst($this->faker->name),
             'streetNumber' => $this->faker->numberBetween(1,10),
             'street' => $this->faker->word,
             'postalCode' => $this->faker->numberBetween(10000,90000),

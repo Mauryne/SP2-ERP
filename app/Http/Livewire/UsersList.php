@@ -2,17 +2,17 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Intervention;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class InterventionsList extends Component
+class UsersList extends Component
 {
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
 
-    public $sortBy = 'streetNumber';
+    public $sortBy = 'lastName';
 
     public $sortDirection = 'asc';
     public $perPage = 10;
@@ -20,15 +20,13 @@ class InterventionsList extends Component
 
     public function render()
     {
-        $interventions = Intervention::query()
-            ->with('device')
-            ->with('users')
+        $users = User::query()
             ->search($this->search)
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.interventions-list', [
-            'interventions'=> $interventions
+        return view('livewire.users-list', [
+            'users'=> $users
         ]);
     }
 

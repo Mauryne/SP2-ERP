@@ -24,11 +24,12 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'lastName' => strtoupper($this->faker->lastName),
+            'firstName' => ucfirst($this->faker->firstName),
             'email' => $this->faker->email,
             'password' => Hash::make('pwsio'),
-            'telephoneNumber' => $this->faker->numberBetween(0601010101,0701010101),
-            'role_id' => 1,
+            'telephoneNumber' => '0606060606',
+            'role_id' => $this->faker->numberBetween(1,2),
         ];
     }
 

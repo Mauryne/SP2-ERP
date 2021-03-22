@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="mt-4">
-        <livewire:interventions-list/>
+        <livewire:users-list/>
     </div>
 @endsection

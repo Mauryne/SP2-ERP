@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContractRequest;
+use App\Http\Requests\DeviceRequest;
+use App\Http\Requests\EuropeanNormRequest;
+use App\Http\Requests\GuaranteeRequest;
+use App\Http\Requests\InstallationRequest;
 use App\Models\Contract;
 use App\Models\ContractCustomerDevice;
 use App\Models\Customer;
@@ -30,9 +35,10 @@ class DeviceController extends Controller
         return view('devices/devices-create')->with(compact('users', 'types', 'customers'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, ContractRequest $contractRequest, EuropeanNormRequest $europeanNormRequest, InstallationRequest $installationRequest, GuaranteeRequest $guaranteeRequest, DeviceRequest $deviceRequest)
     {
         if ($request->hasFile('europeanNormPicture')) {
+            //$europeanNormRequest->validated();
             $europeanNormPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->europeanNormPicture->extension();
             $request->europeanNormPicture->move(public_path('storage'), $europeanNormPicture);
             $europeanNorm = EuropeanNorm::create([
@@ -41,6 +47,7 @@ class DeviceController extends Controller
         }
 
         if ($request->hasFile('installationPicture')) {
+            //$installationRequest->validated();
             $installationPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->installationPicture->extension();
             $request->installationPicture->move(public_path('storage'), $installationPicture);
             $installation = Installation::create([
@@ -52,11 +59,13 @@ class DeviceController extends Controller
         }
 
         if (null != $request->installationSummary) {
+            //$contractRequest->validated();
             $contract = Contract::create([
                 'initialDuration' => $request->input('contract'),
                 'customer_id' => $request->input('customer'),
             ]);
 
+            //$deviceRequest->validated();
             $device = Device::create([
                 'serialNumber' => strtoupper($request->input('serialNumber')),
                 'productReference' => strtoupper($request->input('productReference')),
@@ -68,11 +77,13 @@ class DeviceController extends Controller
                 'contract_id' => $contract->id,
             ]);
 
+            //$guaranteeRequest->validated();
             Guarantee::create([
                 'initialDuration' => $request->input('guarantee'),
                 'device_id' => $device->id,
             ]);
         } else {
+            //$deviceRequest->validated();
             Device::create([
                 'serialNumber' => strtoupper($request->input('serialNumber')),
                 'productReference' => strtoupper($request->input('productReference')),

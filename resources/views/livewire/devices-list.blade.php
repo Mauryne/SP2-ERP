@@ -137,7 +137,7 @@
                                     <td class="tables-installation col-auto" style="text-align: center">
                                         <div style="float: left; text-align: center" class="text ml-2 mt-2">
                                         {{ \Carbon\Carbon::parse($device->installation->date)->format('d-m-Y')}}
-                                        - {{$device->installation->user->name}}
+                                        - {{$device->installation->user->lastName}} {{$device->installation->user->firstName}}
                                         </div>
                                         <div style="float: right" class="button mr-3 mt-1">
                                         <button type="button" class="btn btn-sm btn-white" data-bs-toggle="modal" data-bs-target="#installationPicture">

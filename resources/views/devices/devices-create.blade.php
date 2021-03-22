@@ -102,7 +102,7 @@
                             <label for="technician">Qui a installé ce matériel ? </label>
                             <select name="technician" id="technician" class="custom-select" data-toggle="select">
                                 @foreach($users as $oneTechnician)
-                                    <option value="{{$oneTechnician->id}}">{{$oneTechnician->name}}</option>
+                                    <option value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
                                 @endforeach
                             </select>
                         </div>

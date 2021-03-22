@@ -56,14 +56,14 @@
 
                         <div class="form-group">
                             <label for="comment">Commentaire : </label>
-                            <input type="comment" name="comment" class="form-control" required>
+                            <input type="text" name="comment" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label for="device">Technicien(s) : </label>
                             <select id="user" name="user[]" class="form-control" data-toggle="select" multiple required>
                                 @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                    <option value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -22,7 +22,7 @@ class TypeFactory extends Factory
     public function definition()
     {
         return [
-            'characteristics' => $this->faker->word,
+            'characteristics' => ucfirst($this->faker->word),
         ];
     }
 }

@@ -111,10 +111,10 @@ class DatabaseSeeder extends Seeder
             'customer_id' => 1,
             'contract_id' => 3,
         ]);
-        Sale::factory(15)->create();
+        Sale::factory(150)->create();
         Supply::factory(20)->create();
         Provider::factory(30)->create();
-        Purchase::factory(25)->create();
+        Purchase::factory(150)->create();
         DeviceSupply::factory(10)->create();
     }
 }

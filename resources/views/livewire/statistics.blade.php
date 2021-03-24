@@ -16,10 +16,17 @@
                         </div>
 
                         <div class="col-md-2 ml-auto">
-                            <select id="year" class="custom-select form-select-sm">
-                                @foreach($years as $year)
-                                    <option value="{{ $year }}">{{ $year }}</option>
-                                @endforeach
+                            <select wire:model.lazy="year" id="year" class="custom-select form-select-sm">
+                                <?php
+                                $annee = date("Y");
+                                $an_premier = $annee - 10;
+                                $an_dernier = $annee +10;
+
+                                for($i=$an_dernier;$i>=$an_premier;$i--)
+                                {
+                                    echo '<option value="'.$i.'">'.$i.'</option>';
+                                }
+                                ?>
                             </select>
                         </div>
 
@@ -28,9 +35,9 @@
                         </div>
 
                         <div class="col-md-2">
-                            <select id="month" class="custom-select form-select-sm">
-                                @foreach($months as $oneMonth)
-                                    <option onchange="getMonth()" value="{{ $oneMonth }}">{{ $oneMonth }}</option>
+                            <select wire:model.lazy="monthLetter" id="month" class="custom-select form-select-sm">
+                                @foreach($allMonths as $oneMonth)
+                                    <option onclick="getMonth()" value="{{ $oneMonth }}">{{ $oneMonth }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -41,14 +48,14 @@
                         <canvas id="salesChart" class="chart-canvas"></canvas>
                     </div>
                     <div class="mt-5" style="text-align: center">
-                    <label style="text-align: center"><B> {{ $m }} {{ $années }}</B></label>
+                        <label style="text-align: center"><B> {{ $monthLetter }} {{ $year }}</B></label>
                     </div>
                     <div class="col-auto float-right w-25 mt-7" style="text-align: center">
-                        <label style="text-align: center">Total des ventes : <B>{{ $allSales }} € </B></label>
+                        <label style="text-align: center">Total des ventes : <B>{{ $allSales[0]->price }} € </B></label>
                         <br>
-                        <label>Total des achats : <B>{{ $allPurchases }} €</B></label>
+                        <label>Total des achats : <B>{{ $allPurchases[0]->price }} €</B></label>
                         <br>
-                        @if($allSales < $allPurchases)
+                        @if($allSales[0]->price < $allPurchases[0]->price)
                             <label>Perte de <B>{{ $result }} € </B></label>
                         @else
                             <label>Bénéfice de <B>{{ $result }} € </B></label>
@@ -74,10 +81,11 @@
         );
 
         function getMonth() {
-            return document.getElementById('month').options[document.getElementById('month').selectedIndex].value;
+            return document.getElementById('month').options[document.getElementById('month').selectedIndex].innerHTML;
         }
 
-        let m = getMonth('month');
+        //let m = {!! json_encode($monthLetter) !!};
+        m = getMonth();
 
         new Chart('salesChart', {
             type: 'bar',

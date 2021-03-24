@@ -26,6 +26,7 @@
     "dependencies": {
         "bootstrap-table": "^1.18.2",
         "bootstrap-vue": "^2.21.2",
+        "chart.js": "^2.9.4",
         "datatables.net-bs4": "^1.10.24",
         "feather-icons": "^4.28.0",
         "list.js": "^2.3.1",

@@ -20,7 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('street');
             $table->integer('postalCode');
             $table->string('city');
-            $table->integer('telephoneNumber');
+            $table->string('telephoneNumber');
             $table->string('email');
             $table->timestamps();
             $table->engine = 'InnoDB';

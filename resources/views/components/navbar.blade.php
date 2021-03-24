@@ -34,7 +34,7 @@
                     <a class="nav-link text-white" href="{{ route('sales.map') }}">
                         <i class="fe fe-map"></i> Carte
                     </a>
-                    <a class="nav-link text-white" href="#">
+                    <a class="nav-link text-white" href="{{ route('statistics') }}">
                         <i class="fe fe-star"></i> Statistiques
                     </a>
                     @endguest

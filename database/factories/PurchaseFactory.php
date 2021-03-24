@@ -23,6 +23,7 @@ class purchaseFactory extends Factory
     {
         return [
             'price' => $this->faker->randomFloat(2, 0, 1000),
+            'date' => $this->faker->date('Y-m-d'),
             'quantity' => $this->faker->numberBetween(1,10),
             'supply_id' => $this->faker->numberBetween(1, 20),
             'provider_id' => $this->faker->numberBetween(1, 30),

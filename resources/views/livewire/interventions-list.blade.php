@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-8 ml-8 mt-4">
+        <div class="col-md-9 ml-8 mt-4">
             <!-- Goals -->
             <div class="card">
                 <div class="card-header">

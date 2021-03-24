@@ -38,20 +38,17 @@ class User extends Authenticatable
                 ->where('name', 'LIKE', '%' . $val . '%')));
     }
 
-    public
-    function installations()
+    public function installations()
     {
         return $this->hasMany(Installation::class);
     }
 
-    public
-    function role()
+    public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
-    public
-    function interventions()
+    public function interventions()
     {
         return $this->belongsToMany(Intervention::class, 'maintenance_user');
     }

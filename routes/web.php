@@ -32,6 +32,7 @@ Route::get('/devices', [DeviceController::class, 'index'])->name('devices')->mid
 Route::get('/devices/{id}/show/map', DevicesMap::class)->name('devices.map')->middleware('auth');
 Route::get('/devices/create', [DeviceController::class, 'create'])->name('devices.create')->middleware('auth');
 Route::post('/devices/create/store', [DeviceController::class, 'store'])->name('devices.store')->middleware('auth');
+Route::get('/devices/{id}/update', [DeviceController::class, 'update'])->name('devices.update')->middleware('auth');
 
 Route::get('/interventions', [InterventionController::class, 'index'])->name('interventions')->middleware('auth');
 Route::get('/interventions/{id}/show/map', InterventionMap::class)->name('interventions.map')->middleware('auth');

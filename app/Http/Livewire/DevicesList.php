@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Customer;
 use App\Models\Device;
 use App\Models\Type;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,7 +21,6 @@ class DevicesList extends Component
     public $perPage = 10;
     public $search = '';
 
-
     public function render()
     {
         $devices = Device::query()
@@ -31,7 +32,7 @@ class DevicesList extends Component
             ->paginate($this->perPage);
 
         return view('livewire.devices-list',[
-            'devices'=> $devices
+            'devices'=> $devices,
         ]);
     }
 

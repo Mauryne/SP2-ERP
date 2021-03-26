@@ -98,4 +98,14 @@ class DeviceController extends Controller
 
         return redirect()->route('devices');
     }
+
+    public function update($id)
+    {
+        $device = Device::find($id);
+        dd($device->guarantee);
+        $users = User::all();
+        $types = Type::all();
+        $customers = Customer::all();
+        return view('devices/devices-update')->with(compact('users', 'types', 'customers', 'device'));
+    }
 }

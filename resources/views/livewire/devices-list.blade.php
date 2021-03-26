@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center ml-2">
-        <div class="col-md-9 ml-8 mt-4">
+        <div class="col-md-10 ml-8 mt-4">
             <!-- Goals -->
             <div class="card">
                 <div class="card-header">
@@ -81,6 +81,9 @@
                                 style="text-align: center; cursor: pointer;">
                                 <a>Installation</a>
                             </th>
+                            <th class="text-muted list-sort" style="text-align: center; cursor: pointer;">
+                                <a>Action</a>
+                            </th>
                         </tr>
                         </thead>
                         <tbody class="list">
@@ -94,21 +97,27 @@
                                     style="text-align: center">{{$device->productReference}}</td>
                                 @if($device->europeanNorm_id != null)
                                     <td class="tables-europeanNorm" style="text-align: center">
-                                        <button type="button" class="btn btn-sm btn-white mt-2" data-bs-toggle="modal" data-bs-target="#europeanNormPicture">
+                                        <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#europeanNormPicture">
                                             Voir la photo
                                         </button>
 
-                                        <div class="modal fade" id="europeanNormPicture" tabindex="-1" aria-hidden="true">
+                                        <div class="modal fade" id="europeanNormPicture" tabindex="-1"
+                                             aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Photo de la norme européenne</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <img src="{{asset('storage')}}/{{$device->europeanNorm->picture_path}}" width="500" height="350">
+                                                        <img
+                                                            src="{{asset('storage')}}/{{$device->europeanNorm->picture_path}}"
+                                                            width="500" height="350">
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Fermer
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,7 +131,7 @@
                                     <td class="tables-customer"
                                         style="text-align: center">{{$device->customer->name}}</td>
                                     <td class="tables-city" style="text-align: center">
-                                        <a style="text-align: center; color: #7687A3"
+                                        <a style="text-align: center; color: #6E84A3"
                                            href="{{route('devices.map', $device->customer_id)}}">{{$device->customer->streetNumber}} {{$device->customer->street}} {{$device->customer->city}} {{$device->customer->postalCode}}</a>
                                     </td>
                                     <td class="tables-saleDate"
@@ -136,25 +145,32 @@
                                 @if($device->installation_id != null)
                                     <td class="tables-installation col-auto" style="text-align: center">
                                         <div style="float: left; text-align: center" class="text ml-2 mt-2">
-                                        {{ \Carbon\Carbon::parse($device->installation->date)->format('d-m-Y')}}
-                                        - {{$device->installation->user->lastName}} {{$device->installation->user->firstName}}
+                                            {{ \Carbon\Carbon::parse($device->installation->date)->format('d-m-Y')}}
+                                            - {{$device->installation->user->lastName}} {{$device->installation->user->firstName}}
                                         </div>
-                                        <div style="float: right" class="button mr-3 mt-1">
-                                        <button type="button" class="btn btn-sm btn-white" data-bs-toggle="modal" data-bs-target="#installationPicture">
-                                            Voir la photo
-                                        </button></div>
+                                        <div style="float: right" class="button mt-1">
+                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                                    data-bs-target="#installationPicture">
+                                                Voir la photo
+                                            </button>
+                                        </div>
 
-                                        <div class="modal fade" id="installationPicture" tabindex="-1" aria-hidden="true">
+                                        <div class="modal fade" id="installationPicture" tabindex="-1"
+                                             aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Photo de l'installation</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <img src="{{asset('storage/'.$device->installation->picture_path)}}" width="500" height="350">
+                                                        <img
+                                                            src="{{asset('storage/'.$device->installation->picture_path)}}"
+                                                            width="500" height="350">
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Fermer
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -163,6 +179,10 @@
                                 @else
                                     <td class="tables-installation" style="text-align: center">/</td>
                                 @endif
+                                <td class="tables-update" style="text-align: center">
+                                    <a href="{{route('devices.update', $device->id )}}" type="button" class="fe fe-edit btn btn-sm btn-secondary">
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -180,5 +200,7 @@
         function closeModal() {
             $('#exampleModal').modal('hide');
         }
+
+        feather.replace();
     </script>
 @endsection

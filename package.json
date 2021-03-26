@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@feathersjs/feathers": "^4.5.11",
         "bootstrap-table": "^1.18.2",
         "bootstrap-vue": "^2.21.2",
         "chart.js": "^2.9.4",

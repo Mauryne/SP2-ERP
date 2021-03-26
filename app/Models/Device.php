@@ -58,7 +58,7 @@ class Device extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function contracts()
+    public function contract()
     {
         return $this->belongsTo(Contract::class);
     }

@@ -107,7 +107,7 @@
                             </select>
                         </div>
                         @csrf()
-                        <input type="submit" class="btn btn-group-sm btn-white">
+                        <input type="submit" class="btn btn-secondary">
                     </form>
                 </div>
             </div>
@@ -156,14 +156,6 @@
                 $('#contract').hide();
                 $('#installationSummary').hide();
                 $('#guarantee').hide();
-                // $('#customer').removeAttribute('required');
-                // $('#saleDate').removeAttribute('required');
-                // $('#installationDate').removeAttribute('required');
-                // $('#installationPicture').removeAttribute('required');
-                // $('#technician').removeAttribute('required');
-                // $('#contract').removeAttribute('required');
-                // $('#guarantee').removeAttribute('required');
-                document.getElementById('installationSummary').prop("required", false);
             } else {
             }
         }
@@ -178,14 +170,6 @@
                 $('#contract').show();
                 $('#installationSummary').show();
                 $('#guarantee').show();
-                // $('#customer').attr('required', '');
-                // $('#saleDate').attr('required', '');
-                // $('#installationDate').attr('required', '');
-                // $('#installationPicture').attr('required', '');
-                // $('#technician').attr('required', '');
-                // $('#contract').attr('required', '');
-                // $('#guarantee').attr('required', '');
-                $('#installationSummary').required = true;
             } else {
             }
         }

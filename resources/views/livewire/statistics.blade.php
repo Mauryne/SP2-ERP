@@ -18,13 +18,11 @@
                         <div class="col-md-2 ml-auto">
                             <select wire:model.lazy="year" id="year" class="custom-select form-select-sm">
                                 <?php
-                                $annee = date("Y");
-                                $an_premier = $annee - 10;
-                                $an_dernier = $annee +10;
+                                $year = date("Y");
+                                $nextYears = $year - 10;
 
-                                for($i=$an_dernier;$i>=$an_premier;$i--)
-                                {
-                                    echo '<option value="'.$i.'">'.$i.'</option>';
+                                for ($i = $year; $i >= $nextYears; $i--) {
+                                    echo '<option value="' . $i . '">' . $i . '</option>';
                                 }
                                 ?>
                             </select>
@@ -51,15 +49,18 @@
                         <label style="text-align: center"><B> {{ $monthLetter }} {{ $year }}</B></label>
                     </div>
                     <div class="col-auto float-right w-25 mt-7" style="text-align: center">
-                        <label style="text-align: center">Total des ventes : <B>{{ $allSales[0]->price }} € </B></label>
+                        <label style="text-align: center">Total des ventes :
+                            <B>@isset($allSales){{ $allSales[0]->price }} € @endisset</B></label>
                         <br>
-                        <label>Total des achats : <B>{{ $allPurchases[0]->price }} €</B></label>
-                        <br>
-                        @if($allSales[0]->price < $allPurchases[0]->price)
-                            <label>Perte de <B>{{ $result }} € </B></label>
-                        @else
-                            <label>Bénéfice de <B>{{ $result }} € </B></label>
-                        @endif
+                        <label>Total des achats : <B>@isset($allPurchases){{ $allPurchases[0]->price }}
+                                €@endisset</B></label>
+                        <br>@isset($allSales, $allPurchases, $result)
+                            @if($allSales[0]->price < $allPurchases[0]->price)
+                                <label>Perte de <B>{{ $result }} € </B></label>
+                            @else
+                                <label>Bénéfice de <B>{{ $result }} € </B></label>
+                            @endif
+                        @endisset
                     </div>
                 </div>
             </div>

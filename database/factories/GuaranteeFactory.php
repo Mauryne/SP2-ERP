@@ -24,7 +24,6 @@ class GuaranteeFactory extends Factory
     {
         return [
             'initialDuration' => $this->faker->numberBetween(1,5),
-            'device_id' => $this->faker->numberBetween(1, 50),
         ];
     }
 }

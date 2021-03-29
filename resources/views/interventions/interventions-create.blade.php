@@ -68,7 +68,7 @@
                             </select>
                         </div>
                         @csrf()
-                        <input name="submit" id="submit" type="submit" class="btn btn-group-sm btn-white mt-2">
+                        <input name="submit" id="submit" type="submit" class="btn btn-group-sm btn-secondary mt-2">
                     </form>
                 </div>
             </div>

@@ -45,4 +45,13 @@ class InterventionController extends Controller
         }
         return redirect('interventions');
     }
+
+    public function update($id)
+    {
+        $intervention = Intervention::find($id);
+        $devices = Device::all()->where('installation_id', '!=', null);
+        $users = User::all();
+        $interventionsUser = InterventionUser::all();
+        return view('interventions/interventions-update')->with(compact('users', 'devices', 'intervention', 'interventionsUser'));
+    }
 }

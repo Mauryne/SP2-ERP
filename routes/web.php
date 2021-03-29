@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\RenewalContractController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
@@ -33,11 +35,14 @@ Route::get('/devices/{id}/show/map', DevicesMap::class)->name('devices.map')->mi
 Route::get('/devices/create', [DeviceController::class, 'create'])->name('devices.create')->middleware('auth');
 Route::post('/devices/create/store', [DeviceController::class, 'store'])->name('devices.store')->middleware('auth');
 Route::get('/devices/{id}/update', [DeviceController::class, 'update'])->name('devices.update')->middleware('auth');
+Route::get('/devices/{id}/contract', [DeviceController::class, 'contract'])->name('devices.contract')->middleware('auth');
+Route::post('/devices/contracts/store', [RenewalContractController::class, 'store'])->name('contracts.store')->middleware('auth');
 
 Route::get('/interventions', [InterventionController::class, 'index'])->name('interventions')->middleware('auth');
 Route::get('/interventions/{id}/show/map', InterventionMap::class)->name('interventions.map')->middleware('auth');
 Route::get('/interventions/create', [InterventionController::class, 'create'])->name('interventions.create')->middleware('auth');
 Route::post('/interventions/store', [InterventionController::class, 'store'])->name('interventions.store')->middleware('auth');
+Route::get('/interventions/{id}/update', [InterventionController::class, 'update'])->name('interventions.update')->middleware('auth');
 
 Route::get('/users', [UserController::class, 'index'])->name('users')->middleware('auth');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create')->middleware('auth');

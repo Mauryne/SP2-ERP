@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-9 ml-8 mt-4">
+        <div class="col-auto ml-8 mt-4">
             <!-- Goals -->
             <div class="card">
                 <div class="card-header">
@@ -73,6 +73,9 @@
                                 style="text-align: center; cursor: pointer;">
                                 <a>Commentaire</a>
                             </th>
+                            <th class="text-muted list-sort" style="text-align: center; cursor: pointer;">
+                                <a>Action</a>
+                            </th>
                         </tr>
                         </thead>
                         <tbody class="list">
@@ -84,7 +87,7 @@
                                 <td class="tables-date"
                                     style="text-align: center">{{\Carbon\Carbon::parse($intervention->date)->format('d-m-Y')}}</td>
                                 <td class="tables-address"
-                                    style="text-align: center"><a style="text-align: center; color: #7687A3"
+                                    style="text-align: center"><a style="text-align: center; color: #6E84A3"
                                                                   href="{{route('interventions.map', $intervention->id)}}">{{$intervention->streetNumber}} {{$intervention->street}} {{$intervention->city}} {{$intervention->postalCode}}</a>
                                 </td>
                                 <td class="tables-user" style="text-align: center">
@@ -106,6 +109,10 @@
                                 @endif
                                 <td class="tables-comment"
                                     style="text-align: center">{{$intervention->comment}}</td>
+                                <td class="tables-update" style="text-align: center">
+                                    <a href="{{route('interventions.update', $intervention->id )}}" type="button"
+                                       class="fe fe-edit btn btn-sm btn-secondary">
+                                    </a>
                             </tr>
                         @endforeach
                         </tbody>

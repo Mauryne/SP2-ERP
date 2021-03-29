@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
         DB::table('roles')->insert([
             'name' => 'Développeur',
         ]);
+        Guarantee::factory(4)->create();
         User::factory(2)->create();
         Type::factory(4)->create();
         Installation::factory(4)->create();
@@ -54,6 +55,7 @@ class DatabaseSeeder extends Seeder
             'customer_id' => 4,
             'europeanNorm_id' => 1,
             'contract_id' => 1,
+            'guarantee_id' => 1,
         ]);
         DB::table('devices')->insert([
             'serialNumber' => strtoupper('rge'),
@@ -64,6 +66,7 @@ class DatabaseSeeder extends Seeder
             'customer_id' => 3,
             'europeanNorm_id' => 2,
             'contract_id' => 1,
+            'guarantee_id' => 2,
         ]);
         DB::table('devices')->insert([
             'serialNumber' => strtoupper('ujujf'),
@@ -74,6 +77,7 @@ class DatabaseSeeder extends Seeder
             'customer_id' => 4,
             'europeanNorm_id' => null,
             'contract_id' => 2,
+            'guarantee_id' => 3,
         ]);
         DB::table('devices')->insert([
             'serialNumber' => strtoupper('yhyhtrget'),
@@ -84,11 +88,11 @@ class DatabaseSeeder extends Seeder
             'customer_id' => 1,
             'europeanNorm_id' => null,
             'contract_id' => 3,
+            'guarantee_id' => 4,
         ]);
         Device::factory(50)->create();
         Intervention::factory(40)->create();
         InterventionUser::factory(40)->create();
-        Guarantee::factory(3)->create();
         RenewalGuarantee::factory(2)->create();
         RenewalContract::factory(3)->create();
         DB::table('contract_customer_device')->insert([

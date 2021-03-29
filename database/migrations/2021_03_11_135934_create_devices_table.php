@@ -23,10 +23,12 @@ class CreateDevicesTable extends Migration
             $table->unsignedInteger('customer_id')->nullable();
             $table->unsignedInteger('europeanNorm_id')->nullable();
             $table->unsignedInteger('contract_id')->nullable();
+            $table->unsignedInteger('guarantee_id')->nullable();
             $table->foreign('installation_id')->references('id')->on('installations');
             $table->foreign('type_id')->references('id')->on('types');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('contract_id')->references('id')->on('contracts');
+            $table->foreign('guarantee_id')->references('id')->on('guarantees');
             $table->foreign('europeanNorm_id')->references('id')->on('european_norms');
             $table->timestamps();
             $table->engine = 'InnoDB';

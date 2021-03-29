@@ -49,7 +49,9 @@ class Device extends Model
                     ->where('date', 'LIKE', '%' . $val . '%'))
                     ->orWhereIn('user_id', User::select('id')
                         ->where('lastName', 'LIKE', '%' . $val . '%')
-                        ->where('firstName', 'LIKE', '%' . $val . '%')));
+                        ->orWhere('firstName', 'LIKE', '%' . $val . '%')))
+                ->orWhereIn('guarantee_id', (Guarantee::select('id')
+                    ->where('initialDuration', 'LIKE', '%' . $val . '%')));
         }
     }
 

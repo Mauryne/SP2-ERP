@@ -16,8 +16,6 @@ class CreateGuaranteesTable extends Migration
         Schema::create('guarantees', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('initialDuration');
-            $table->unsignedInteger('device_id');
-            $table->foreign('device_id')->references('id')->on('devices');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

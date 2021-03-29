@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center ml-2">
-        <div class="col-md-10 ml-8 mt-4">
+        <div class="col-auto ml-8 mt-4">
             <!-- Goals -->
             <div class="card">
                 <div class="card-header">
@@ -61,6 +61,10 @@
                                 style="text-align: center; cursor: pointer;">
                                 <a>Référence</a>
                             </th>
+                            <th class="text-muted list-sort" wire:click="sortBy('guarantee_id')"
+                                style="text-align: center; cursor: pointer;">
+                                <a>Durée de la garantie</a>
+                            </th>
                             <th class="text-muted list-sort" wire:click="sortBy('europeanNorm_id')"
                                 style="text-align: center; cursor: pointer;">
                                 <a>Norme européenne ?</a>
@@ -95,6 +99,15 @@
                                     style="text-align: center">{{$device->serialNumber}}</td>
                                 <td class="tables-productReference"
                                     style="text-align: center">{{$device->productReference}}</td>
+                                @if($device->guarantee != null)
+                                    <td class="tables-type"
+                                        style="text-align: center">{{$device->guarantee->initialDuration}} an(s)
+                                    </td>
+                                @else
+                                    <td class="tables-type"
+                                        style="text-align: center">/
+                                    </td>
+                                @endif
                                 @if($device->europeanNorm_id != null)
                                     <td class="tables-europeanNorm" style="text-align: center">
                                         <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
@@ -144,12 +157,13 @@
 
                                 @if($device->installation_id != null)
                                     <td class="tables-installation col-auto" style="text-align: center">
-                                        <div style="float: left; text-align: center" class="text ml-2 mt-2">
+                                        <div style="float: left; text-align: center" class="text mt-2">
                                             {{ \Carbon\Carbon::parse($device->installation->date)->format('d-m-Y')}}
                                             - {{$device->installation->user->lastName}} {{$device->installation->user->firstName}}
                                         </div>
-                                        <div style="float: right" class="button mt-1">
-                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                        <div style="float: right" class="button mt-1 ml-3">
+                                            <button type="button" class="btn btn-sm btn-secondary"
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#installationPicture">
                                                 Voir la photo
                                             </button>
@@ -180,8 +194,14 @@
                                     <td class="tables-installation" style="text-align: center">/</td>
                                 @endif
                                 <td class="tables-update" style="text-align: center">
-                                    <a href="{{route('devices.update', $device->id )}}" type="button" class="fe fe-edit btn btn-sm btn-secondary">
+                                    <a href="{{route('devices.update', $device->id )}}" type="button"
+                                       class="fe fe-edit btn btn-sm btn-secondary">
                                     </a>
+                                    @if($device->installation_id != null)
+                                        <a href="{{route('devices.contract', $device->id )}}" type="button"
+                                           class="btn btn-sm btn-secondary"> Contrat
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

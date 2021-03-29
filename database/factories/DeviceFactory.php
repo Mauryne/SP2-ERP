@@ -34,6 +34,7 @@ class DeviceFactory extends Factory
             'customer_id' => null,
             'europeanNorm_id' => null, //si un id pris ne peut pas être repris
             'contract_id' => null,
+            'guarantee_id' => null,
         ];
     }
 }

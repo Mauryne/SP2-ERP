@@ -14,11 +14,14 @@ use App\Models\Device;
 use App\Models\EuropeanNorm;
 use App\Models\Guarantee;
 use App\Models\Installation;
+use App\Models\RenewalContract;
 use App\Models\Type;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class DeviceController extends Controller
 {
@@ -35,8 +38,10 @@ class DeviceController extends Controller
         return view('devices/devices-create')->with(compact('users', 'types', 'customers'));
     }
 
-    public function store(Request $request, ContractRequest $contractRequest, EuropeanNormRequest $europeanNormRequest, InstallationRequest $installationRequest, GuaranteeRequest $guaranteeRequest, DeviceRequest $deviceRequest)
+    public function store(Request $request)
     {
+        //self::saveFile($request->input('europeanNormPicture'), '');
+
         if ($request->hasFile('europeanNormPicture')) {
             //$europeanNormRequest->validated();
             $europeanNormPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->europeanNormPicture->extension();
@@ -101,11 +106,33 @@ class DeviceController extends Controller
 
     public function update($id)
     {
+        // Pb update : renvoie mauvaise vue si on écrit devices-update
         $device = Device::find($id);
-        dd($device->guarantee);
         $users = User::all();
         $types = Type::all();
         $customers = Customer::all();
-        return view('devices/devices-update')->with(compact('users', 'types', 'customers', 'device'));
+        return view('devices/devices-updates')->with(compact('users', 'types', 'customers', 'device'));
+    }
+
+//    public static function saveFile($file, string $path) : ?string
+//    {
+//        return isset($file) ? Storage::disk('public')->putFileAs($path, $file, Carbon::now()->timestamp.'_'.$file->getClientOriginalName()) : null;
+//    }
+//
+//    public static function updateFile($file, string $path, string $oldValue) : ?string
+//    {
+//        return isset($file) ? Storage::disk('public')->putFileAs($path, $file, Carbon::now()->timestamp.'_'.$file->getClientOriginalName()) : $oldValue;
+//    }
+//
+//    public static function removeFile(string $path) : Boolean
+//    {
+//        return Storage::disk('public')->exists($path) ? Storage::disk('public')->delete($path) : false;
+//    }
+
+    public function contract($id)
+    {
+        $device = Device::find($id);
+        $renewalsContract = RenewalContract::all();
+        return view('devices/devices-contract')->with(compact('device', 'renewalsContract'));
     }
 }

@@ -61,9 +61,14 @@
                         <div class="form-group" id="europeanNormPicture">
                             <label for="europeanNormPicture">Photo de la plaquette CE
                                 : </label>
-                            <input type="file" class="form-control"
-                                   name="europeanNormPicture"
-                                   id="europeanNormPicture"/>
+                            @if($device->europeanNorm_id != null)
+                                <img src="{{public_path($device->europeanNorm->picture_path)}}"/>
+                                <button class="btn btn-secondary">Modifier</button>
+                                <button class="btn btn-secondary">Supprimer</button>
+                            @else
+                                <input type="text" name="europeanNormPicture"
+                                       class="form-control">
+                            @endif
                         </div>
                         <div class="form-group">
                             <label for="available">Est-il disponible ? </label>
@@ -79,7 +84,7 @@
                                 <input onclick="hideAvailable()" type="radio" value="1" id="isAvailable"
                                        name="available">
                                 <label for="available">Oui</label>
-                                <input onclick="showAvailable()" type="radio" checked="checked" value="0"
+                                <input onclick="showAvailable(); getValues()" type="radio" checked="checked" value="0"
                                        id="isNotAvailable"
                                        name="available">
                                 <label for="available">Non</label>
@@ -103,43 +108,56 @@
 
                         <div class="form-group" id="saleDate">
                             <label for="saleDate">Date de vente : </label>
-                            <input type="date" name="saleDate" id="saleDate" value=""
+                            <input type="date" name="saleDate" id="saleDate" value="{{$device->saleDate}}"
                                    class="form-control">
                         </div>
 
                         <div class="form-group" id="installationDate">
                             <label for="installationDate">Date d'installation : </label>
-                            <input type="date" name="installationDate"
-                                   id="installationDate" value=""
-                                   class="form-control">
+                            @if($device->installation_id != null)
+                                <input type="date" name="installationDate" value="{{$device->installation->date}}"
+                                       id="installationDate" class="form-control">
+                            @else
+                                <input type="date" name="installationDate" value=""
+                                       id="installationDate" class="form-control">
+                            @endif
                         </div>
 
                         <div class="form-group" id="installationPicture">
                             <label for="installationPicture">Photo de l'installation
                                 : </label>
-                            <input type="file" name="installationPicture"
-                                   id="installationPicture">
+                            @if($device->installation_id != null)
+                                <img src="{{public_path($device->installation->picture_path)}}"/>
+                                <button class="btn btn-secondary">Modifier</button>
+                                <button class="btn btn-secondary">Supprimer</button>
+                            @else
+                                <input type="file" name="installationPicture"
+                                       id="installationPicture">
+                            @endif
                         </div>
 
                         <div class="form-group" id="installationSummary">
                             <label for="installationSummary">Commentaire de
                                 l'installation : </label>
-                            <input type="text" name="installationSummary" value=""
-                                   class="form-control">
-                        </div>
-
-                        <div class="form-group" id="contract">
-                            <label for="contract">Durée du contrat : </label>
-                            <input type="number" name="contract" min="0" max="5"
-                                   value=""
-                                   class="form-control">
+                            @if($device->installation_id != null)
+                                <input type="text" name="installationSummary" value="{{$device->installation->summary}}"
+                                       class="form-control">
+                            @else
+                                <input type="text" name="installationSummary"
+                                       class="form-control">
+                            @endif
                         </div>
 
                         <div class="form-group" id="guarantee">
                             <label for="guarantee">Durée de la garantie : </label>
-                            <input type="number" name="guarantee" min="0" max="10"
-                                   value=""
-                                   class="form-control">
+                            @if($device->guarantee_id != null)
+                                <input type="number" name="guarantee" min="0" max="10"
+                                       value="{{$device->guarantee->initialDuration}}"
+                                       class="form-control">
+                            @else
+                                <input type="number" name="guarantee" min="0" max="10"
+                                       class="form-control">
+                            @endif
                         </div>
 
                         <div class="form-group" id="technician">
@@ -149,13 +167,17 @@
                             <select name="technician" id="technician"
                                     class="custom-select" data-toggle="select">
                                 @foreach($users as $oneTechnician)
-                                    @if($device->installation->user == $oneTechnician)
-                                        <option selected="selected"
+                                    @if($device->installation_id != null)
+                                        @if($device->installation->user == $oneTechnician)
+                                            <option selected="selected"
+                                                    value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
+                                        @else
+                                            <option
                                                 value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
-                                    @else
-                                        <option
-                                            value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
+                                        @endif
                                     @endif
+                                    <option
+                                        value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -183,7 +205,6 @@
                 $('#installationDate').show();
                 $('#installationPicture').show();
                 $('#technician').show();
-                $('#contract').show();
                 $('#installationSummary').show();
                 $('#guarantee').show();
             } else {
@@ -196,7 +217,6 @@
         $('#installationDate').hide();
         $('#installationPicture').hide();
         $('#technician').hide();
-        $('#contract').hide();
         $('#installationSummary').hide();
         $('#guarantee').hide();
 
@@ -221,7 +241,6 @@
                 $('#installationDate').hide();
                 $('#installationPicture').hide();
                 $('#technician').hide();
-                $('#contract').hide();
                 $('#installationSummary').hide();
                 $('#guarantee').hide();
             } else {
@@ -231,13 +250,12 @@
         function showAvailable() {
             if ($('#isNotAvailable').prop('checked')) {
                 $('#customer').show();
-                $('#saleDate').show().val({{$device->saleDate}});
-                $('#installationDate').show().val({{$device->installation->date}});
+                $('#saleDate').show();
+                $('#installationDate').show();
                 $('#installationPicture').show();
                 $('#technician').show();
-                $('#contract').show().val({{$device->contract->initialDuration}});
-                $('#installationSummary').show().val({{$device->installation->summary}});
-                $('#guarantee').show().val({{$device->guarantee->initialDuration}});
+                $('#installationSummary').show();
+                $('#guarantee').show();
             } else {
             }
         }

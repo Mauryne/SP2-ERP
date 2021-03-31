@@ -11,8 +11,8 @@ class RenewalGuaranteeController extends Controller
     public function store(Request $request)
     {
         RenewalGuarantee::create([
-            'duration' => $request->input('renewalGuaranteeDuration'),
-            'signatureDate' => Carbon::parse($request->input('renewalGuaranteeDate'))->format('Y-m-d'),
+            'duration' => $request->input('newRenewalGuaranteeDuration'),
+            'signatureDate' => Carbon::parse($request->input('newRenewalGuaranteeDate'))->format('Y-m-d'),
             'guarantee_id' => $request->input('guarantee'),
         ]);
 

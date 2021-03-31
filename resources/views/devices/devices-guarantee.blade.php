@@ -50,7 +50,7 @@
                                 @endforeach
                             </form>
                         </div>
-                        <a onclick="addLine()" type="button" id="button" class="btn btn-secondary mt-4"> Ajouter un
+                        <a onclick="addLine()" type="button" id="addRenewalGuarantee" class="btn btn-secondary mt-4"> Ajouter un
                             renouvellement de la garantie</a>
                     </div>
                 </div>
@@ -60,7 +60,6 @@
         @section('js')
             <script>
                 function addLine() {
-
                     var form = document.getElementById("form");
                     form.setAttribute('method', 'post');
                     form.setAttribute('action', "{{route('guarantees.store')}}");
@@ -87,25 +86,24 @@
                     otherDivDate.setAttribute('class', 'col mt-2');
 
                     var inputDuration = document.createElement('input');
-                    inputDuration.setAttribute('id', 'renewalGuaranteeDuration');
-                    inputDuration.setAttribute('name', 'renewalGuaranteeDuration');
+                    inputDuration.setAttribute('id', 'newRenewalGuaranteeDuration');
+                    inputDuration.setAttribute('name', 'newRenewalGuaranteeDuration');
                     inputDuration.setAttribute('class', 'form-control');
                     inputDuration.setAttribute('style', 'text-align: center');
                     inputDuration.setAttribute('type', 'number');
-                   // inputDuration.required = true;
 
                     var inputDate = document.createElement('input');
-                    inputDate.setAttribute('id', 'renewalGuaranteeDate');
-                    inputDate.setAttribute('name', 'renewalGuaranteeDate');
+                    inputDate.setAttribute('id', 'newRenewalGuaranteeDate');
+                    inputDate.setAttribute('name', 'newRenewalGuaranteeDate');
                     inputDate.setAttribute('class', 'form-control');
                     inputDate.setAttribute('style', 'text-align: center');
                     inputDate.setAttribute('type', 'date');
-                    //inputDate.required = true;
 
-                    var button = document.createElement('a');
+                    var button = document.createElement('button');
                     button.setAttribute('class', 'btn btn-success mt-2 float-right');
                     button.innerHTML = 'Valider';
-                    button.setAttribute('onclick', "document.getElementById('form').submit(); return false;");
+                    button.setAttribute('onclick', 'return validateForm()');
+                    button.setAttribute('onsubmit', "document.getElementById('form').submit(); return false;");
 
                     form.appendChild(principalDiv);
                     principalDiv.appendChild(guarantee);
@@ -117,6 +115,18 @@
                     otherDivDate.appendChild(inputDate);
 
                     otherDivDate.appendChild(button);
+
+                    document.getElementById("addRenewalGuarantee").removeAttribute('onclick');
+                }
+
+                function validateForm() {
+                    var a = document.forms["form"]["newRenewalGuaranteeDate"].value;
+                    var b = document.forms["form"]["newRenewalGuaranteeDuration"].value;
+
+                    if (a == null || a === ""|| b == null || b === "") {
+                        alert("Veuillez remplir tous les champs.");
+                        return false;
+                    }
                 }
             </script>
 @endsection

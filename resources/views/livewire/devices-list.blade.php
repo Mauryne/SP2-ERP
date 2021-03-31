@@ -97,7 +97,8 @@
                                     style="text-align: center">{{$device->productReference}}</td>
                                 @if($device->europeanNorm_id != null)
                                     <td class="tables-europeanNorm" style="text-align: center">
-                                        <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                        <button onclick="getEuropeanNormPicture({{json_encode($device->europeanNorm->picture_path)}});"
+                                                type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
                                                 data-bs-target="#europeanNormPicture">
                                             Voir la photo
                                         </button>
@@ -110,9 +111,7 @@
                                                         <h4 class="modal-title">Photo de la norme européenne</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <img
-                                                            src="{{asset('storage')}}/{{$device->europeanNorm->picture_path}}"
-                                                            width="500" height="350">
+                                                        <img id="picEuropeanNorm" class="img-fluid">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
@@ -149,7 +148,8 @@
                                             - {{$device->installation->user->lastName}} {{$device->installation->user->firstName}}
                                         </div>
                                         <div style="float: right" class="button mt-1 ml-3">
-                                            <button type="button" class="btn btn-sm btn-secondary"
+                                            <button onclick="getInstallationPicture({{json_encode($device->installation->picture_path)}});"
+                                                type="button" class="btn btn-sm btn-secondary"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#installationPicture">
                                                 Voir la photo
@@ -164,9 +164,7 @@
                                                         <h4 class="modal-title">Photo de l'installation</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <img
-                                                            src="{{asset('storage/'.$device->installation->picture_path)}}"
-                                                            width="500" height="350">
+                                                        <img id="picInstallation" class="img-fluid">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
@@ -182,12 +180,12 @@
                                 @endif
                                 <td class="tables-update" style="text-align: center">
                                     <a href="{{route('devices.edit', $device->id )}}" type="button"
-                                       class="fe fe-edit btn btn-sm btn-secondary">
+                                       class="btn btn-sm btn-secondary"><span class="fe fe-edit"/>
                                     </a>
                                     @if($device->guarantee_id != null)
-                                    <a href="{{route('devices.guarantee', $device->id )}}" type="button"
-                                       class="btn btn-sm btn-secondary"> Garantie
-                                    </a>
+                                        <a href="{{route('devices.guarantee', $device->id )}}" type="button"
+                                           class="btn btn-sm btn-secondary"> Garantie
+                                        </a>
                                     @endif
                                     @if($device->installation_id != null)
                                         <a href="{{route('devices.contract', $device->id )}}" type="button"
@@ -214,5 +212,15 @@
         }
 
         feather.replace();
+
+        function getEuropeanNormPicture(path) {
+            var img = document.getElementById('picEuropeanNorm');
+            img.setAttribute('src', 'storage/' + path);
+        }
+
+        function getInstallationPicture(path) {
+            var img = document.getElementById('picInstallation');
+            img.setAttribute('src', 'storage/' + path);
+        }
     </script>
 @endsection

@@ -63,11 +63,10 @@
                                 : </label>
                             @if($device->europeanNorm_id != null)
                                 <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#europeanNormPictures">
-                                    Voir la photo
+                                        data-bs-target="#europeanNormPicture">Voir la photo
                                 </button>
 
-                                <div class="modal fade" id="europeanNormPictures" tabindex="-1"
+                                <div class="modal fade" tabindex="-1"
                                      aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -75,24 +74,26 @@
                                                 <h4 class="modal-title">Photo de la norme européenne</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{asset('storage')}}/{{$device->europeanNorm->picture_path}}"
-                                                     class="img-fluid">
-                                                <div class="mt-4" style="text-align: right">
-                                                    <a onclick="updateEuropeanNormPicture()"
-                                                       id="updateEuropeanNormPicture"
-                                                       class="btn btn-secondary">Modifier</a>
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Fermer
-                                                    </button>
-                                                </div>
+                                                <img id="picEuropeanNorm"
+                                                     src="{{asset('storage')}}/{{$device->europeanNorm->picture_path}}"
+                                                     width="500" height="350">
                                             </div>
-                                            <div id="europeanNormModal" class="modal-footer"></div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Fermer
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                {{--                                --}}
+                                {{--                                --}}
+                                {{--                                <img src="{{asset('storage')}}/{{$device->europeanNorm->picture_path}}" width="50" height="35"/>--}}
+                                {{--                                <button class="btn btn-secondary">Modifier</button>--}}
+                                {{--                                <button class="btn btn-secondary">Supprimer</button>--}}
                             @else
-                                <input type="file" class="form-control" name="europeanNormPicture"
-                                       id="europeanNormPicture"/>
+                                <input type="text" name="europeanNormPicture"
+                                       class="form-control">
                             @endif
                         </div>
                         <div class="form-group">
@@ -152,37 +153,12 @@
                             <label for="installationPicture">Photo de l'installation
                                 : </label>
                             @if($device->installation_id != null)
-                                <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#installationPictures">
-                                    Voir la photo
-                                </button>
-
-                                <div class="modal fade" id="installationPictures" tabindex="-1"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Photo de l'installation</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <img src="{{asset('storage')}}/{{$device->installation->picture_path}}"
-                                                     class="img-fluid">
-                                                <div class="mt-4" style="text-align: right">
-                                                    <a onclick="updateInstallationPicture()"
-                                                       id="updateInstallationPicture"
-                                                       class="btn btn-secondary">Modifier</a>
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Fermer
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div id="installationModal" class="modal-footer"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <img src="{{public_path($device->installation->picture_path)}}"/>
+                                <button class="btn btn-secondary">Modifier</button>
+                                <button class="btn btn-secondary">Supprimer</button>
                             @else
-                                <input type="file" class="form-control" name="installationPicture"
-                                       id="installationPicture"/>
+                                <input type="file" name="installationPicture"
+                                       id="installationPicture">
                             @endif
                         </div>
 
@@ -311,78 +287,6 @@
                 $('#installationSummary').show();
                 $('#guarantee').show();
             } else {
-            }
-        }
-
-        function updateEuropeanNormPicture() {
-            var modalFooter = document.getElementById('europeanNormModal');
-
-            var form = document.createElement('form');
-            form.setAttribute('class', 'w-100 h-125');
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', "#");
-
-            var input = document.createElement('input');
-            input.setAttribute('class', 'float-left');
-            input.setAttribute('type', 'file');
-            input.setAttribute('name', 'newEuropeanNormPicture');
-            input.setAttribute('id', 'newEuropeanNormPicture');
-
-            var button = document.createElement('button');
-            button.setAttribute('class', 'btn btn-block btn-success float-right mt-4');
-            button.innerHTML = 'Valider';
-            button.setAttribute('onclick', 'return validateFormEuropeanNorm()');
-            button.setAttribute('onsubmit', "document.getElementById('form').submit(); return false;");
-
-            modalFooter.appendChild(form);
-            form.appendChild(input);
-            form.appendChild(button);
-
-            document.getElementById("updateEuropeanNormPicture").removeAttribute('onclick');
-        }
-
-        function validateFormEuropeanNorm() {
-            var a = document.forms["form"]["newEuropeanNormPicture"].value;
-
-            if (a == null || a === "") {
-                alert("Veuillez choisir une image valide.");
-                return false;
-            }
-        }
-
-        function updateInstallationPicture() {
-            var modalFooter = document.getElementById('installationModal');
-
-            var form = document.createElement('form');
-            form.setAttribute('class', 'w-100 h-125');
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', "#");
-
-            var input = document.createElement('input');
-            input.setAttribute('class', 'float-left');
-            input.setAttribute('type', 'file');
-            input.setAttribute('name', 'newInstallationPicture');
-            input.setAttribute('id', 'newInstallationPicture');
-
-            var button = document.createElement('button');
-            button.setAttribute('class', 'btn btn-block btn-success float-right mt-4');
-            button.innerHTML = 'Valider';
-            button.setAttribute('onclick', 'return validateFormInstallation()');
-            button.setAttribute('onsubmit', "document.getElementById('form').submit(); return false;");
-
-            modalFooter.appendChild(form);
-            form.appendChild(input);
-            form.appendChild(button);
-
-            document.getElementById("updateInstallationPicture").removeAttribute('onclick');
-        }
-
-        function validateFormInstallation() {
-            var a = document.forms["form"]["newInstallationPicture"].value;
-
-            if (a == null || a === "") {
-                alert("Veuillez choisir une image valide.");
-                return false;
             }
         }
     </script>

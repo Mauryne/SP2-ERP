@@ -36,8 +36,7 @@ class InterventionController extends Controller
             'device_id' => $request->input('device'),
         ]);
 
-        foreach($request->user as $user)
-        {
+        foreach ($request->user as $user) {
             InterventionUser::create(
                 ['user_id' => $user,
                     'maintenance_id' => $intervention->id,
@@ -51,14 +50,11 @@ class InterventionController extends Controller
         $intervention = Intervention::find($id);
         $devices = Device::all()->where('installation_id', '!=', null);
         $users = User::all();
-        $interventionsUser = InterventionUser::all();
-        $arrayValue = array();
-        $arrayOthers = array();
-        $arrayAll = array();
-        return view('interventions/interventions-update')->with(compact('users', 'devices', 'intervention', 'interventionsUser', 'arrayAll' , 'arrayOthers', 'arrayValue'));
+
+        return view('interventions/interventions-update')->with(compact('users', 'devices', 'intervention'));
     }
 
-    public function update (Request $request, $id)
+    public function update(Request $request, $id)
     {
         $intervention = Intervention::find($id);
         $intervention->streetNumber = $request->input('streetNumber');
@@ -73,8 +69,7 @@ class InterventionController extends Controller
 
         InterventionUser::where('maintenance_id', $id)->delete();
 
-        foreach($request->user as $user)
-        {
+        foreach ($request->user as $user) {
             InterventionUser::create(
                 ['user_id' => $user,
                     'maintenance_id' => $id,

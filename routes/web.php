@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\EuropeanNormController;
 use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\RenewalContractController;
 use App\Http\Controllers\RenewalGuaranteeController;
@@ -40,7 +41,9 @@ Route::get('/devices/{id}/contract', [DeviceController::class, 'contract'])->nam
 Route::post('/devices/contracts/store', [RenewalContractController::class, 'store'])->name('contracts.store')->middleware('auth');
 Route::get('/devices/{id}/guarantee', [DeviceController::class, 'guarantee'])->name('devices.guarantee')->middleware('auth');
 Route::post('/devices/guarantees/store', [RenewalGuaranteeController::class, 'store'])->name('guarantees.store')->middleware('auth');
+Route::post('/devices/europeanNorm/picture/store', [EuropeanNormController::class, 'store'])->name('europeanNorm.store')->middleware('auth');
 // Route::post('/interventions/{id}/update', [InterventionController::class, 'update'])->name('interventions.update')->middleware('auth');
+
 
 Route::get('/interventions', [InterventionController::class, 'index'])->name('interventions')->middleware('auth');
 Route::get('/interventions/{id}/show/map', InterventionMap::class)->name('interventions.map')->middleware('auth');

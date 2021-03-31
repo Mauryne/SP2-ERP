@@ -19,7 +19,7 @@
 
     <link href="{{ asset('/assets/libs/select2/dist/css/select2.min.css')}}" rel="stylesheet" />
 
-    <link href="{{ asset('/assets/fonts/feather.css')}}" rel="stylesheet" />
+    <link href="{{ asset('/assets/fonts/feather/feather.css')}}" rel="stylesheet" />
 
 
     @livewireStyles

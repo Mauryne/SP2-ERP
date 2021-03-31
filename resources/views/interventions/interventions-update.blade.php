@@ -85,20 +85,13 @@
                             <select id="user" name="user[]" class="form-control" data-toggle="select"
                                     multiple="multiple" required>
                                 @foreach($users as $user)
-                                    @foreach($interventionsUser as $interventionUser)
-                                        @if(!in_array($user->id, $arrayValue))
-                                            @if($intervention->id == $interventionUser->maintenance_id && $user->id == $interventionUser->user_id)
-                                                <option selected="selected"
-                                                        value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
-                                                {{$arrayValue[] += $user->id}}
-                                            @endif
-                                            @if(!in_array($user->id, $arrayOthers))
-                                                <option
-                                                    value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
-                                                {{$arrayOthers[] += $user->id}}
-                                            @endif
-                                        @endif
-                                    @endforeach
+                                    @if($intervention->users()->get()->contains($user->id))
+                                        <option selected="selected"
+                                                value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
+                                    @else
+                                        <option
+                                            value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

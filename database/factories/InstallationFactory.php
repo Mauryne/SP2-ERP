@@ -23,10 +23,7 @@ class InstallationFactory extends Factory
     public function definition()
     {
         return [
-            'date' => $this->faker->date('Y-m-d'),
-            'picture_path' => '1578_besd_afgf.jpg',
-            'summary' => $this->faker->word,
-            'user_id' => 1,
+           //
         ];
     }
 }

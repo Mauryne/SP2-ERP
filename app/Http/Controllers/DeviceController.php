@@ -41,67 +41,96 @@ class DeviceController extends Controller
 
     public function store(Request $request)
     {
-        //self::saveFile($request->input('europeanNormPicture'), '');
-
-        if ($request->hasFile('europeanNormPicture')) {
-            //$europeanNormRequest->validated();
-            $europeanNormPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->europeanNormPicture->extension();
-            $request->europeanNormPicture->move(public_path('storage'), $europeanNormPicture);
-            $europeanNorm = EuropeanNorm::create([
-                'picture_path' => $europeanNormPicture,
-            ]);
-        }
-
         if ($request->hasFile('installationPicture')) {
             //$installationRequest->validated();
-            $installationPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->installationPicture->extension();
-            $request->installationPicture->move(public_path('storage'), $installationPicture);
+            $installationPicture = 'Installation_'. time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->installationPicture->extension();
+            $request->installationPicture->move(('storage'), $installationPicture);
             $installation = Installation::create([
                 'picture_path' => $installationPicture,
                 'date' => Carbon::parse($request->input('installationDate'))->format('Y-m-d'),
                 'summary' => $request->input('installationSummary'),
                 'user_id' => $request->input('technician'),
             ]);
-        }
 
-        if (null != $request->installationSummary) {
             //$contractRequest->validated();
             $contract = Contract::create([
                 'initialDuration' => $request->input('contract'),
                 'customer_id' => $request->input('customer'),
             ]);
 
-            //$deviceRequest->validated();
-            $device = Device::create([
-                'serialNumber' => strtoupper($request->input('serialNumber')),
-                'productReference' => strtoupper($request->input('productReference')),
-                'saleDate' => Carbon::parse($request->input('saleDate'))->format('Y-m-d'),
-                'installation_id' => $installation->id,
-                'type_id' => $request->input('type'),
-                'customer_id' => $request->input('customer'),
-                'europeanNorm_id' => $europeanNorm->id,
-                'contract_id' => $contract->id,
-            ]);
-
             //$guaranteeRequest->validated();
-            Guarantee::create([
+            $guarantee = Guarantee::create([
                 'initialDuration' => $request->input('guarantee'),
-                'device_id' => $device->id,
             ]);
-        } else {
-            //$deviceRequest->validated();
-            Device::create([
-                'serialNumber' => strtoupper($request->input('serialNumber')),
-                'productReference' => strtoupper($request->input('productReference')),
-                'saleDate' => null,
-                'installation_id' => null,
-                'type_id' => $request->input('type'),
-                'customer_id' => null,
-                'europeanNorm_id' => null,
-                'contract_id' => null,
-            ]);
-        }
 
+            if ($request->hasFile('europeanNormPicture')) {
+                //$europeanNormRequest->validated();
+                $europeanNormPicture = 'European_norm_'. time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->europeanNormPicture->extension();
+                $request->europeanNormPicture->move(public_path('storage'), $europeanNormPicture);
+                $europeanNorm = EuropeanNorm::create([
+                    'picture_path' => $europeanNormPicture,
+                ]);
+                //$deviceRequest->validated();
+                Device::create([
+                    'serialNumber' => strtoupper($request->input('serialNumber')),
+                    'productReference' => strtoupper($request->input('productReference')),
+                    'saleDate' => Carbon::parse($request->input('saleDate'))->format('Y-m-d'),
+                    'installation_id' => $installation->id,
+                    'type_id' => $request->input('type'),
+                    'customer_id' => $request->input('customer'),
+                    'europeanNorm_id' => $europeanNorm->id,
+                    'contract_id' => $contract->id,
+                    'guarantee_id' => $guarantee->id,
+                ]);
+            } else {
+                //$deviceRequest->validated();
+                Device::create([
+                    'serialNumber' => strtoupper($request->input('serialNumber')),
+                    'productReference' => strtoupper($request->input('productReference')),
+                    'saleDate' => Carbon::parse($request->input('saleDate'))->format('Y-m-d'),
+                    'installation_id' => $installation->id,
+                    'type_id' => $request->input('type'),
+                    'customer_id' => $request->input('customer'),
+                    'europeanNorm_id' => null,
+                    'contract_id' => $contract->id,
+                    'guarantee_id' => $guarantee->id,
+                ]);
+            }
+        } else {
+            if ($request->hasFile('europeanNormPicture')) {
+                //$europeanNormRequest->validated();
+                $europeanNormPicture = time() . '_' . $request->serialNumber . '_' . $request->productReference . '.' . $request->europeanNormPicture->extension();
+                $request->europeanNormPicture->move(public_path('storage'), $europeanNormPicture);
+                $europeanNorm = EuropeanNorm::create([
+                    'picture_path' => $europeanNormPicture,
+                ]);
+                //$deviceRequest->validated();
+                Device::create([
+                    'serialNumber' => strtoupper($request->input('serialNumber')),
+                    'productReference' => strtoupper($request->input('productReference')),
+                    'saleDate' => null,
+                    'installation_id' => null,
+                    'type_id' => $request->input('type'),
+                    'customer_id' => null,
+                    'europeanNorm_id' => $europeanNorm->id,
+                    'contract_id' => null,
+                    'guarantee_id' => null,
+                ]);
+            } else {
+                //$deviceRequest->validated();
+                Device::create([
+                    'serialNumber' => strtoupper($request->input('serialNumber')),
+                    'productReference' => strtoupper($request->input('productReference')),
+                    'saleDate' => null,
+                    'installation_id' => null,
+                    'type_id' => $request->input('type'),
+                    'customer_id' => null,
+                    'europeanNorm_id' => null,
+                    'contract_id' => null,
+                    'guarantee_id' => null,
+                ]);
+            }
+        }
         return redirect()->route('devices');
     }
 
@@ -114,6 +143,51 @@ class DeviceController extends Controller
         $customers = Customer::all();
         return view('devices/devices-updates')->with(compact('users', 'types', 'customers', 'device'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $device = Device::find($id);
+        $device->serialNumber = $request->input('serialNumber');
+        $device->productReference = $request->input('productReference');
+        // en fonction des choix
+        $device->saleDate = Carbon::parse($request->input(''))->format('Y-m-d');
+        $device->installation_id = $request->input('');
+        $device->europeanNorm_id = $request->input('');
+        $device->contract_id = $request->input('');
+        $device->guarantee_id = $request->input('');
+        $device->save();
+
+        InterventionUser::where('maintenance_id', $id)->delete();
+
+        foreach ($request->user as $user) {
+            InterventionUser::create(
+                ['user_id' => $user,
+                    'maintenance_id' => $id,
+                ]);
+        }
+
+        return redirect('devices');
+    }
+
+    public function contract($id)
+    {
+        $device = Device::find($id);
+        $renewalsContract = RenewalContract::all();
+        return view('devices/devices-contract')->with(compact('device', 'renewalsContract'));
+    }
+
+    public function guarantee($id)
+    {
+        $device = Device::find($id);
+        $renewalsGuarantee = RenewalGuarantee::all();
+        return view('devices/devices-guarantee')->with(compact('device', 'renewalsGuarantee'));
+    }
+
+
+    // self::saveFile($request->input('europeanNormPicture'), 'storage');
+//        $europeanNorm = EuropeanNorm::create([
+//            'picture_path' => $europeanNormPicture,
+//        ]);
 
 //    public static function saveFile($file, string $path) : ?string
 //    {
@@ -130,17 +204,4 @@ class DeviceController extends Controller
 //        return Storage::disk('public')->exists($path) ? Storage::disk('public')->delete($path) : false;
 //    }
 
-    public function contract($id)
-    {
-        $device = Device::find($id);
-        $renewalsContract = RenewalContract::all();
-        return view('devices/devices-contract')->with(compact('device', 'renewalsContract'));
-    }
-
-    public function guarantee($id)
-    {
-        $device = Device::find($id);
-        $renewalsGuarantee = RenewalGuarantee::all();
-        return view('devices/devices-guarantee')->with(compact('device', 'renewalsGuarantee'));
-    }
 }

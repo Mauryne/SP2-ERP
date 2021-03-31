@@ -23,6 +23,7 @@
                                 <div class="col" style="text-align: center">Durée</div>
                                 <div class="col" style="text-align: center">Date de signature</div>
                             </div>
+                            <div id="essai">
                             <form id="form">
                                 @foreach($renewalsContract as $renewalContract)
                                     @if($renewalContract->contract_id == $device->contract_id)
@@ -50,17 +51,17 @@
                                 @endforeach
                             </form>
                         </div>
-                        <a onclick="addLine()" type="button" id="button" class="btn btn-secondary mt-4"> Ajouter un
+                        <a onclick="addLine()" type="button" id="addRenewalContract" class="btn btn-secondary mt-4"> Ajouter un
                             renouvellement de contrat</a>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
         @endsection
         @section('js')
             <script>
                 function addLine() {
-
                     var form = document.getElementById("form");
                     form.setAttribute('method', 'post');
                     form.setAttribute('action', "{{route('contracts.store')}}");
@@ -87,25 +88,24 @@
                     otherDivDate.setAttribute('class', 'col mt-2');
 
                     var inputDuration = document.createElement('input');
-                    inputDuration.setAttribute('id', 'renewalContractDuration');
-                    inputDuration.setAttribute('name', 'renewalContractDuration');
+                    inputDuration.setAttribute('id', 'newRenewalContractDuration');
+                    inputDuration.setAttribute('name', 'newRenewalContractDuration');
                     inputDuration.setAttribute('class', 'form-control');
                     inputDuration.setAttribute('style', 'text-align: center');
                     inputDuration.setAttribute('type', 'number');
-                  //  inputDuration.setAttribute('required', 'required');
 
                     var inputDate = document.createElement('input');
-                    inputDate.setAttribute('id', 'renewalContractDate');
-                    inputDate.setAttribute('name', 'renewalContractDate');
+                    inputDate.setAttribute('id', 'newRenewalContractDate');
+                    inputDate.setAttribute('name', 'newRenewalContractDate');
                     inputDate.setAttribute('class', 'form-control');
                     inputDate.setAttribute('style', 'text-align: center');
                     inputDate.setAttribute('type', 'date');
-                  //  inputDate.setAttribute('required', 'required');
 
-                    var button = document.createElement('a');
+                    var button = document.createElement('button');
                     button.setAttribute('class', 'btn btn-success mt-2 float-right');
                     button.innerHTML = 'Valider';
-                    button.setAttribute('onclick', "document.getElementById('form').submit(); return false;");
+                    button.setAttribute('onclick', 'return validateForm()');
+                    button.setAttribute('onsubmit', "document.getElementById('form').submit(); return false;");
 
                     form.appendChild(principalDiv);
                     principalDiv.appendChild(contract);
@@ -117,7 +117,18 @@
                     otherDivDate.appendChild(inputDate);
 
                     otherDivDate.appendChild(button);
+
+                    document.getElementById("addRenewalContract").removeAttribute('onclick');
                 }
 
+                function validateForm() {
+                    var a = document.forms["form"]["newRenewalContractDate"].value;
+                    var b = document.forms["form"]["newRenewalContractDuration"].value;
+
+                    if (a == null || a === ""|| b == null || b === "") {
+                        alert("Veuillez remplir tous les champs.");
+                        return false;
+                    }
+                }
             </script>
 @endsection

@@ -22,7 +22,7 @@ class EuropeanNormFactory extends Factory
     public function definition()
     {
         return [
-            'picture_path' => '1578_besd_afgf.jpg',
+            //
         ];
     }
 }

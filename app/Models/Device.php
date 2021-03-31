@@ -23,6 +23,7 @@ class Device extends Model
         'customer_id',
         'europeanNorm_id',
         'contract_id',
+        'guarantee_id',
     ];
 
     public function scopeSearch($query, $val)

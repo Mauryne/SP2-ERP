@@ -111,7 +111,7 @@
                                     style="text-align: center">{{$intervention->comment}}</td>
                                 <td class="tables-update" style="text-align: center">
                                     <a href="{{route('interventions.edit', $intervention->id )}}" type="button"
-                                       class="fe fe-edit btn btn-sm btn-secondary">
+                                       class="btn btn-sm btn-secondary"><span class="fe fe-edit"/>
                                     </a>
                                 </td>
                             </tr>

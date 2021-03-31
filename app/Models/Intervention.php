@@ -37,12 +37,10 @@ class Intervention extends Model
         if ($val == "oui" or $val == "Oui") {
             return $query
                 ->where('externalProvider', '=', 1);
-        } elseif ($val == "non" or $val == "Non")
-        {
+        } elseif ($val == "non" or $val == "Non") {
             return $query
                 ->where('externalProvider', '=', 0);
-        }
-        else {
+        } else {
             return $query
                 ->where('streetNumber', 'LIKE', '%' . $val . '%')
                 ->orWhere('street', 'LIKE', '%' . $val . '%')
@@ -56,7 +54,7 @@ class Intervention extends Model
                 ->orWhereIn('id', (InterventionUser::select('maintenance_id')
                     ->whereIn('user_id', User::select('id')
                         ->where('lastName', 'LIKE', '%' . $val . '%')
-                        ->where('firstName', 'LIKE', '%' . $val . '%'))));
+                        ->orWhere('firstName', 'LIKE', '%' . $val . '%'))));
         }
     }
 

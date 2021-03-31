@@ -17,7 +17,7 @@ class RenewalGuarantee extends Model
     protected $fillable = [
         'duration',
         'signatureDate',
-        'contract_id',
+        'guarantee_id',
     ];
 
     /**

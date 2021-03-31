@@ -8,7 +8,7 @@
                         <div class="col">
                             <!-- Title -->
                             <h4 class="card-header-title ml-auto">
-                                Utilisateurs
+                                Clients
                             </h4>
                         </div>
 
@@ -64,6 +64,9 @@
                                 style="text-align: center; cursor: pointer;">
                                 <a>Adresse mail</a>
                             </th>
+                            <th class="text-muted list-sort" style="text-align: center; cursor: pointer;">
+                                <a>Action</a>
+                            </th>
                         </tr>
                         </thead>
                         <tbody class="list">
@@ -77,6 +80,11 @@
                                     style="text-align: center">{{$customer->telephoneNumber}}</td>
                                 <td class="tables-role"
                                     style="text-align: center">{{$customer->email}}</td>
+                                <td class="tables-update" style="text-align: center">
+                                    <a href="{{route('customers.edit', $customer->id )}}" type="button"
+                                       class="fe fe-edit btn btn-sm btn-secondary">
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

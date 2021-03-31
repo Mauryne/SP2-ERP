@@ -110,9 +110,10 @@
                                 <td class="tables-comment"
                                     style="text-align: center">{{$intervention->comment}}</td>
                                 <td class="tables-update" style="text-align: center">
-                                    <a href="{{route('interventions.update', $intervention->id )}}" type="button"
+                                    <a href="{{route('interventions.edit', $intervention->id )}}" type="button"
                                        class="fe fe-edit btn btn-sm btn-secondary">
                                     </a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

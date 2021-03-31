@@ -61,10 +61,6 @@
                                 style="text-align: center; cursor: pointer;">
                                 <a>Référence</a>
                             </th>
-                            <th class="text-muted list-sort" wire:click="sortBy('guarantee_id')"
-                                style="text-align: center; cursor: pointer;">
-                                <a>Durée de la garantie</a>
-                            </th>
                             <th class="text-muted list-sort" wire:click="sortBy('europeanNorm_id')"
                                 style="text-align: center; cursor: pointer;">
                                 <a>Norme européenne ?</a>
@@ -99,15 +95,6 @@
                                     style="text-align: center">{{$device->serialNumber}}</td>
                                 <td class="tables-productReference"
                                     style="text-align: center">{{$device->productReference}}</td>
-                                @if($device->guarantee != null)
-                                    <td class="tables-type"
-                                        style="text-align: center">{{$device->guarantee->initialDuration}} an(s)
-                                    </td>
-                                @else
-                                    <td class="tables-type"
-                                        style="text-align: center">/
-                                    </td>
-                                @endif
                                 @if($device->europeanNorm_id != null)
                                     <td class="tables-europeanNorm" style="text-align: center">
                                         <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
@@ -194,9 +181,14 @@
                                     <td class="tables-installation" style="text-align: center">/</td>
                                 @endif
                                 <td class="tables-update" style="text-align: center">
-                                    <a href="{{route('devices.update', $device->id )}}" type="button"
+                                    <a href="{{route('devices.edit', $device->id )}}" type="button"
                                        class="fe fe-edit btn btn-sm btn-secondary">
                                     </a>
+                                    @if($device->guarantee_id != null)
+                                    <a href="{{route('devices.guarantee', $device->id )}}" type="button"
+                                       class="btn btn-sm btn-secondary"> Garantie
+                                    </a>
+                                    @endif
                                     @if($device->installation_id != null)
                                         <a href="{{route('devices.contract', $device->id )}}" type="button"
                                            class="btn btn-sm btn-secondary"> Contrat

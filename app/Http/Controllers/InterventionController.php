@@ -46,12 +46,41 @@ class InterventionController extends Controller
         return redirect('interventions');
     }
 
-    public function update($id)
+    public function edit($id)
     {
         $intervention = Intervention::find($id);
         $devices = Device::all()->where('installation_id', '!=', null);
         $users = User::all();
         $interventionsUser = InterventionUser::all();
-        return view('interventions/interventions-update')->with(compact('users', 'devices', 'intervention', 'interventionsUser'));
+        $arrayValue = array();
+        $arrayOthers = array();
+        $arrayAll = array();
+        return view('interventions/interventions-update')->with(compact('users', 'devices', 'intervention', 'interventionsUser', 'arrayAll' , 'arrayOthers', 'arrayValue'));
+    }
+
+    public function update (Request $request, $id)
+    {
+        $intervention = Intervention::find($id);
+        $intervention->streetNumber = $request->input('streetNumber');
+        $intervention->street = $request->input('street');
+        $intervention->postalCode = $request->input('postalCode');
+        $intervention->city = $request->input('city');
+        $intervention->date = Carbon::parse($request->input('date'))->format('Y-m-d');
+        $intervention->comment = ucfirst(strtolower($request->input('comment')));
+        $intervention->externalProvider = $request->input('externalProvider');
+        $intervention->device_id = $request->input('device');
+        $intervention->save();
+
+        InterventionUser::where('maintenance_id', $id)->delete();
+
+        foreach($request->user as $user)
+        {
+            InterventionUser::create(
+                ['user_id' => $user,
+                    'maintenance_id' => $id,
+                ]);
+        }
+
+        return redirect('interventions');
     }
 }

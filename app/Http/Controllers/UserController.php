@@ -33,4 +33,40 @@ class UserController extends Controller
         ]);
         return redirect('users');
     }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+        $roles = Role::all();
+        return view('users/users-update')->with(compact('user', 'roles'));
+    }
+
+    public function editPassword($id)
+    {
+        $user = User::find($id);
+        return view('users/users-password-update')->with(compact('user'));
+    }
+
+    public function update (Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->lastName = $request->input('lastName');
+        $user->firstName = $request->input('firstName');
+        $user->email = $request->input('email');
+        $user->telephoneNumber = $request->input('telephoneNumber');
+        $user->role_id = $request->input('role');
+        $user->save();
+
+        return redirect('users');
+    }
+
+    public function updatePassword (Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+
+        return redirect('users');
+    }
+
 }

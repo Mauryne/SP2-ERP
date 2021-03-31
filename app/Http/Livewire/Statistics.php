@@ -100,12 +100,12 @@ class Statistics extends Component
 
         $this->allSales = DB::select("SELECT SUM(price) AS price FROM sales WHERE date LIKE '" . $this->year . "-" . $this->monthFigure . "%'");
 
-        $this->result = (float)$this->allPurchases[0]->price - (float)$this->allSales[0]->price;
+        $this->result = (float)$this->allSales[0]->price - (float)$this->allPurchases[0]->price;
     }
 
     public function render()
     {
-        $this->showYears();
+        //$this->showYears();
         $this->showMonths();
         $this->showPrice();
 

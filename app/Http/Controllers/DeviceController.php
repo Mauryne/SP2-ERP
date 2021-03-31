@@ -15,6 +15,7 @@ use App\Models\EuropeanNorm;
 use App\Models\Guarantee;
 use App\Models\Installation;
 use App\Models\RenewalContract;
+use App\Models\RenewalGuarantee;
 use App\Models\Type;
 use App\Models\User;
 use Carbon\Carbon;
@@ -104,7 +105,7 @@ class DeviceController extends Controller
         return redirect()->route('devices');
     }
 
-    public function update($id)
+    public function edit($id)
     {
         // Pb update : renvoie mauvaise vue si on écrit devices-update
         $device = Device::find($id);
@@ -134,5 +135,12 @@ class DeviceController extends Controller
         $device = Device::find($id);
         $renewalsContract = RenewalContract::all();
         return view('devices/devices-contract')->with(compact('device', 'renewalsContract'));
+    }
+
+    public function guarantee($id)
+    {
+        $device = Device::find($id);
+        $renewalsGuarantee = RenewalGuarantee::all();
+        return view('devices/devices-guarantee')->with(compact('device', 'renewalsGuarantee'));
     }
 }

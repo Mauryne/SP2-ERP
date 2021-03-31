@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="card col-sm-6 mt-5">
                 <div class="card-body">
-                    <form action="#" method="post"
+                    <form action="{{route('interventions.update', $intervention->id )}}" method="post"
                           enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
@@ -86,13 +86,16 @@
                                     multiple="multiple" required>
                                 @foreach($users as $user)
                                     @foreach($interventionsUser as $interventionUser)
-                                        @if($intervention->id == $interventionUser->maintenance_id)
-                                            @if($user->id == $interventionUser->user_id)
+                                        @if(!in_array($user->id, $arrayValue))
+                                            @if($intervention->id == $interventionUser->maintenance_id && $user->id == $interventionUser->user_id)
                                                 <option selected="selected"
                                                         value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
-                                            @else
+                                                {{$arrayValue[] += $user->id}}
+                                            @endif
+                                            @if(!in_array($user->id, $arrayOthers))
                                                 <option
                                                     value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
+                                                {{$arrayOthers[] += $user->id}}
                                             @endif
                                         @endif
                                     @endforeach

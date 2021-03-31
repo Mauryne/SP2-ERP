@@ -30,4 +30,25 @@ class CustomerController extends Controller
         ]);
         return redirect('customers');
     }
+
+    public function edit($id)
+    {
+        $customer = Customer::find($id);
+        return view('customers/customers-update')->with(compact('customer'));
+    }
+
+    public function update (Request $request, $id)
+    {
+        $customer = Customer::find($id);
+        $customer->name = $request->input('name');
+        $customer->streetNumber = $request->input('streetNumber');
+        $customer->street = $request->input('street');
+        $customer->postalCode = $request->input('postalCode');
+        $customer->city = $request->input('city');
+        $customer->telephoneNumber = $request->input('telephoneNumber');
+        $customer->email = $request->input('email');
+        $customer->save();
+
+        return redirect('customers');
+    }
 }

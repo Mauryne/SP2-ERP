@@ -64,6 +64,9 @@
                                 style="text-align: center; cursor: pointer;">
                                 <a>Rôle</a>
                             </th>
+                            <th class="text-muted list-sort" style="text-align: center; cursor: pointer;">
+                                <a>Action</a>
+                            </th>
                         </tr>
                         </thead>
                         <tbody class="list">
@@ -77,6 +80,11 @@
                                     style="text-align: center">{{$user->telephoneNumber}}</td>
                                 <td class="tables-role"
                                     style="text-align: center">{{$user->role->name}}</td>
+                                <td class="tables-update" style="text-align: center">
+                                    <a href="{{route('users.edit', $user->id )}}" type="button"
+                                       class="fe fe-edit btn btn-sm btn-secondary">
+                                    </a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

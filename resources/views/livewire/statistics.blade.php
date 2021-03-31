@@ -1,7 +1,8 @@
 <div class="container-fluid ml-7 mt-4">
     <div class="row justify-content-center">
         <div class="col-md-9 mt-4 ml-2">
-            <div class="card">
+            <!-- Card -->
+            <div class="card card-fill">
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -35,10 +36,11 @@
                         <div class="col-md-2">
                             <select wire:model.lazy="monthLetter" id="month" class="custom-select form-select-sm">
                                 @foreach($allMonths as $oneMonth)
-                                    <option onclick="getMonth()" value="{{ $oneMonth }}">{{ $oneMonth }}</option>
+                                    <option value="{{ $oneMonth }}">{{ $oneMonth }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        <button onclick="updateChart()" class="btn btn-secondary">Sélectionner</button>
                     </div>
                 </div>
                 <div class="container-fluid">
@@ -81,41 +83,92 @@
             salesPrices.push(sale["price"]),
         );
 
-        function getMonth() {
-            return document.getElementById('month').options[document.getElementById('month').selectedIndex].innerHTML;
-        }
+        // function date() {
+        //     console.log(document.getElementById('monthAndYear').innerHTML);
+        // }
 
-        //let m = {!! json_encode($monthLetter) !!};
-        m = getMonth();
+            function getMonth() {
+                return document.getElementById('month').options[document.getElementById('month').selectedIndex].innerHTML;
+            }
 
-        new Chart('salesChart', {
+            function getYear() {
+                return document.getElementById('year').options[document.getElementById('year').selectedIndex].innerHTML;
+            }
+
+            //let m = {!! json_encode($monthLetter) !!};
+            m = getMonth();
+            m += ' ';
+            m += getYear();
+
+            {{--new Chart('salesChart', {--}}
+            {{--    type: 'bar',--}}
+            {{--    options: {--}}
+            {{--        scales: {--}}
+            {{--            yAxes: [{--}}
+            {{--                ticks: {--}}
+            {{--                    callback: function (value) {--}}
+            {{--                        return value + '€';--}}
+            {{--                    }--}}
+            {{--                }--}}
+            {{--            }]--}}
+            {{--        }--}}
+            {{--    },--}}
+            {{--    data: {--}}
+            {{--        labels: [m],--}}
+            {{--        datasets: [{--}}
+            {{--            label: 'Achats',--}}
+            {{--            data: purchasesPrices,--}}
+            {{--            backgroundColor: '#7687A3',--}}
+            {{--            borderColor: '#7687A3',--}}
+            {{--        }, {--}}
+            {{--            label: 'Ventes',--}}
+            {{--            data: salesPrices,--}}
+            {{--            backgroundColor: '#A8C5E1',--}}
+            {{--            borderColor: '#A8C5E1',--}}
+            {{--        }]--}}
+            {{--    },--}}
+            {{--});--}}
+
+        // var olddata = [0, 10, 5, 2, 20, 30, 45];
+        // var newdata = [10, 20, 30, 40, 50, 60, 70];
+        // var olddata1 = [1, 4, 5, 9, 8, 7, 2];
+        // var newdata1 = [30, 40, 50, 60, 70, 80, 90];
+
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
             type: 'bar',
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            callback: function (value) {
-                                return value + '€';
-                            }
-                        }
-                    }]
-                }
-            },
+
+            // The data for our dataset
             data: {
-                labels: ['1er ' + m, '3 ' + m, '6 ' + m, '9 ' + m, '12 ' + m, '5 ' + m, '18 ' + m, '21 ' + m, '24 ' + m, '27 ' + m, '30 ' + m],
+                labels: [m],
                 datasets: [{
                     label: 'Achats',
-                    data: purchasesPrices,
                     backgroundColor: '#7687A3',
                     borderColor: '#7687A3',
+                    data: purchasesPrices
                 }, {
                     label: 'Ventes',
-                    data: salesPrices,
                     backgroundColor: '#A8C5E1',
                     borderColor: '#A8C5E1',
+                    data: salesPrices
                 }]
             },
+
+            // Configuration options go here
+            options: {}
         });
 
+        function updateChart() {
+            chart.data.datasets[0].data = salesPrices;
+            chart.data.datasets[1].data = purchasesPrices;
+            chart.update();
+        }
+
+        // function addValue() {
+        //     chart.data.datasets[0].data.shift();
+        //     chart.data.labels.push("January");
+        //     chart.update();
+        // }
     </script>
 @endsection

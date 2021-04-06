@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('european_norms')->insert([
-            'picture_path' => 'European_norm_1574849523_BBB_BBB.jpg',
+            'picture_path' => 'European_norm_1574849523_AAA_AAAA.jpg',
         ]);
         DB::table('european_norms')->insert([
             'picture_path' => 'European_norm_1574849523_CCC_CCC.jpeg',

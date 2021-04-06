@@ -43,7 +43,7 @@
                         <div class="form-group" id="europeanNormPicture">
                             <label for="europeanNormPicture">Photo de la plaquette CE : </label>
                             <input type="file" class="form-control" name="europeanNormPicture"
-                                   id="europeanNormPicture"/>
+                                   id="europeanNormPicture" accept=".jpg, .jpeg, .png"/>
                         </div>
 
                         <div class="form-group">

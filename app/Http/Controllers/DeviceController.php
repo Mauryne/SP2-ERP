@@ -14,6 +14,7 @@ use App\Models\Device;
 use App\Models\EuropeanNorm;
 use App\Models\Guarantee;
 use App\Models\Installation;
+use App\Models\InterventionUser;
 use App\Models\RenewalContract;
 use App\Models\RenewalGuarantee;
 use App\Models\Type;
@@ -182,26 +183,5 @@ class DeviceController extends Controller
         $renewalsGuarantee = RenewalGuarantee::all();
         return view('devices/devices-guarantee')->with(compact('device', 'renewalsGuarantee'));
     }
-
-
-    // self::saveFile($request->input('europeanNormPicture'), 'storage');
-//        $europeanNorm = EuropeanNorm::create([
-//            'picture_path' => $europeanNormPicture,
-//        ]);
-
-//    public static function saveFile($file, string $path) : ?string
-//    {
-//        return isset($file) ? Storage::disk('public')->putFileAs($path, $file, Carbon::now()->timestamp.'_'.$file->getClientOriginalName()) : null;
-//    }
-//
-//    public static function updateFile($file, string $path, string $oldValue) : ?string
-//    {
-//        return isset($file) ? Storage::disk('public')->putFileAs($path, $file, Carbon::now()->timestamp.'_'.$file->getClientOriginalName()) : $oldValue;
-//    }
-//
-//    public static function removeFile(string $path) : Boolean
-//    {
-//        return Storage::disk('public')->exists($path) ? Storage::disk('public')->delete($path) : false;
-//    }
 
 }

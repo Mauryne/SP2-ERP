@@ -317,32 +317,42 @@
         function updateEuropeanNormPicture() {
             var modalFooter = document.getElementById('europeanNormModal');
 
-            var form = document.createElement('form');
-            form.setAttribute('class', 'w-100 h-125');
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', "#");
+            var formEuropeanNorm = document.createElement('form');
+            formEuropeanNorm.setAttribute('id', 'formEuropeanNorm');
+            formEuropeanNorm.setAttribute('class', 'w-100 h-125');
+            formEuropeanNorm.setAttribute('method', 'post');
+            formEuropeanNorm.setAttribute('enctype', 'multipart/form-data');
+            formEuropeanNorm.setAttribute('action', "{{route('europeanNorm.store', $device->id)}}");
+
+            var token = document.createElement("input");
+            token.setAttribute("type","hidden");
+            token.setAttribute("name","_token");
+            token.setAttribute("value","{{csrf_token()}}");
+
+            formEuropeanNorm.appendChild(token);
 
             var input = document.createElement('input');
-            input.setAttribute('class', 'float-left');
+            input.setAttribute('class', 'float-left form-control');
             input.setAttribute('type', 'file');
             input.setAttribute('name', 'newEuropeanNormPicture');
             input.setAttribute('id', 'newEuropeanNormPicture');
+            input.setAttribute('accept', ".jpg, .jpeg, .png");
 
             var button = document.createElement('button');
             button.setAttribute('class', 'btn btn-block btn-success float-right mt-4');
             button.innerHTML = 'Valider';
             button.setAttribute('onclick', 'return validateFormEuropeanNorm()');
-            button.setAttribute('onsubmit', "document.getElementById('form').submit(); return false;");
+            button.setAttribute('onsubmit', "document.getElementById('formEuropeanNorm').submit(); return false;");
 
-            modalFooter.appendChild(form);
-            form.appendChild(input);
-            form.appendChild(button);
+            modalFooter.appendChild(formEuropeanNorm);
+            formEuropeanNorm.appendChild(input);
+            formEuropeanNorm.appendChild(button);
 
             document.getElementById("updateEuropeanNormPicture").removeAttribute('onclick');
         }
 
         function validateFormEuropeanNorm() {
-            var a = document.forms["form"]["newEuropeanNormPicture"].value;
+            var a = document.forms["formEuropeanNorm"]["newEuropeanNormPicture"].value;
 
             if (a == null || a === "") {
                 alert("Veuillez choisir une image valide.");
@@ -353,32 +363,42 @@
         function updateInstallationPicture() {
             var modalFooter = document.getElementById('installationModal');
 
-            var form = document.createElement('form');
-            form.setAttribute('class', 'w-100 h-125');
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', "#");
+            var formInstallation = document.createElement('form');
+            formInstallation.setAttribute('id', 'formInstallation');
+            formInstallation.setAttribute('class', 'w-100 h-125');
+            formInstallation.setAttribute('method', 'post');
+            formInstallation.setAttribute('enctype', 'multipart/form-data');
+            formInstallation.setAttribute('action', "{{route('installation.store', $device->id)}}");
+
+            var token = document.createElement("input");
+            token.setAttribute("type","hidden");
+            token.setAttribute("name","_token");
+            token.setAttribute("value","{{csrf_token()}}");
+
+            formInstallation.appendChild(token);
 
             var input = document.createElement('input');
             input.setAttribute('class', 'float-left');
             input.setAttribute('type', 'file');
             input.setAttribute('name', 'newInstallationPicture');
             input.setAttribute('id', 'newInstallationPicture');
+            input.setAttribute('accept', ".jpg, .jpeg, .png");
 
             var button = document.createElement('button');
             button.setAttribute('class', 'btn btn-block btn-success float-right mt-4');
             button.innerHTML = 'Valider';
             button.setAttribute('onclick', 'return validateFormInstallation()');
-            button.setAttribute('onsubmit', "document.getElementById('form').submit(); return false;");
+            button.setAttribute('onsubmit', "document.getElementById('formInstallation').submit(); return false;");
 
-            modalFooter.appendChild(form);
-            form.appendChild(input);
-            form.appendChild(button);
+            modalFooter.appendChild(formInstallation);
+            formInstallation.appendChild(input);
+            formInstallation.appendChild(button);
 
             document.getElementById("updateInstallationPicture").removeAttribute('onclick');
         }
 
         function validateFormInstallation() {
-            var a = document.forms["form"]["newInstallationPicture"].value;
+            var a = document.forms["formInstallation"]["newInstallationPicture"].value;
 
             if (a == null || a === "") {
                 alert("Veuillez choisir une image valide.");

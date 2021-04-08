@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="card col-sm-6 mt-5">
                 <div class="card-body">
-                    <form action="{{route('devices.store')}}" method="post"
+                    <form id="form" action="{{route('devices.store')}}" method="post"
                           enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
@@ -43,7 +43,7 @@
                         <div class="form-group" id="europeanNormPicture">
                             <label for="europeanNormPicture">Photo de la plaquette CE : </label>
                             <input type="file" class="form-control" name="europeanNormPicture"
-                                   id="europeanNormPicture" accept=".jpg, .jpeg, .png"/>
+                                   id="anEuropeanNormPicture" accept=".jpg, .jpeg, .png"/>
                         </div>
 
                         <div class="form-group">
@@ -69,33 +69,33 @@
 
                         <div class="form-group" id="saleDate">
                             <label for="saleDate">Date de vente : </label>
-                            <input type="date" name="saleDate" id="saleDate" class="form-control">
+                            <input type="date" name="saleDate" id="aSaleDate" class="form-control">
                         </div>
 
                         <div class="form-group" id="installationDate">
                             <label for="installationDate">Date d'installation : </label>
-                            <input type="date" name="installationDate" id="installationDate"
+                            <input type="date" name="installationDate" id="anInstallationDate"
                                    class="form-control">
                         </div>
 
                         <div class="form-group" id="installationPicture">
                             <label for="installationPicture">Photo de l'installation : </label>
-                            <input type="file" name="installationPicture" id="installationPicture">
+                            <input type="file" name="installationPicture" id="anInstallationPicture">
                         </div>
 
                         <div class="form-group" id="installationSummary">
                             <label for="installationSummary">Commentaire de l'installation : </label>
-                            <input type="text" name="installationSummary" class="form-control">
+                            <input type="text" name="installationSummary" id="anInstallationSummary" class="form-control">
                         </div>
 
                         <div class="form-group" id="contract">
                             <label for="contract">Durée du contrat : </label>
-                            <input type="number" name="contract" min="0" max="5" class="form-control">
+                            <input type="number" id="aContract" name="contract" min="0" max="5" class="form-control">
                         </div>
 
                         <div class="form-group" id="guarantee">
                             <label for="guarantee">Durée de la garantie : </label>
-                            <input type="number" name="guarantee" min="0" max="10" class="form-control">
+                            <input type="number" id="aGuarantee" name="guarantee" min="0" max="10" class="form-control">
                         </div>
 
                         <div class="form-group" id="technician">
@@ -107,7 +107,7 @@
                             </select>
                         </div>
                         @csrf()
-                        <input type="submit" class="btn btn-secondary">
+                        <input onclick="return validateForm()" type="submit" class="btn btn-secondary">
                     </form>
                 </div>
             </div>
@@ -171,6 +171,41 @@
                 $('#installationSummary').show();
                 $('#guarantee').show();
             } else {
+            }
+        }
+
+        function validateForm() {
+            if ($('#isEuropeanNorm').prop('checked')) {
+                var a = document.forms["form"]["anEuropeanNormPicture"].value;
+                if (a == null || a === "") {
+                    alert("Veuillez choisir une image valide.");
+                    return false;
+                }
+            }
+
+            var saleDate = document.getElementById("aSaleDate");
+            var installationDate = document.getElementById("anInstallationDate");
+            var summary = document.getElementById("anInstallationSummary");
+            var contract = document.getElementById("aContract");
+            var guarantee = document.getElementById("aGuarantee");
+
+            if ($('#isNotAvailable').prop('checked')) {
+                var b = document.forms["form"]["anInstallationPicture"].value;
+                if (b == null || b === "") {
+                    alert("Veuillez choisir une image valide.");
+                    return false;
+                }
+                saleDate.setAttribute('required', 'required');
+                installationDate.setAttribute('required', 'required');
+                summary.setAttribute('required', 'required');
+                contract.setAttribute('required', 'required');
+                guarantee.setAttribute('required', 'required');
+            } else if(($('#isAvailable').prop('checked'))) {
+                saleDate.removeAttribute('required');
+                installationDate.removeAttribute('required');
+                summary.removeAttribute('required');
+                contract.removeAttribute('required');
+                guarantee.removeAttribute('required');
             }
         }
     </script>

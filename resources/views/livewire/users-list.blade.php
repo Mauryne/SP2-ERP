@@ -81,12 +81,14 @@
                                 <td class="tables-role"
                                     style="text-align: center">{{$user->role->name}}</td>
                                 <td class="tables-update" style="text-align: center">
-                                    <a href="{{route('users.edit', $user->id )}}" type="button"
-                                       class="btn btn-sm btn-secondary"><span class="fe fe-edit"/>
-                                    </a>
+                                    @if($user->id == \Illuminate\Support\Facades\Auth::id())
+                                        <a href="{{route('users.edit', $user->id )}}" type="button"
+                                           class="btn btn-sm btn-secondary"><span class="fe fe-edit"/>
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
-                            @endforeach
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

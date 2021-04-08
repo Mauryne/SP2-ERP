@@ -38,6 +38,7 @@ Route::get('/devices/{id}/show/map', DevicesMap::class)->name('devices.map')->mi
 Route::get('/devices/create', [DeviceController::class, 'create'])->name('devices.create')->middleware('auth');
 Route::post('/devices/create/store', [DeviceController::class, 'store'])->name('devices.store')->middleware('auth');
 Route::get('/devices/{id}/edit', [DeviceController::class, 'edit'])->name('devices.edit')->middleware('auth');
+Route::put('/devices/{id}/update', [DeviceController::class, 'update'])->name('devices.update')->middleware('auth');
 Route::get('/devices/{id}/contract', [DeviceController::class, 'contract'])->name('devices.contract')->middleware('auth');
 Route::post('/devices/contracts/store', [RenewalContractController::class, 'store'])->name('contracts.store')->middleware('auth');
 Route::get('/devices/{id}/guarantee', [DeviceController::class, 'guarantee'])->name('devices.guarantee')->middleware('auth');

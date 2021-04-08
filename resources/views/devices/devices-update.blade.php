@@ -5,7 +5,8 @@
         <div class="row justify-content-center">
             <div class="card col-sm-6 mt-5">
                 <div class="card-body">
-                    <form action="#" method="POST">
+                    <form id="form" action="{{route('devices.update', $device->id )}}" method="post"
+                          enctype="multipart/form-data">
                         @csrf()
                         @method('PUT')
                         <div class="form-group">
@@ -23,14 +24,15 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Numéro de série :</label>
-                            <input type="text" name="name" id="name" value="{{$device->serialNumber}}"
+                            <label for="serialNumber">Numéro de série :</label>
+                            <input type="text" name="serialNumber" id="serialNumber" value="{{$device->serialNumber}}"
                                    class="form-control"
                                    required>
                         </div>
                         <div class="form-group">
-                            <label for="name">Référence du produit :</label>
-                            <input type="text" name="name" id="name" value="{{$device->productReference}}"
+                            <label for="productReference">Référence du produit :</label>
+                            <input type="text" name="productReference" id="productReference"
+                                   value="{{$device->productReference}}"
                                    class="form-control"
                                    required>
                         </div>
@@ -92,7 +94,7 @@
                                 </div>
                             @else
                                 <input type="file" class="form-control" name="europeanNormPicture"
-                                       id="europeanNormPicture"/>
+                                       id="anEuropeanNormPicture" accept=".jpg, .jpeg, .png"/>
                             @endif
                         </div>
                         <div class="form-group">
@@ -133,7 +135,7 @@
 
                         <div class="form-group" id="saleDate">
                             <label for="saleDate">Date de vente : </label>
-                            <input type="date" name="saleDate" id="saleDate" value="{{$device->saleDate}}"
+                            <input type="date" name="saleDate" id="aSaleDate" value="{{$device->saleDate}}"
                                    class="form-control">
                         </div>
 
@@ -141,10 +143,10 @@
                             <label for="installationDate">Date d'installation : </label>
                             @if($device->installation_id != null)
                                 <input type="date" name="installationDate" value="{{$device->installation->date}}"
-                                       id="installationDate" class="form-control">
+                                       id="installationDate" class="form-control" required>
                             @else
                                 <input type="date" name="installationDate" value=""
-                                       id="installationDate" class="form-control">
+                                       id="anInstallationDate" class="form-control">
                             @endif
                         </div>
 
@@ -182,7 +184,7 @@
                                 </div>
                             @else
                                 <input type="file" class="form-control" name="installationPicture"
-                                       id="installationPicture"/>
+                                       id="anInstallationPicture" accept=".jpg, .jpeg, .png"/>
                             @endif
                         </div>
 
@@ -191,21 +193,30 @@
                                 l'installation : </label>
                             @if($device->installation_id != null)
                                 <input type="text" name="installationSummary" value="{{$device->installation->summary}}"
-                                       class="form-control">
+                                       class="form-control" required>
                             @else
-                                <input type="text" name="installationSummary"
+                                <input type="text" name="installationSummary" id="anInstallationSummary"
                                        class="form-control">
+                            @endif
+                        </div>
+
+                        <div class="form-group" id="contract">
+                            <label for="contract">Durée du contrat : </label>
+                            @if($device->contract_id =! null)
+                                <input type="number" id="contract" name="contract" min="0" max="5" class="form-control"
+                                       value="{{$device->contract->initialDuration}}" required>
+                            @else
+                                <input type="number" id="aContract" name="contract" min="0" max="5" class="form-control">
                             @endif
                         </div>
 
                         <div class="form-group" id="guarantee">
                             <label for="guarantee">Durée de la garantie : </label>
-                            @if($device->guarantee_id != null)
-                                <input type="number" name="guarantee" min="0" max="10"
-                                       value="{{$device->guarantee->initialDuration}}"
-                                       class="form-control">
+                            @if($device->guarantee_id =! null)
+                                <input type="number" id="guarantee" name="guarantee" min="0" max="10"
+                                       class="form-control" value="{{$device->guarantee->initialDuration}}" required>
                             @else
-                                <input type="number" name="guarantee" min="0" max="10"
+                                <input type="number" id="aGuarantee" name="guarantee" min="0" max="10"
                                        class="form-control">
                             @endif
                         </div>
@@ -225,14 +236,15 @@
                                             <option
                                                 value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
                                         @endif
+                                    @else
+                                        <option
+                                            value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
                                     @endif
-                                    <option
-                                        value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
                                 @endforeach
                             </select>
                         </div>
                         @csrf()
-                        <input type="submit" class="btn btn-secondary">
+                        <input onclick="return validateForm()" type="submit" class="btn btn-secondary">
                     </form>
                 </div>
             </div>
@@ -244,6 +256,10 @@
         function closeModal() {
             $('#exampleModal').modal('hide');
         }
+
+        $('select').select2({
+            allowClear: true
+        });
 
         $(document).ready(function () {
             if ($('#isEuropeanNorm').prop('checked')) {
@@ -260,6 +276,7 @@
                 $('#installationPicture').show();
                 $('#technician').show();
                 $('#installationSummary').show();
+                $('#contract').show();
                 $('#guarantee').show();
             } else {
             }
@@ -272,6 +289,7 @@
         $('#installationPicture').hide();
         $('#technician').hide();
         $('#installationSummary').hide();
+        $('#contract').hide();
         $('#guarantee').hide();
 
         function showPictureEuropeanNorm() {
@@ -296,6 +314,7 @@
                 $('#installationPicture').hide();
                 $('#technician').hide();
                 $('#installationSummary').hide();
+                $('#contract').hide();
                 $('#guarantee').hide();
             } else {
             }
@@ -309,6 +328,7 @@
                 $('#installationPicture').show();
                 $('#technician').show();
                 $('#installationSummary').show();
+                $('#contract').show();
                 $('#guarantee').show();
             } else {
             }
@@ -325,9 +345,9 @@
             formEuropeanNorm.setAttribute('action', "{{route('europeanNorm.store', $device->id)}}");
 
             var token = document.createElement("input");
-            token.setAttribute("type","hidden");
-            token.setAttribute("name","_token");
-            token.setAttribute("value","{{csrf_token()}}");
+            token.setAttribute("type", "hidden");
+            token.setAttribute("name", "_token");
+            token.setAttribute("value", "{{csrf_token()}}");
 
             formEuropeanNorm.appendChild(token);
 
@@ -371,9 +391,9 @@
             formInstallation.setAttribute('action', "{{route('installation.store', $device->id)}}");
 
             var token = document.createElement("input");
-            token.setAttribute("type","hidden");
-            token.setAttribute("name","_token");
-            token.setAttribute("value","{{csrf_token()}}");
+            token.setAttribute("type", "hidden");
+            token.setAttribute("name", "_token");
+            token.setAttribute("value", "{{csrf_token()}}");
 
             formInstallation.appendChild(token);
 
@@ -403,6 +423,41 @@
             if (a == null || a === "") {
                 alert("Veuillez choisir une image valide.");
                 return false;
+            }
+        }
+
+        function validateForm() {
+            if ($('#isEuropeanNorm').prop('checked')) {
+                var a = document.forms["form"]["anEuropeanNormPicture"].value;
+                if (a == null || a === "") {
+                    alert("Veuillez choisir une image valide.");
+                    return false;
+                }
+            }
+
+            var saleDate = document.getElementById("aSaleDate");
+            var installationDate = document.getElementById("anInstallationDate");
+            var summary = document.getElementById("anInstallationSummary");
+            var contract = document.getElementById("aContract");
+            var guarantee = document.getElementById("aGuarantee");
+
+            if ($('#isNotAvailable').prop('checked')) {
+                var b = document.forms["form"]["anInstallationPicture"].value;
+                if (b == null || b === "") {
+                    alert("Veuillez choisir une image valide.");
+                    return false;
+                }
+                saleDate.setAttribute('required', 'required');
+                installationDate.setAttribute('required', 'required');
+                summary.setAttribute('required', 'required');
+                contract.setAttribute('required', 'required');
+                guarantee.setAttribute('required', 'required');
+            } else if(($('#isAvailable').prop('checked'))) {
+                saleDate.removeAttribute('required');
+                installationDate.removeAttribute('required');
+                summary.removeAttribute('required');
+                contract.removeAttribute('required');
+                guarantee.removeAttribute('required');
             }
         }
     </script>

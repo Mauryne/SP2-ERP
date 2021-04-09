@@ -24,14 +24,25 @@ class Statistics extends Component
     public $allSales = '';
     public $result = '';
     public $allMonths = '';
+    public $nextYears = '';
+    public $years = '';
 
     public function __construct()
     {
         setlocale(LC_TIME, "fr_FR", "French");
         $monthLetter = ucwords(strftime("%B"));
         $year = strftime("%G");
+        $nextYears = $year - 10;
+        $years = array();
+        while($year >= $nextYears)
+        {
+            $years[] += $nextYears;
+            $nextYears = $nextYears + 1;
+        }
         $this->monthLetter = $monthLetter;
         $this->year = $year;
+        $this->nextYears = $nextYears;
+        $this->years = $years;
     }
 
     public function mount()
@@ -63,7 +74,11 @@ class Statistics extends Component
         $allMonths = $this->showMonths();
         foreach ($allMonths as $value => $oneMonth) {
             if ($oneMonth == $monthLetter) {
-                $this->monthFigure = 0 . $value;
+                if($value < 10) {
+                    $this->monthFigure = 0 . $value;
+                } else {
+                    $this->monthFigure = $value;
+                }
             }
         }
         return $this->monthFigure;
@@ -92,6 +107,8 @@ class Statistics extends Component
 
     public function showPrice()
     {
+        $this->setMonthFigure($this->monthLetter);
+
         // Récupérer les prix en fonction de la date (mois + année)
         $this->sales = DB::select("SELECT * FROM sales WHERE date LIKE '" . $this->year . "-" . $this->monthFigure . "%'");
         $this->purchases = DB::select("SELECT * FROM purchases WHERE date LIKE '" . $this->year . "-" . $this->monthFigure . "%'");
@@ -114,6 +131,8 @@ class Statistics extends Component
             'monthLetter' => $this->monthLetter,
             'allYears' => $this->allYears,
             'year' => $this->year,
+            'nextYears' => $this->nextYears,
+            'years' => $this->years,
             'sales' => $this->sales,
             'purchases' => $this->purchases,
             'allSales' => $this->allSales,

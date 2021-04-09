@@ -15,7 +15,7 @@ class CreateSaleTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('price',5, 2);
+            $table->decimal('price',8, 2);
             $table->string('state')->nullable();
             $table->date('date');
             $table->float('latitude', 10, 6);

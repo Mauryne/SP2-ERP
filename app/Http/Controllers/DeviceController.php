@@ -136,7 +136,7 @@ class DeviceController extends Controller
     public function edit($id)
     {
         $device = Device::find($id);
-        $users = User::withTrashed()();
+        $users = User::withTrashed();
         $types = Type::all();
         $customers = Customer::all();
         return view('devices/devices-update')->with(compact('users', 'types', 'customers', 'device'));

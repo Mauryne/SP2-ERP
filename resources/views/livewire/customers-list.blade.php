@@ -84,6 +84,13 @@
                                     <a href="{{route('customers.edit', $customer->id )}}" type="button"
                                        class="btn btn-sm btn-info"><span class="fe fe-edit"/>
                                     </a>
+                                    <form action="{{route('customers.destroy',$customer->id)}}" method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger"><span
+                                                class="fe fe-trash-2"/></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

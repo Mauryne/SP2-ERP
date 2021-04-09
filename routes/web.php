@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\EuropeanNormController;
@@ -69,6 +68,7 @@ Route::get('/customers/create', [CustomerController::class, 'create'])->name('cu
 Route::post('/customers/store', [CustomerController::class, 'store'])->name('customers.store')->middleware('auth');
 Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('customers.edit')->middleware('auth');
 Route::post('/customers/{id}/update', [CustomerController::class, 'update'])->name('customers.update')->middleware('auth');
+Route::delete('/customers/{id}/delete', [CustomerController::class, 'destroy'])->name('customers.destroy')->middleware('auth');
 
 Route::get('/sales/map', [SaleController::class, 'index'])->name('sales.map')->middleware('auth');
 

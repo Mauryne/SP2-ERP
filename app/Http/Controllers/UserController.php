@@ -25,8 +25,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         User::create([
-            'lastName' => $request->input('lastName'),
-            'firstName' => $request->input('firstName'),
+            'lastName' => strtoupper($request->input('lastName')),
+            'firstName' => ucfirst($request->input('firstName')),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'telephoneNumber' => $request->input('telephoneNumber'),
@@ -51,8 +51,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->lastName = $request->input('lastName');
-        $user->firstName = $request->input('firstName');
+        $user->lastName = strtoupper($request->input('lastName'));
+        $user->firstName = ucfirst($request->input('firstName'));
         $user->email = $request->input('email');
         $user->telephoneNumber = $request->input('telephoneNumber');
         $user->role_id = $request->input('role');

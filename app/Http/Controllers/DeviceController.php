@@ -11,12 +11,15 @@ use App\Models\Contract;
 use App\Models\ContractCustomerDevice;
 use App\Models\Customer;
 use App\Models\Device;
+use App\Models\DeviceSupply;
 use App\Models\EuropeanNorm;
 use App\Models\Guarantee;
 use App\Models\Installation;
+use App\Models\Intervention;
 use App\Models\InterventionUser;
 use App\Models\RenewalContract;
 use App\Models\RenewalGuarantee;
+use App\Models\Sale;
 use App\Models\Type;
 use App\Models\User;
 use Carbon\Carbon;
@@ -34,7 +37,7 @@ class DeviceController extends Controller
 
     public function create()
     {
-        $users = User::all();
+        $users = User::withTrashed();
         $types = Type::all();
         $customers = Customer::all();
         return view('devices/devices-create')->with(compact('users', 'types', 'customers'));
@@ -133,7 +136,7 @@ class DeviceController extends Controller
     public function edit($id)
     {
         $device = Device::find($id);
-        $users = User::all();
+        $users = User::withTrashed()();
         $types = Type::all();
         $customers = Customer::all();
         return view('devices/devices-update')->with(compact('users', 'types', 'customers', 'device'));
@@ -245,6 +248,34 @@ class DeviceController extends Controller
             $device->guarantee_id = null;
             $device->save();
         }
+        return redirect('devices');
+    }
+
+    public function destroy($id)
+    {
+        $interventions = Intervention::all()->where('device_id', 'LIKE', $id);
+        $sales = Sale::all()->where('device_id', 'LIKE', $id);
+        $devicesSupplies = DeviceSupply::all()->where('device_id', 'LIKE', $id);
+
+        foreach($interventions as $intervention) {
+            $interventionsUsers = InterventionUser::all()->where('maintenance_id', $intervention->id);
+            foreach ($interventionsUsers as $interventionUser) {
+                $interventionUser->delete();
+            }
+            $intervention->delete();
+        }
+
+        foreach($sales as $sale)
+        {
+            $sale->delete();
+        }
+
+        foreach($devicesSupplies as $deviceSupply)
+        {
+            $deviceSupply->delete();
+        }
+
+        Device::find($id)->delete();
         return redirect('devices');
     }
 

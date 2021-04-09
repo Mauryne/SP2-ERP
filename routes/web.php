@@ -39,6 +39,7 @@ Route::get('/devices/create', [DeviceController::class, 'create'])->name('device
 Route::post('/devices/create/store', [DeviceController::class, 'store'])->name('devices.store')->middleware('auth');
 Route::get('/devices/{id}/edit', [DeviceController::class, 'edit'])->name('devices.edit')->middleware('auth');
 Route::put('/devices/{id}/update', [DeviceController::class, 'update'])->name('devices.update')->middleware('auth');
+Route::delete('/devices/{id}/delete', [DeviceController::class, 'destroy'])->name('devices.destroy')->middleware('auth');
 Route::get('/devices/{id}/contract', [DeviceController::class, 'contract'])->name('devices.contract')->middleware('auth');
 Route::post('/devices/contracts/store', [RenewalContractController::class, 'store'])->name('contracts.store')->middleware('auth');
 Route::get('/devices/{id}/guarantee', [DeviceController::class, 'guarantee'])->name('devices.guarantee')->middleware('auth');
@@ -52,13 +53,15 @@ Route::get('/interventions/create', [InterventionController::class, 'create'])->
 Route::post('/interventions/store', [InterventionController::class, 'store'])->name('interventions.store')->middleware('auth');
 Route::get('/interventions/{id}/edit', [InterventionController::class, 'edit'])->name('interventions.edit')->middleware('auth');
 Route::post('/interventions/{id}/update', [InterventionController::class, 'update'])->name('interventions.update')->middleware('auth');
+Route::delete('/interventions/{id}/delete', [InterventionController::class, 'destroy'])->name('interventions.destroy')->middleware('auth');
 
 Route::get('/users', [UserController::class, 'index'])->name('users')->middleware('auth');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create')->middleware('auth');
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store')->middleware('auth');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware('auth');
-Route::post('/users/{id}/password/edit', [UserController::class, 'editPassword'])->name('users.password.edit')->middleware('auth');
 Route::post('/users/{id}/update', [UserController::class, 'update'])->name('users.update')->middleware('auth');
+Route::delete('/users/{id}/delete', [UserController::class, 'destroy'])->name('users.destroy')->middleware('auth');
+Route::post('/users/{id}/password/edit', [UserController::class, 'editPassword'])->name('users.password.edit')->middleware('auth');
 Route::post('/users/{id}/password/update', [UserController::class, 'updatePassword'])->name('users.password.update')->middleware('auth');
 
 Route::get('/customers', [CustomerController::class, 'index'])->name('customers')->middleware('auth');

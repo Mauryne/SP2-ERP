@@ -65,6 +65,6 @@ class Intervention extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'maintenance_user', 'maintenance_id');
+        return $this->belongsToMany(User::class, 'maintenance_user', 'maintenance_id')->withTrashed();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,8 +26,12 @@ class UsersList extends Component
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->perPage);
 
+        $id = Auth::id();
+        $authenticate = User::find($id);
+
         return view('livewire.users-list', [
-            'users'=> $users
+            'users'=> $users,
+            'authenticate'=> $authenticate
         ]);
     }
 

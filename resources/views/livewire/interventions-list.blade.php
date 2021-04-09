@@ -111,8 +111,15 @@
                                     style="text-align: center">{{$intervention->comment}}</td>
                                 <td class="tables-update" style="text-align: center">
                                     <a href="{{route('interventions.edit', $intervention->id )}}" type="button"
-                                       class="btn btn-sm btn-secondary"><span class="fe fe-edit"/>
+                                       class="btn btn-sm btn-info"><span class="fe fe-edit"/>
                                     </a>
+                                    <form action="{{route('interventions.destroy',$intervention->id)}}" method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger"><span
+                                                class="fe fe-trash-2"/></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

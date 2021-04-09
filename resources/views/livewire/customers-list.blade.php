@@ -82,7 +82,7 @@
                                     style="text-align: center">{{$customer->email}}</td>
                                 <td class="tables-update" style="text-align: center">
                                     <a href="{{route('customers.edit', $customer->id )}}" type="button"
-                                       class="btn btn-sm btn-secondary"><span class="fe fe-edit"/>
+                                       class="btn btn-sm btn-info"><span class="fe fe-edit"/>
                                     </a>
                                 </td>
                             </tr>

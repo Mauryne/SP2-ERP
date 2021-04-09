@@ -40,7 +40,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <button onclick="updateChart()" class="btn btn-secondary">Sélectionner</button>
+{{--                        <button onclick="updateChart()" class="btn btn-secondary">Sélectionner</button>--}}
                     </div>
                 </div>
                 <div class="container-fluid">
@@ -83,51 +83,47 @@
             salesPrices.push(sale["price"]),
         );
 
-        // function date() {
-        //     console.log(document.getElementById('monthAndYear').innerHTML);
-        // }
+        function getMonth() {
+            return document.getElementById('month').options[document.getElementById('month').selectedIndex].innerHTML;
+        }
 
-            function getMonth() {
-                return document.getElementById('month').options[document.getElementById('month').selectedIndex].innerHTML;
-            }
+        function getYear() {
+            return document.getElementById('year').options[document.getElementById('year').selectedIndex].innerHTML;
+        }
 
-            function getYear() {
-                return document.getElementById('year').options[document.getElementById('year').selectedIndex].innerHTML;
-            }
+        //let m = {!! json_encode($monthLetter) !!};
+        m = getMonth();
+        m += ' ';
+        m += getYear();
 
-            //let m = {!! json_encode($monthLetter) !!};
-            m = getMonth();
-            m += ' ';
-            m += getYear();
-
-            {{--new Chart('salesChart', {--}}
-            {{--    type: 'bar',--}}
-            {{--    options: {--}}
-            {{--        scales: {--}}
-            {{--            yAxes: [{--}}
-            {{--                ticks: {--}}
-            {{--                    callback: function (value) {--}}
-            {{--                        return value + '€';--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            }]--}}
-            {{--        }--}}
-            {{--    },--}}
-            {{--    data: {--}}
-            {{--        labels: [m],--}}
-            {{--        datasets: [{--}}
-            {{--            label: 'Achats',--}}
-            {{--            data: purchasesPrices,--}}
-            {{--            backgroundColor: '#7687A3',--}}
-            {{--            borderColor: '#7687A3',--}}
-            {{--        }, {--}}
-            {{--            label: 'Ventes',--}}
-            {{--            data: salesPrices,--}}
-            {{--            backgroundColor: '#A8C5E1',--}}
-            {{--            borderColor: '#A8C5E1',--}}
-            {{--        }]--}}
-            {{--    },--}}
-            {{--});--}}
+        {{--new Chart('salesChart', {--}}
+        {{--    type: 'bar',--}}
+        {{--    options: {--}}
+        {{--        scales: {--}}
+        {{--            yAxes: [{--}}
+        {{--                ticks: {--}}
+        {{--                    callback: function (value) {--}}
+        {{--                        return value + '€';--}}
+        {{--                    }--}}
+        {{--                }--}}
+        {{--            }]--}}
+        {{--        }--}}
+        {{--    },--}}
+        {{--    data: {--}}
+        {{--        labels: [m],--}}
+        {{--        datasets: [{--}}
+        {{--            label: 'Achats',--}}
+        {{--            data: purchasesPrices,--}}
+        {{--            backgroundColor: '#7687A3',--}}
+        {{--            borderColor: '#7687A3',--}}
+        {{--        }, {--}}
+        {{--            label: 'Ventes',--}}
+        {{--            data: salesPrices,--}}
+        {{--            backgroundColor: '#A8C5E1',--}}
+        {{--            borderColor: '#A8C5E1',--}}
+        {{--        }]--}}
+        {{--    },--}}
+        {{--});--}}
 
         // var olddata = [0, 10, 5, 2, 20, 30, 45];
         // var newdata = [10, 20, 30, 40, 50, 60, 70];
@@ -136,10 +132,8 @@
 
         var ctx = document.getElementById('salesChart').getContext('2d');
         var chart = new Chart(ctx, {
-            // The type of chart we want to create
             type: 'bar',
 
-            // The data for our dataset
             data: {
                 labels: [m],
                 datasets: [{
@@ -155,7 +149,6 @@
                 }]
             },
 
-            // Configuration options go here
             options: {}
         });
 
@@ -169,6 +162,23 @@
         //     chart.data.datasets[0].data.shift();
         //     chart.data.labels.push("January");
         //     chart.update();
+        // }
+
+        // function showLabel() {
+        //     var month = document.getElementById('month').value;
+        //     var year = document.getElementById('year').value;
+        //     var div = document.getElementById('label');
+        //
+        //     var label = document.createElement('label');
+        //     label.setAttribute('style', 'text-align: center');
+        //
+        //     var text = document.createElement('B');
+        //     text.textContent = month + ' ' + year;
+        //
+        //     label.appendChild(text);
+        //     div.appendChild(label);
+        //
+        //     console.log(month, year, div)
         // }
     </script>
 @endsection

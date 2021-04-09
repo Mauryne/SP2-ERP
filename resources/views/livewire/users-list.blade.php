@@ -81,10 +81,17 @@
                                 <td class="tables-role"
                                     style="text-align: center">{{$user->role->name}}</td>
                                 <td class="tables-update" style="text-align: center">
-                                    @if($user->id == \Illuminate\Support\Facades\Auth::id())
+                                    @if($user->id == $authenticate->id)
                                         <a href="{{route('users.edit', $user->id )}}" type="button"
-                                           class="btn btn-sm btn-secondary"><span class="fe fe-edit"/>
+                                           class="btn btn-sm btn-info"><span class="fe fe-edit"/>
                                         </a>
+                                    @endif
+                                    @if($user->id != $authenticate->id && $authenticate->role->name == "Administrateur")
+                                        <form action="{{route('users.destroy',$user->id)}}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"><span class="fe fe-trash-2"/></button>
+                                        </form>
                                     @endif
                                 </td>
                             </tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -47,7 +48,7 @@ class UserController extends Controller
         return view('users/users-password-update')->with(compact('user'));
     }
 
-    public function update (Request $request, $id)
+    public function update(Request $request, $id)
     {
         $user = User::find($id);
         $user->lastName = $request->input('lastName');
@@ -60,7 +61,13 @@ class UserController extends Controller
         return redirect('users');
     }
 
-    public function updatePassword (Request $request, $id)
+    public function destroy($id)
+    {
+        User::find($id)->delete();
+        return redirect('users');
+    }
+
+    public function updatePassword(Request $request, $id)
     {
         $user = User::find($id);
         $user->password = Hash::make($request->input('password'));

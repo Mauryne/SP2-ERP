@@ -78,4 +78,14 @@ class InterventionController extends Controller
 
         return redirect('interventions');
     }
+
+    public function destroy($id)
+    {
+        $interventionsUsers = InterventionUser::all()->where('maintenance_id', $id);
+        foreach ($interventionsUsers as $interventionUser) {
+            $interventionUser->delete();
+        }
+        Intervention::find($id)->delete();
+        return redirect('interventions');
+    }
 }

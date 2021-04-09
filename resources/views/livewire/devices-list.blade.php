@@ -97,9 +97,10 @@
                                     style="text-align: center">{{$device->productReference}}</td>
                                 @if($device->europeanNorm_id != null)
                                     <td class="tables-europeanNorm" style="text-align: center">
-                                        <button onclick="getEuropeanNormPicture({{json_encode($device->europeanNorm->picture_path)}});"
-                                                type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#europeanNormPicture">
+                                        <button
+                                            onclick="getEuropeanNormPicture({{json_encode($device->europeanNorm->picture_path)}});"
+                                            type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#europeanNormPicture">
                                             Voir la photo
                                         </button>
 
@@ -148,10 +149,11 @@
                                             - {{$device->installation->user->lastName}} {{$device->installation->user->firstName}}
                                         </div>
                                         <div style="float: right" class="button mt-1 ml-3">
-                                            <button onclick="getInstallationPicture({{json_encode($device->installation->picture_path)}});"
+                                            <button
+                                                onclick="getInstallationPicture({{json_encode($device->installation->picture_path)}});"
                                                 type="button" class="btn btn-sm btn-secondary"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#installationPicture">
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#installationPicture">
                                                 Voir la photo
                                             </button>
                                         </div>
@@ -180,16 +182,25 @@
                                 @endif
                                 <td class="tables-update" style="text-align: center">
                                     <a href="{{route('devices.edit', $device->id )}}" type="button"
-                                       class="btn btn-sm btn-secondary"><span class="fe fe-edit"/>
+                                       class="btn btn-sm btn-info"><span class="fe fe-edit"/>
                                     </a>
+                                    @if($device->installation_id == null)
+                                        <form action="{{route('devices.destroy',$device->id)}}" method="POST"
+                                              class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"><span
+                                                    class="fe fe-trash-2"/></button>
+                                        </form>
+                                    @endif
                                     @if($device->guarantee_id != null)
                                         <a href="{{route('devices.guarantee', $device->id )}}" type="button"
-                                           class="btn btn-sm btn-secondary"> Garantie
+                                           class="btn btn-sm btn-primary" style="color: white"> Garantie
                                         </a>
                                     @endif
                                     @if($device->installation_id != null)
                                         <a href="{{route('devices.contract', $device->id )}}" type="button"
-                                           class="btn btn-sm btn-secondary"> Contrat
+                                           class="btn btn-sm btn-primary" style="color: white"> Contrat
                                         </a>
                                     @endif
                                 </td>

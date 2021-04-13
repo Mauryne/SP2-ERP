@@ -25,24 +25,24 @@
                             </div>
                             <form id="form">
                                 @foreach($renewalsGuarantee as $renewalGuarantee)
-                                    @if($renewalGuarantee->guarantee_id == $device->guarantee_id)
+                                    @if($renewalGuarantee['guarantee_id'] == $device->guarantee_id)
                                         <div class="form-row">
                                             <div class="col mt-2">
-                                                @if($renewalGuarantee->duration > 1)
+                                                @if($renewalGuarantee['duration'] > 1)
                                                 <input type="text" name="renewalGuaranteeDuration"
                                                        id="renewalGuaranteeDuration"
-                                                       value="{{$renewalGuarantee->duration}} ans"
+                                                       value="{{$renewalGuarantee['duration']}} ans"
                                                        class="form-control" style="text-align: center" readonly>
                                                     @else
                                                     <input type="text" name="renewalGuaranteeDuration"
                                                            id="renewalGuaranteeDuration"
-                                                           value="{{$renewalGuarantee->duration}} an"
+                                                           value="{{$renewalGuarantee['duration']}} an"
                                                            class="form-control" style="text-align: center" readonly>
                                                 @endif
                                             </div>
                                             <div class="col mt-2">
                                                 <input type="date" name="renewalGuaranteeDate" id="renewalGuaranteeDate"
-                                                       value="{{$renewalGuarantee->signatureDate}}"
+                                                       value="{{$renewalGuarantee['signatureDate']}}"
                                                        class="form-control" style="text-align: center" readonly>
                                             </div>
                                         </div>

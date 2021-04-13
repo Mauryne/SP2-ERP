@@ -19,7 +19,7 @@ class InterventionController extends Controller
     public function create()
     {
         $devices = Device::all()->where('installation_id', '!=', null);
-        $users = User::all();
+        $users = json_decode(file_get_contents('http://localhost:8001/api/users'), true);
         return view('interventions/interventions-create')->with(compact('users', 'devices'));
     }
 
@@ -49,7 +49,7 @@ class InterventionController extends Controller
     {
         $intervention = Intervention::find($id);
         $devices = Device::all()->where('installation_id', '!=', null);
-        $users = User::all();
+        $users = json_decode(file_get_contents('http://localhost:8001/api/users'), true);
 
         return view('interventions/interventions-update')->with(compact('users', 'devices', 'intervention'));
     }

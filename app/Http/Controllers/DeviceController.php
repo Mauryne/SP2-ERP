@@ -37,9 +37,9 @@ class DeviceController extends Controller
 
     public function create()
     {
-        $users = User::withTrashed();
-        $types = Type::all();
-        $customers = Customer::all();
+        $users = json_decode(file_get_contents('http://localhost:8001/api/users'), true);;
+        $types = json_decode(file_get_contents('http://localhost:8001/api/types'), true);
+        $customers = json_decode(file_get_contents('http://localhost:8001/api/customers'), true);
         return view('devices/devices-create')->with(compact('users', 'types', 'customers'));
     }
 
@@ -136,9 +136,9 @@ class DeviceController extends Controller
     public function edit($id)
     {
         $device = Device::find($id);
-        $users = User::withTrashed();
-        $types = Type::all();
-        $customers = Customer::all();
+        $users = json_decode(file_get_contents('http://localhost:8001/api/users'), true);
+        $types = json_decode(file_get_contents('http://localhost:8001/api/types'), true);
+        $customers = json_decode(file_get_contents('http://localhost:8001/api/customers'), true);
         return view('devices/devices-update')->with(compact('users', 'types', 'customers', 'device'));
     }
 
@@ -282,14 +282,14 @@ class DeviceController extends Controller
     public function contract($id)
     {
         $device = Device::find($id);
-        $renewalsContract = RenewalContract::all();
+        $renewalsContract = json_decode(file_get_contents('http://localhost:8001/api/renewalsContracts'), true);
         return view('devices/devices-contract')->with(compact('device', 'renewalsContract'));
     }
 
     public function guarantee($id)
     {
         $device = Device::find($id);
-        $renewalsGuarantee = RenewalGuarantee::all();
+        $renewalsGuarantee = json_decode(file_get_contents('http://localhost:8001/api/renewalsGuarantees'), true);
         return view('devices/devices-guarantee')->with(compact('device', 'renewalsGuarantee'));
     }
 }

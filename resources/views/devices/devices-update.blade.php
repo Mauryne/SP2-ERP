@@ -15,10 +15,10 @@
                                 @foreach($types as $oneType)
                                     @if($device->type == $oneType)
                                         <option selected="selected"
-                                                value="{{$oneType->id}}">{{$oneType->characteristics}}</option>
+                                                value="{{$oneType['id']}}">{{$oneType['characteristics']}}</option>
                                     @else
                                         <option
-                                            value="{{$oneType->id}}">{{$oneType->characteristics}}</option>
+                                            value="{{$oneType['id']}}">{{$oneType['characteristics']}}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -125,9 +125,9 @@
                                 @foreach($customers as $oneCustomer)
                                     @if($device->customer == $oneCustomer)
                                         <option selected="selected"
-                                                value="{{$oneCustomer->id}}">{{$oneCustomer->name}}</option>
+                                                value="{{$oneCustomer['id']}}">{{$oneCustomer['name']}}</option>
                                     @else
-                                        <option value="{{$oneCustomer->id}}">{{$oneCustomer->name}}</option>
+                                        <option value="{{$oneCustomer['id']}}">{{$oneCustomer['name']}}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -231,14 +231,14 @@
                                     @if($device->installation_id != null)
                                         @if($device->installation->user == $oneTechnician)
                                             <option selected="selected"
-                                                    value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
+                                                    value="{{$oneTechnician['id']}}">{{$oneTechnician['lastName']}} {{$oneTechnician['firstName']}}</option>
                                         @else
                                             <option
-                                                value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
+                                                value="{{$oneTechnician['id']}}">{{$oneTechnician['lastName']}} {{$oneTechnician['firstName']}}</option>
                                         @endif
                                     @else
                                         <option
-                                            value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
+                                            value="{{$oneTechnician['id']}}">{{$oneTechnician['lastName']}} {{$oneTechnician['firstName']}}</option>
                                     @endif
                                 @endforeach
                             </select>

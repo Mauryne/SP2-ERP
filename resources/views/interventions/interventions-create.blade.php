@@ -63,7 +63,7 @@
                             <label for="device">Technicien(s) : </label>
                             <select id="user" name="user[]" class="form-control" data-toggle="select" multiple required>
                                 @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
+                                    <option value="{{$user['id']}}">{{$user['lastName']}} {{$user['firstName']}}</option>
                                 @endforeach
                             </select>
                         </div>

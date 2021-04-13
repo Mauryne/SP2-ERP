@@ -85,12 +85,12 @@
                             <select id="user" name="user[]" class="form-control" data-toggle="select"
                                     multiple="multiple" required>
                                 @foreach($users as $user)
-                                    @if($intervention->users()->get()->contains($user->id))
+                                    @if($intervention->users()->get()->contains($user['id']))
                                         <option selected="selected"
-                                                value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
+                                                value="{{$user['id']}}">{{$user['lastName']}} {{$user['firstName']}}</option>
                                     @else
                                         <option
-                                            value="{{$user->id}}">{{$user->lastName}} {{$user->firstName}}</option>
+                                            value="{{$user['id']}}">{{$user['lastName']}} {{$user['firstName']}}</option>
                                     @endif
                                 @endforeach
                             </select>

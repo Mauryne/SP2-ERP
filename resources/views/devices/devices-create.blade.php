@@ -12,7 +12,7 @@
                             <label for="type">Type de matériel : </label>
                             <select name="type" id="type" class="form-control">
                                 @foreach($types as $oneType)
-                                    <option value="{{$oneType->id}}">{{$oneType->characteristics}}</option>
+                                    <option value="{{$oneType['id']}}">{{$oneType['characteristics']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -62,7 +62,7 @@
                             <label for="customer">Propriétaire du matériel : </label>
                             <select name="customer" id="customer" class="custom-select" data-toggle="select">
                                 @foreach($customers as $oneCustomer)
-                                    <option value="{{$oneCustomer->id}}">{{$oneCustomer->name}}</option>
+                                    <option value="{{$oneCustomer['id']}}">{{$oneCustomer['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -102,7 +102,7 @@
                             <label for="technician">Qui a installé ce matériel ? </label>
                             <select name="technician" id="technician" class="custom-select" data-toggle="select">
                                 @foreach($users as $oneTechnician)
-                                    <option value="{{$oneTechnician->id}}">{{$oneTechnician->lastName}} {{$oneTechnician->firstName}}</option>
+                                    <option value="{{$oneTechnician['id']}}">{{$oneTechnician['lastName']}} {{$oneTechnician['firstName']}}</option>
                                 @endforeach
                             </select>
                         </div>

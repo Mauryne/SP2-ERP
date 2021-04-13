@@ -26,24 +26,24 @@
                             <div id="essai">
                             <form id="form">
                                 @foreach($renewalsContract as $renewalContract)
-                                    @if($renewalContract->contract_id == $device->contract_id)
+                                    @if($renewalContract['contract_id'] == $device->contract_id)
                                         <div class="form-row">
                                             <div class="col mt-2">
-                                                @if($renewalContract->duration > 1)
+                                                @if($renewalContract['duration'] > 1)
                                                 <input type="text" name="renewalContractDuration"
                                                        id="renewalContractDuration"
-                                                       value="{{$renewalContract->duration}} ans"
+                                                       value="{{$renewalContract['duration']}} ans"
                                                        class="form-control" style="text-align: center" readonly>
                                                     @else
                                                     <input type="text" name="renewalContractDuration"
                                                            id="renewalContractDuration"
-                                                           value="{{$renewalContract->duration}} an"
+                                                           value="{{$renewalContract['duration']}} an"
                                                            class="form-control" style="text-align: center" readonly>
                                                 @endif
                                             </div>
                                             <div class="col mt-2">
                                                 <input type="date" name="renewalContractDate" id="renewalContractDate"
-                                                       value="{{$renewalContract->signatureDate}}"
+                                                       value="{{$renewalContract['signatureDate']}}"
                                                        class="form-control" style="text-align: center" readonly>
                                             </div>
                                         </div>

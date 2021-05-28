@@ -11,6 +11,11 @@ This application for managing the equipment sold offers several features. It is 
 
 ##
 
+There is a major bug in this application :
+- in the statistics tab, the graph is not displayed correctly when the user changes the date.
+
+##
+
 In order to improve this application, it will be wise to add:
 
 - a tab allowing you to manage the company's sales;
@@ -21,3 +26,4 @@ In order to improve this application, it will be wise to add:
 Author : LEMARCHAND Mauryne
 <br>
 Date : 13/04/2021
+# SP2_Appli

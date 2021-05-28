@@ -176,8 +176,8 @@
 
         function validateForm() {
             if ($('#isEuropeanNorm').prop('checked')) {
-                var a = document.forms["form"]["anEuropeanNormPicture"].value;
-                if (a == null || a === "") {
+                var europeanNormPicture = document.forms["form"]["anEuropeanNormPicture"].value;
+                if (europeanNormPicture == null || europeanNormPicture === "") {
                     alert("Veuillez choisir une image valide.");
                     return false;
                 }
@@ -190,8 +190,8 @@
             var guarantee = document.getElementById("aGuarantee");
 
             if ($('#isNotAvailable').prop('checked')) {
-                var b = document.forms["form"]["anInstallationPicture"].value;
-                if (b == null || b === "") {
+                var installationPicture = document.forms["form"]["anInstallationPicture"].value;
+                if (installationPicture == null || installationPicture === "") {
                     alert("Veuillez choisir une image valide.");
                     return false;
                 }

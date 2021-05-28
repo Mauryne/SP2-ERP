@@ -8,9 +8,9 @@
                     <div class="form-group">
                         <label for="initialDurationGuarantee">Durée initiale de la garantie : </label>
                         @if($device->guarantee->initialDuration > 1)
-                        <input type="text" name="initialDurationGuarantee"
-                               value="{{$device->guarantee->initialDuration}} ans" class="form-control" readonly>
-                            @else
+                            <input type="text" name="initialDurationGuarantee"
+                                   value="{{$device->guarantee->initialDuration}} ans" class="form-control" readonly>
+                        @else
                             <input type="text" name="initialDurationGuarantee"
                                    value="{{$device->guarantee->initialDuration}} an" class="form-control" readonly>
                         @endif
@@ -29,11 +29,11 @@
                                         <div class="form-row">
                                             <div class="col mt-2">
                                                 @if($renewalGuarantee['duration'] > 1)
-                                                <input type="text" name="renewalGuaranteeDuration"
-                                                       id="renewalGuaranteeDuration"
-                                                       value="{{$renewalGuarantee['duration']}} ans"
-                                                       class="form-control" style="text-align: center" readonly>
-                                                    @else
+                                                    <input type="text" name="renewalGuaranteeDuration"
+                                                           id="renewalGuaranteeDuration"
+                                                           value="{{$renewalGuarantee['duration']}} ans"
+                                                           class="form-control" style="text-align: center" readonly>
+                                                @else
                                                     <input type="text" name="renewalGuaranteeDuration"
                                                            id="renewalGuaranteeDuration"
                                                            value="{{$renewalGuarantee['duration']}} an"
@@ -50,83 +50,85 @@
                                 @endforeach
                             </form>
                         </div>
-                        <a onclick="addLine()" type="button" id="addRenewalGuarantee" class="btn btn-secondary mt-4"> Ajouter un
+                        <a onclick="addLine()" type="button" id="addRenewalGuarantee" class="btn btn-secondary mt-4">
+                            Ajouter un
                             renouvellement de la garantie</a>
                     </div>
                 </div>
             </div>
         </div>
-        @endsection
-        @section('js')
-            <script>
-                function addLine() {
-                    var form = document.getElementById("form");
-                    form.setAttribute('method', 'post');
-                    form.setAttribute('action', "{{route('guarantees.store')}}");
+    </div>
+@endsection
+@section('js')
+    <script>
+        function addLine() {
+            var form = document.getElementById("form");
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', "http://172.21.5.27:8000/api/renewalsGuarantee/store");
 
-                    var token = document.createElement("input");
-                    token.setAttribute("type","hidden");
-                    token.setAttribute("name","_token");
-                    token.setAttribute("value","{{csrf_token()}}");
+            var token = document.createElement("input");
+            token.setAttribute("type", "hidden");
+            token.setAttribute("name", "_token");
+            token.setAttribute("value", "{{csrf_token()}}");
 
-                    form.appendChild(token);
+            form.appendChild(token);
 
-                    var guarantee = document.createElement('input');
-                    guarantee.setAttribute('type', 'hidden');
-                    guarantee.setAttribute('name', 'guarantee');
-                    guarantee.setAttribute('value', "{{$device->guarantee_id}}");
+            var guarantee = document.createElement('input');
+            guarantee.setAttribute('type', 'hidden');
+            guarantee.setAttribute('name', 'guarantee');
+            guarantee.setAttribute('value', "{{$device->guarantee_id}}");
 
-                    var principalDiv = document.createElement('div');
-                    principalDiv.setAttribute('class', 'form-row');
+            var principalDiv = document.createElement('div');
+            principalDiv.setAttribute('class', 'form-row');
 
-                    var otherDivDuration = document.createElement('div');
-                    otherDivDuration.setAttribute('class', 'col mt-2');
+            var otherDivDuration = document.createElement('div');
+            otherDivDuration.setAttribute('class', 'col mt-2');
 
-                    var otherDivDate = document.createElement('div');
-                    otherDivDate.setAttribute('class', 'col mt-2');
+            var otherDivDate = document.createElement('div');
+            otherDivDate.setAttribute('class', 'col mt-2');
 
-                    var inputDuration = document.createElement('input');
-                    inputDuration.setAttribute('id', 'newRenewalGuaranteeDuration');
-                    inputDuration.setAttribute('name', 'newRenewalGuaranteeDuration');
-                    inputDuration.setAttribute('class', 'form-control');
-                    inputDuration.setAttribute('style', 'text-align: center');
-                    inputDuration.setAttribute('type', 'number');
+            var inputDuration = document.createElement('input');
+            inputDuration.setAttribute('id', 'newRenewalGuaranteeDuration');
+            inputDuration.setAttribute('name', 'newRenewalGuaranteeDuration');
+            inputDuration.setAttribute('class', 'form-control');
+            inputDuration.setAttribute('style', 'text-align: center');
+            inputDuration.setAttribute('type', 'number');
 
-                    var inputDate = document.createElement('input');
-                    inputDate.setAttribute('id', 'newRenewalGuaranteeDate');
-                    inputDate.setAttribute('name', 'newRenewalGuaranteeDate');
-                    inputDate.setAttribute('class', 'form-control');
-                    inputDate.setAttribute('style', 'text-align: center');
-                    inputDate.setAttribute('type', 'date');
+            var inputDate = document.createElement('input');
+            inputDate.setAttribute('id', 'newRenewalGuaranteeDate');
+            inputDate.setAttribute('name', 'newRenewalGuaranteeDate');
+            inputDate.setAttribute('class', 'form-control');
+            inputDate.setAttribute('style', 'text-align: center');
+            inputDate.setAttribute('type', 'date');
 
-                    var button = document.createElement('button');
-                    button.setAttribute('class', 'btn btn-success mt-2 float-right');
-                    button.innerHTML = 'Valider';
-                    button.setAttribute('onclick', 'return validateForm()');
-                    button.setAttribute('onsubmit', "document.getElementById('form').submit(); return false;");
+            var button = document.createElement('button');
+            button.setAttribute('class', 'btn btn-success mt-2 float-right');
+            button.innerHTML = 'Valider';
+            button.setAttribute('onclick', 'return validateForm()');
+            button.setAttribute('onsubmit', "document.getElementById('form').submit(); return false;");
 
-                    form.appendChild(principalDiv);
-                    principalDiv.appendChild(guarantee);
+            form.appendChild(principalDiv);
+            principalDiv.appendChild(guarantee);
 
-                    principalDiv.appendChild(otherDivDuration);
-                    otherDivDuration.appendChild(inputDuration);
+            principalDiv.appendChild(otherDivDuration);
+            otherDivDuration.appendChild(inputDuration);
 
-                    principalDiv.appendChild(otherDivDate);
-                    otherDivDate.appendChild(inputDate);
+            principalDiv.appendChild(otherDivDate);
+            otherDivDate.appendChild(inputDate);
 
-                    otherDivDate.appendChild(button);
+            otherDivDate.appendChild(button);
 
-                    document.getElementById("addRenewalGuarantee").removeAttribute('onclick');
-                }
+            document.getElementById("addRenewalGuarantee").removeAttribute('onclick');
+        }
 
-                function validateForm() {
-                    var a = document.forms["form"]["newRenewalGuaranteeDate"].value;
-                    var b = document.forms["form"]["newRenewalGuaranteeDuration"].value;
+        function validateForm() {
+            var renewalGuaranteeDate = document.forms["form"]["newRenewalGuaranteeDate"].value;
+            var renewalGuaranteeDuration = document.forms["form"]["newRenewalGuaranteeDuration"].value;
 
-                    if (a == null || a === ""|| b == null || b === "") {
-                        alert("Veuillez remplir tous les champs.");
-                        return false;
-                    }
-                }
-            </script>
+            if (renewalGuaranteeDate == null || renewalGuaranteeDate === "" || renewalGuaranteeDuration == null || renewalGuaranteeDuration === "") {
+                alert("Veuillez remplir tous les champs.");
+                return false;
+            }
+        }
+    </script>
 @endsection

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid ml-6">
         <div class="row justify-content-center">
-            <div class="card col-sm-6 mt-5">
+            <div class="card col-auto mt-5">
                 <div class="card-body">
                     <form action="{{route('interventions.store')}}" method="post"
                           enctype="multipart/form-data">

@@ -17,8 +17,8 @@ class UserController extends Controller
 
     public function create()
     {
-        $users = json_decode(file_get_contents('http://localhost:8001/api/users'), true);
-        $roles = json_decode(file_get_contents('http://localhost:8001/api/roles'), true);
+        $users = json_decode(file_get_contents('http://' . $_ENV["API_IP"] . ':8000/api/users'), true);
+        $roles = json_decode(file_get_contents('http://' . $_ENV["API_IP"] . ':8000/api/roles'), true);
         return view('users/users-create')->with(compact('users', 'roles'));
     }
 
@@ -38,7 +38,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = json_decode(file_get_contents('http://localhost:8001/api/roles'), true);
+        $roles = json_decode(file_get_contents('http://' . $_ENV["API_IP"] . ':8000/api/roles'), true);
         return view('users/users-update')->with(compact('user', 'roles'));
     }
 

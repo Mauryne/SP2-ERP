@@ -29,7 +29,7 @@ class Statistics extends Component
 
     public function __construct()
     {
-        setlocale(LC_TIME, "fr_FR", "French");
+        setlocale (LC_TIME, 'fr_FR.utf8','fra');
         $monthLetter = ucwords(strftime("%B"));
         $year = strftime("%G");
         $nextYears = $year - 10;

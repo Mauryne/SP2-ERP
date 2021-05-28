@@ -22,7 +22,7 @@
                         <label>Adresse mail</label>
 
                         <!-- Input -->
-                        <input id="email" type="email"
+                        <input placeholder="Indiquez votre adresse mail" id="email" type="email"
                                class="form-control @error('email') is-invalid @enderror" name="email"
                                value="{{ old('email') }}" required autocomplete="email" autofocus>
 
@@ -74,14 +74,6 @@
                     <button class="btn btn-lg btn-block btn-primary mb-3">
                         Se connecter
                     </button>
-
-
-                    <!-- Link -->
-                    <div class="text-center">
-                        <small class="text-muted text-center">
-                            Vous n'avez pas de compte ? <a href="register">Créez-en un</a>.
-                        </small>
-                    </div>
                 </form>
             </div>
         </div>

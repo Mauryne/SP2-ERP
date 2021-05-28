@@ -40,9 +40,7 @@ Route::get('/devices/{id}/edit', [DeviceController::class, 'edit'])->name('devic
 Route::put('/devices/{id}/update', [DeviceController::class, 'update'])->name('devices.update')->middleware('auth');
 Route::delete('/devices/{id}/delete', [DeviceController::class, 'destroy'])->name('devices.destroy')->middleware('auth');
 Route::get('/devices/{id}/contract', [DeviceController::class, 'contract'])->name('devices.contract')->middleware('auth');
-Route::post('/devices/contracts/store', [RenewalContractController::class, 'store'])->name('contracts.store')->middleware('auth');
 Route::get('/devices/{id}/guarantee', [DeviceController::class, 'guarantee'])->name('devices.guarantee')->middleware('auth');
-Route::post('/devices/guarantees/store', [RenewalGuaranteeController::class, 'store'])->name('guarantees.store')->middleware('auth');
 Route::post('/devices/{id}/europeanNorm/picture/store', [EuropeanNormController::class, 'store'])->name('europeanNorm.store')->middleware('auth');
 Route::post('/devices/{id}/installation/picture/store', [InstallationController::class, 'store'])->name('installation.store')->middleware('auth');
 

@@ -89,12 +89,12 @@
         );
 
         function getDate() {
-            var a = document.getElementById('month').options[document.getElementById('month').selectedIndex].innerHTML;
-            var b = document.getElementById('year').options[document.getElementById('year').selectedIndex].innerHTML;
-            var m = a;
-            m += ' ';
-            m += b;
-            return m;
+            var month = document.getElementById('month').options[document.getElementById('month').selectedIndex].innerHTML;
+            var year = document.getElementById('year').options[document.getElementById('year').selectedIndex].innerHTML;
+            var date = month;
+            date += ' ';
+            date += year;
+            return date;
         }
 
         Array.max = function (array) {

@@ -32,7 +32,6 @@
                                     </span>
                         @enderror
                     </div>
-
                     <!-- Password -->
                     <div class="form-group">
 

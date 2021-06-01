@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Billing;
 use App\Models\Contract;
 use App\Models\ContractCustomerDevice;
 use App\Models\Customer;
@@ -75,6 +76,15 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('european_norms')->insert([
             'picture_path' => 'European_norm_1574849523_CCC_CCC.jpeg',
+        ]);
+
+        //Billing::factory(5)->create();
+
+        DB::table('installations')->insert([
+            'date' => '2020-03-01',
+            'summary' => 'Agegrgd',
+            'user_id' => 1,
+            'picture_path' => 'Installation_1617191053_BBB_BBB.jpg',
         ]);
 
         Contract::factory(3)->create();

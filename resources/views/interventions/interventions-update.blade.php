@@ -75,6 +75,21 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="billing">Mode de facturation : </label>
+                            <select id="billing" name="billing" class="form-control" data-toggle="select" required>
+                            @foreach($billings as $billing)
+                                @if($billing->maintenance_id == $intervention->id))
+                                    <option selected="selected"
+                                            value="{{$billing['type']}}">{{$billing['type']}}</option>
+                                @else
+                                    <option
+                                        value="{{$billing['type']}}">{{$billing['type']}}</option>
+                                @endif
+                            @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-5">
                             <label for="comment">Commentaire : </label>
                             <input value="{{$intervention->comment}}" type="text" name="comment" class="form-control"
                                    required>

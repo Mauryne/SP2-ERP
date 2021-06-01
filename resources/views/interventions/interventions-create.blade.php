@@ -55,6 +55,15 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="billing">Mode de facturation : </label>
+                            <select id="billing" name="billing" class="form-control" data-toggle="select" required>
+                                @foreach($billings as $billing)
+                                    <option value="{{$billing['type']}}">{{$billing['type']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="comment">Commentaire : </label>
                             <input type="text" name="comment" class="form-control" required>
                         </div>

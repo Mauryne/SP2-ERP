@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Billing;
 use App\Models\Intervention;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -23,12 +24,14 @@ class InterventionsList extends Component
         $interventions = Intervention::query()
             ->with('device')
             ->with('users')
+            ->with('billing')
             ->search($this->search)
-            ->orderBy($this->sortBy, $this->sortDirection)
+            ->orderBy($this->sortBy)
             ->paginate($this->perPage);
 
         return view('livewire.interventions-list', [
-            'interventions'=> $interventions
+            'interventions'=> $interventions,
+            'billings' => Billing::all()
         ]);
     }
 

@@ -69,6 +69,10 @@
                                 style="text-align: center; cursor: pointer;">
                                 <a>Prestataire externe</a>
                             </th>
+                            <th class="text-muted list-sort" wire:click="sortBy('billing')"
+                                style="text-align: center; cursor: pointer;">
+                                <a>Facturation</a>
+                            </th>
                             <th class="text-muted list-sort" wire:click="sortBy('comment')"
                                 style="text-align: center; cursor: pointer;">
                                 <a>Commentaire</a>
@@ -107,6 +111,15 @@
                                         style="text-align: center">Oui
                                     </td>
                                 @endif
+                                <td class="tables-billing" style="text-align: center">
+                                @foreach($billings as $billing)
+                                    @if($billing->maintenance_id == $intervention->id)
+                                {{$billing->type}}
+                                    @else
+                                    @endif
+                                @endforeach
+                                    </td>
+
                                 <td class="tables-comment"
                                     style="text-align: center">{{$intervention->comment}}</td>
                                 <td class="tables-update" style="text-align: center">

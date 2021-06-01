@@ -54,7 +54,10 @@ class Intervention extends Model
                 ->orWhereIn('id', (InterventionUser::select('maintenance_id')
                     ->whereIn('user_id', User::select('id')
                         ->where('lastName', 'LIKE', '%' . $val . '%')
-                        ->orWhere('firstName', 'LIKE', '%' . $val . '%'))));
+                        ->orWhere('firstName', 'LIKE', '%' . $val . '%'))))
+                ->orWhereIn('id', (Billing::select('maintenance_id')
+                        ->where('type', 'LIKE', '%' . $val . '%')
+                        ->orWhere('amount', 'LIKE', '%' . $val . '%')));
         }
     }
 
@@ -66,5 +69,10 @@ class Intervention extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'maintenance_user', 'maintenance_id')->withTrashed();
+    }
+
+    public function billing()
+    {
+        return $this->belongsTo(Billing::class, 'maintenance_id');
     }
 }

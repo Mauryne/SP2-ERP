@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Billing;
 use App\Models\Device;
 use App\Models\Intervention;
 use App\Models\InterventionUser;
@@ -19,8 +20,9 @@ class InterventionController extends Controller
     public function create()
     {
         $devices = Device::all()->where('installation_id', '!=', null);
+        $billings = Billing::all();
         $users = json_decode(file_get_contents('http://' . $_ENV["API_IP"] . ':8000/api/users'), true);
-        return view('interventions/interventions-create')->with(compact('users', 'devices'));
+        return view('interventions/interventions-create')->with(compact('users', 'devices', 'billings'));
     }
 
     public function store(Request $request)
@@ -36,6 +38,12 @@ class InterventionController extends Controller
             'device_id' => $request->input('device'),
         ]);
 
+        Billing::create([
+            'amount' => null,
+            'type' => $request->input('billing'),
+            'maintenance_id' => $intervention->id,
+        ]);
+
         foreach ($request->user as $user) {
             InterventionUser::create(
                 ['user_id' => $user,
@@ -48,10 +56,11 @@ class InterventionController extends Controller
     public function edit($id)
     {
         $intervention = Intervention::find($id);
+        $billings = Billing::all();
         $devices = Device::all()->where('installation_id', '!=', null);
         $users = json_decode(file_get_contents('http://' . $_ENV["API_IP"] . ':8000/api/users'), true);
 
-        return view('interventions/interventions-update')->with(compact('users', 'devices', 'intervention'));
+        return view('interventions/interventions-update')->with(compact('users', 'devices', 'intervention', 'billings'));
     }
 
     public function update(Request $request, $id)
@@ -75,6 +84,14 @@ class InterventionController extends Controller
                     'maintenance_id' => $id,
                 ]);
         }
+
+        Billing::where('maintenance_id', $id)->delete();
+
+        Billing::create([
+            'amount' => null,
+            'type' => $request->input('billing'),
+            'maintenance_id' => $intervention->id,
+        ]);
 
         return redirect('interventions');
     }
